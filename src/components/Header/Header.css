@@ -1,4 +1,44 @@
 .cabecalho {
-    background-color: black;
+    background-color: var(--std-black);
+    color: var(--std-white);
     margin: 0;
+    font-size: 0.6rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3vh 2vw;
+}
+
+.container__logo {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo__cabecalho {
+    margin: 0;
+    display: none;
+}
+
+.icone__app, .icones__nav {
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.menu__nav {
+    position: fixed;
+    color: var(--std-white);
+}
+
+@media screen and (min-width: 720px) {
+    .titulo__cabecalho {
+        display: initial;
+    }
+
+    .menu_nav {
+        display: none;
+    }
 }
