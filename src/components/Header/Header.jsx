@@ -1,9 +1,7 @@
-import { Link } from "react-router-dom";
-
 import { GiReceiveMoney, GiHamburgerMenu, GiCancel } from "react-icons/gi";
 import { FaUserCircle } from "react-icons/fa";
 
-import "./Header.css"
+import "./Header.css";
 
 export function Header() {
 
@@ -32,9 +30,6 @@ export function Header() {
                 <h1 className="titulo__cabecalho">Controle de Pagamentos</h1>
                 <GiReceiveMoney className="icone__app"/>
             </figure>
-            <nav className="menu__nav">
-                <Link to={"/"}>Home</Link>
-            </nav>
             <FaUserCircle className="icones__nav" onClick={exibeLoginLateral}/>
         </header>
     )

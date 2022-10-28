@@ -1,6 +1,7 @@
 import { BrowserRouter, Outlet } from 'react-router-dom';
 import { FastLogin } from '../components/FastLogin/FastLogin';
 import { Header } from '../components/Header/Header';
+import { SideMenu } from "../components/SideMenu/SideMenu"
 import { MainRoutes } from "../routes";
 import './App.css'
 
@@ -10,6 +11,7 @@ export function App() {
     <BrowserRouter>
       <Header />
       <FastLogin />
+      <SideMenu />
       <MainRoutes />
       <Outlet />
     </BrowserRouter>
