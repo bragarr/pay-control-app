@@ -1,11 +1,16 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
-import { GiReceiveMoney, GiHamburgerMenu, GiCancel } from "react-icons/gi"
-import { FaUserCircle } from "react-icons/fa"
+import { GiReceiveMoney, GiHamburgerMenu, GiCancel } from "react-icons/gi";
+import { FaUserCircle } from "react-icons/fa";
 
 import "./Header.css"
 
 export function Header() {
+
+    const exibeLoginLateral = () => {
+        const loginLateral = document.querySelector(".container__login");
+        loginLateral.classList.toggle("exibe__login--lateral");
+    }
 
     const exibeMenuLateral = () => {
         const botaoAtivaMenu = document.querySelector(".icone__menu");
@@ -30,7 +35,7 @@ export function Header() {
             <nav className="menu__nav">
                 <Link to={"/"}>Home</Link>
             </nav>
-            <FaUserCircle className="icones__nav"/>
+            <FaUserCircle className="icones__nav" onClick={exibeLoginLateral}/>
         </header>
     )
 }

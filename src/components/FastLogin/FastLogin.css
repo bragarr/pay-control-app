@@ -1,0 +1,21 @@
+.container__login {
+    position: fixed;
+    top:11vh;
+    bottom: 0;
+    right: -100%;
+    width: 50%;
+    background-color: var(--std-gold);
+    color: var(--std-white);
+}
+
+.campos__login {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+
+.exibe__login--lateral {
+    right: 0%;
+    transition: 1s;
+}
