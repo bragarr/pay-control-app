@@ -1,0 +1,63 @@
+.presantation__page {
+    text-align: center;
+    margin: 1.5vh 0;
+    line-height: 2rem;
+}
+
+.form__container {
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    margin: 4vh 0;
+}
+
+.register__field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4vh 8vw;
+}
+
+.label__item {
+    margin-bottom: 0.3rem;
+    font-weight: 700;
+}
+
+.items__register {
+    margin-bottom: 0.8rem;
+    width: 50vw;
+    height: 3vh;
+}
+
+.button__register {
+    height: 4vh;
+    background-color: var(--std-gold);
+    border: none;
+    color: var(--std-white);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Style for Login Page */
+
+.login__tittle {
+    text-align: center;
+    font-size: 1.7rem;
+    margin: 3vh 0;
+}
+
+@media screen and (min-width:720px) {
+    .presantation__page {
+        text-align: left;
+        margin: 1.5vh 2vw;
+    }
+    
+    .form__container {
+        justify-content: left;
+        margin: 4vh 2vw;
+    }
+
+    .items__register {
+        width: 30vw;
+    }
+}
