@@ -1,0 +1,16 @@
+
+@media screen and (min-width:720px) {
+    main {
+        display: grid;
+        grid-template-columns: 30% 70%;
+        grid-template-rows: 89vh;
+    }   
+}
+
+@media screen and (min-width:1080px) {
+    main {
+        display: grid;
+        grid-template-columns: 20% 80%;
+        grid-template-rows: 89vh;
+    }   
+}

@@ -11,8 +11,10 @@ export function App() {
     <BrowserRouter>
       <Header />
       <FastLogin />
-      <SideMenu />
-      <MainRoutes />
+      <main>
+        <SideMenu />
+        <MainRoutes />
+      </main>
       <Outlet />
     </BrowserRouter>
   )

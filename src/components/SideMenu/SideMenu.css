@@ -32,11 +32,9 @@
 
 @media screen and (min-width: 720px) {
     .menu__nav {
-        position: fixed;
-        box-shadow: none;
+        position: initial;
         background-color: var(--std-black);
-        left: 0;
-        width: 20%;
+        width: 100%;
     }
 
     .link__menu {
