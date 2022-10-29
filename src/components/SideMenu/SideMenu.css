@@ -2,16 +2,32 @@
     position: fixed;
     color: var(--std-white);
     background-color: var(--std-gold);
-    box-shadow: 3px 3px 3px 3px var(--std-gold);
-    top: 11vh;
+    top: 11.3vh;
     bottom: 0;
     left: -100%;
     width: 50%; 
+    display: flex;
+    flex-direction: column;
+    outline: 1px solid var(--std-gold);
 }
 
 .menu__ativado {
     left: 0;
     transition: 1s;
+}
+
+.link__menu {
+    text-decoration: none;
+    color: var(--std-white);
+    font-weight: 500;
+    font-size: 1.2rem;
+    border-bottom: 3px solid var(--std-gold);
+    margin: 3vh 0;
+    padding: 0.5vh 1vw;
+}
+
+.link__menu:hover {
+    border-bottom: 3px solid var(--std-white);
 }
 
 @media screen and (min-width: 720px) {
@@ -21,5 +37,9 @@
         background-color: var(--std-black);
         left: 0;
         width: 20%;
+    }
+
+    .link__menu {
+        border-bottom: 3px solid var(--std-black);
     }
 }
