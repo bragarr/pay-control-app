@@ -6,6 +6,8 @@ import "./Header.css";
 export function Header() {
 
     const exibeLoginLateral = () => {
+        const signUpLateral = document.querySelector(".container__up");
+        signUpLateral.classList.remove("exibe__up--lateral");
         const loginLateral = document.querySelector(".container__login");
         loginLateral.classList.toggle("exibe__login--lateral");
     }
