@@ -10,6 +10,16 @@ export function SideMenu() {
         
         const loginLateral = document.querySelector(".container__login");
         loginLateral.classList.add("exibe__login--lateral");
+
+        const botaoAtivaMenu = document.querySelector(".icone__menu");
+        const fechaMenu = document.querySelector(".fecha__menu");
+
+        //Listener para exibir ou alterar o menu
+        document.querySelector(".menu__nav").classList.remove("menu__ativado");
+
+        // Condicionais para alterar o ícone de exibir ou esconeder  menu lateral
+        botaoAtivaMenu.classList.remove("icone__desativado");
+        fechaMenu.classList.add("icone__desativado");
     }
 
     const exibeSignUp = () => {
@@ -18,6 +28,13 @@ export function SideMenu() {
 
         const signUpLateral = document.querySelector(".container__up");
         signUpLateral.classList.add("exibe__up--lateral");
+
+        //Listener para exibir ou alterar o menu
+        document.querySelector(".menu__nav").classList.remove("menu__ativado");
+
+        // Condicionais para alterar o ícone de exibir ou esconeder  menu lateral
+        botaoAtivaMenu.classList.remove("icone__desativado");
+        fechaMenu.classList.add("icone__desativado");
     }
 
     return (
