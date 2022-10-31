@@ -20,13 +20,13 @@ export function FastLogin() {
     return (
         <article className="container__login">
             <FaArrowCircleRight onClick={fechaTelaLogin} className="arrow__back"/>
-            <h2>Sign In</h2>
+            <h2 className="tituto__login">Login</h2>
             <form className="form__login">
                 <fieldset className="campos__login">
                     <label htmlFor="email">E-mail</label>
-                    <input type="email" name="email" className="campo__email"/>
+                    <input type="email" name="email" className="campo__input"/>
                     <label htmlFor="password">Senha</label>
-                    <input type="password" name="password" className="campo__email"/>
+                    <input type="password" name="password" className="campo__input"/>
                     <p>Ainda não possui acesso? <span className="accesso__signup" onClick={acessoSignUp}>Registre-se</span></p>
                 </fieldset>
             </form>

@@ -12,6 +12,8 @@
     background-color: var(--std-gold);
     color: var(--std-white);
     transition: 1s;
+    padding: 1vh 2vw;
+    line-height: 4vh;
 }
 
 .campos__up {
@@ -19,11 +21,21 @@
     display: flex;
     flex-direction: column;
     border: none;
+    padding: 0;
 }
 
 .exibe__up--lateral {
     right: 0;
     transition: 1s;
+}
+
+.button__register {
+    margin: 3vh 0;
+    padding: 1vh 0;
+}
+
+.campo__input {
+    height: 3vh;
 }
 
 @media screen and (max-width:400px) {

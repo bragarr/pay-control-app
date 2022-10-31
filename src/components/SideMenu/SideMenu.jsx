@@ -29,6 +29,9 @@ export function SideMenu() {
         const signUpLateral = document.querySelector(".container__up");
         signUpLateral.classList.add("exibe__up--lateral");
 
+        const botaoAtivaMenu = document.querySelector(".icone__menu");
+        const fechaMenu = document.querySelector(".fecha__menu");
+
         //Listener para exibir ou alterar o menu
         document.querySelector(".menu__nav").classList.remove("menu__ativado");
 
@@ -40,7 +43,7 @@ export function SideMenu() {
     return (
         <nav className="menu__nav">
             <Link to={"/"} className="link__menu">Inicio</Link>
-            <p className="link__menu" onClick={exibeLoginLateral}>Sign In</p>
+            <p className="link__menu" onClick={exibeLoginLateral}>Login</p>
             <p className="link__menu" onClick={exibeSignUp}>Sign Up</p>
             <Link to={"cadastros"} className="link__menu">Cadastros</Link>
             <Link to={"pagamentos"} className="link__menu">Pagamentos</Link>

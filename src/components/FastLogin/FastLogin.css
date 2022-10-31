@@ -12,6 +12,8 @@
     background-color: var(--std-gold);
     color: var(--std-white);
     transition: 1s;
+    padding: 1vh 2vw;
+    line-height: 3vh;
 }
 
 .campos__login {
@@ -19,6 +21,7 @@
     display: flex;
     flex-direction: column;
     border: none;
+    padding: 0;
 }
 
 .exibe__login--lateral {
@@ -33,6 +36,10 @@
 
 .accesso__signup:hover {
     border-bottom: 1px solid var(--std-white);
+}
+
+.campo__input {
+    height: 3vh;
 }
 
 @media screen and (max-width:400px) {
