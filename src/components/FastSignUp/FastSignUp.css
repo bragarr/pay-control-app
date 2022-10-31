@@ -1,3 +1,8 @@
+.arrow__back {
+    cursor: pointer;
+    font-size: 2rem;
+}
+
 .container__up {
     position: fixed;
     top:11vh;
@@ -21,7 +26,25 @@
     transition: 1s;
 }
 
+@media screen and (max-width:400px) {
+    .container__up {
+        width: 70%;
+    }
+}
+
 @media screen and (min-width:720px) {
+    .container__up {
+        width: 40%;
+    }
+}
+
+@media screen and (min-width:900px) {
+    .container__up {
+        width: 30%;
+    }
+}
+
+@media screen and (min-width:1280px) {
     .container__up {
         width: 20%;
     }

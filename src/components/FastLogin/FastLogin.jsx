@@ -19,7 +19,7 @@ export function FastLogin() {
 
     return (
         <article className="container__login">
-            <FaArrowCircleRight onClick={fechaTelaLogin}/>
+            <FaArrowCircleRight onClick={fechaTelaLogin} className="arrow__back"/>
             <h2>Sign In</h2>
             <form className="form__login">
                 <fieldset className="campos__login">

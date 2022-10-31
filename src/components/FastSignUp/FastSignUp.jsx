@@ -11,7 +11,7 @@ export function FastSignUp() {
 
     return (
         <article className="container__up">
-            <FaArrowCircleRight onClick={fechaTelaSignUp}/>
+            <FaArrowCircleRight onClick={fechaTelaSignUp} className="arrow__back"/>
             <form className="form__up">
                 <h2 className="titulo__signup">Sign Up</h2>
                 <fieldset className="campos__up">

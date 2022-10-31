@@ -1,3 +1,8 @@
+.arrow__back {
+    cursor: pointer;
+    font-size: 2rem;
+}
+
 .container__login {
     position: fixed;
     top:11vh;
@@ -30,7 +35,25 @@
     border-bottom: 1px solid var(--std-white);
 }
 
+@media screen and (max-width:400px) {
+    .container__login {
+        width: 70%;
+    }
+}
+
 @media screen and (min-width:720px) {
+    .container__login {
+        width: 40%;
+    }
+}
+
+@media screen and (min-width:900px) {
+    .container__login {
+        width: 30%;
+    }
+}
+
+@media screen and (min-width:1280px) {
     .container__login {
         width: 20%;
     }
