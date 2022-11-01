@@ -1,19 +1,51 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { createContext } from "react";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID
-};
+export const AuthContext = createContext({});
 
-console.log(apiKey);
+export const AuthProvider = ({ children }) => {
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+    const novoUsuario = (auth, email, password) => {     
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+        // Signed in 
+            const user = userCredential.user;
+            return res.status(200).json("Usuário Cadastrado com sucesso!");
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            return res.json(error);
+        });
+    };
+
+    const login = (auth, email, password) => {
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
+    };
+
+    const logOut = () => {
+        signOut(auth).then(() => {
+        // Sign-out successful.
+        }).catch((error) => {
+        // An error happened.
+        });
+    }
+
+    return (
+        <AuthContext.Provider 
+            value={{ novoUsuario, login, logOut }}
+        >
+            { children }
+        </AuthContext.Provider>
+    )
+
+}
