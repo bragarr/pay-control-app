@@ -1,29 +1,18 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-
 import { useState } from "react";
+
+import { auth } from "../../contexts/Firebase";
+
+import { FaArrowCircleRight } from "react-icons/fa";
 
 import { useAuth } from "../../Hooks/useAuth";
 
-import { toast, ToastContainer } from "react-toastify";
-
-import { FaArrowCircleRight } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 import "./FastSignUp.css";
 
 export function FastSignUp() {
-    const firebaseConfig = {
-        apiKey: import.meta.env.VITE_API_KEY,
-        authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-        projectId: import.meta.env.VITE_PROJECT_ID,
-        storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-        messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-        appId: import.meta.env.VITE_APP_ID
-    };
-
-    const app = initializeApp(firebaseConfig);
-
     const { novoUsuario } = useAuth();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -31,12 +20,17 @@ export function FastSignUp() {
 
     const verificacaoCadastro = () => {
         if(password !== confPassword) {
-            alert("test");
-            console.log(confPassword)
+            alert("senha");
             return;
         }
-        const auth = getAuth(app);
+
         const res = novoUsuario(auth, email, password);
+
+        setEmail("");
+        setPassword("")
+        setConfPassword("")
+
+        navigate("/");
     }
 
     const fechaTelaSignUp = () => {
@@ -94,7 +88,6 @@ export function FastSignUp() {
                     >
                         Cadastrar
                     </button>
-                    <ToastContainer autoClose={3000} position={toast.POSITION.TOP_CENTER}/>
                 </fieldset>
             </form>
         </article>

@@ -1,28 +1,41 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
+import { auth } from "../contexts/Firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
 
-    const novoUsuario = (auth, email, password) => {     
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        auth.onAuthStateChanged((user) => {
+            setUser(user);
+            setLoading(false);
+        })
+    }, []);    
+
+    const novoUsuario = (auth, email, password) => {
+
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-        // Signed in 
+        // Signed in
             const user = userCredential.user;
-            return res.status(200).json("Usuário Cadastrado com sucesso!");
+            toast.success("Usuário Cadastrado com sucesso!");
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            return res.json(error);
+            toast.error("Usuário Cadastrado com erro para cadastrar!");
         });
     };
 
     const login = (auth, email, password) => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Signed in 
+            // Signed in
             const user = userCredential.user;
             // ...
         })
@@ -41,11 +54,10 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider 
-            value={{ novoUsuario, login, logOut }}
+        <AuthContext.Provider
+            value={{user, logado: !!user, novoUsuario, login, logOut}}
         >
             { children }
         </AuthContext.Provider>
     )
-
 }

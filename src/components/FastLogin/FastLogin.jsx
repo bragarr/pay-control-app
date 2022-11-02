@@ -27,7 +27,7 @@ export function FastLogin() {
                     <input type="email" name="email" className="campo__input"/>
                     <label htmlFor="password">Senha</label>
                     <input type="password" name="password" className="campo__input"/>
-                    <button className="button__register">Acessar</button>
+                    <button type="button" className="button__register">Acessar</button>
                     <p>Ainda não possui acesso? <span className="accesso__signup" onClick={acessoSignUp}>Registre-se</span></p>
                 </fieldset>
             </form>
