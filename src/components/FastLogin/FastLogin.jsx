@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { auth } from "../../contexts/Firebase";
 
@@ -27,13 +27,12 @@ export function FastLogin() {
 
     const realizarLogin = () => {
         const res = login(auth, email, password);
-        document.querySelector(".form__login").classList.add("login__ativado");
         setEmail("");
         setPassword("");
         navigate("/");
     }
 
-    const DefineTituloSecao = () => {
+    const TituloSecao = () => {
         return !user
         ?
         <h2 className="tituto__login">Login</h2>
@@ -66,7 +65,8 @@ export function FastLogin() {
     return (
         <article className="container__login">
             <FaArrowCircleRight onClick={fechaTelaLogin} className="arrow__back"/>
-            <DefineTituloSecao />
+            <TituloSecao />
+            <ExibePerfil />
             <form className="form__login">
                 <fieldset className="campos__login">
                     <label htmlFor="email">
@@ -109,7 +109,6 @@ export function FastLogin() {
                     </p>
                 </fieldset>
             </form>
-            <ExibePerfil />
         </article>
     )
 }

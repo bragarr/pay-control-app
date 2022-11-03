@@ -1,9 +1,22 @@
+import { auth } from "../../contexts/Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 import { GiReceiveMoney, GiHamburgerMenu, GiCancel } from "react-icons/gi";
 import { FaUserCircle } from "react-icons/fa";
 
 import "./Header.css";
 
 export function Header() {
+
+    const [user] = useAuthState(auth);
+
+    const DefineFotoUsuario = () => {
+        return !user
+        ?
+        <FaUserCircle className="icones__nav" onClick={exibeLoginLateral}/>
+        :
+        <img src={user.photoURL} alt="Foto de perfil" className="foto__perfil--cabecalho" onClick={exibeLoginLateral} />
+    }
 
     const exibeLoginLateral = () => {
         const signUpLateral = document.querySelector(".container__up");
@@ -48,7 +61,7 @@ export function Header() {
                 <h1 className="titulo__cabecalho">Controle de Pagamentos</h1>
                 <GiReceiveMoney className="icone__app"/>
             </figure>
-            <FaUserCircle className="icones__nav" onClick={exibeLoginLateral}/>
+            <DefineFotoUsuario />
         </header>
     )
 }

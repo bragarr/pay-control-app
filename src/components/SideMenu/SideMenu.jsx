@@ -1,8 +1,33 @@
+import { auth } from "../../contexts/Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 import { Link } from "react-router-dom";
 
 import "./SideMenu.css";
 
 export function SideMenu() {
+
+    const [user] = useAuthState(auth);
+
+    const DefineMenuLateral = () => {
+        return !user
+        ?
+        <nav className="menu__nav">
+            <Link to={"/"} className="link__menu">Inicio</Link>
+            <p className="link__menu" onClick={exibeLoginLateral}>Login</p>
+            <p className="link__menu" onClick={exibeSignUp}>Sign Up</p>
+            <Link to={"cadastros"} className="link__menu">Cadastros</Link>
+            <Link to={"pagamentos"} className="link__menu">Pagamentos</Link>
+        </nav>
+        :
+        <nav className="menu__nav">
+            <Link to={"/"} className="link__menu">Inicio</Link>
+            <p className="link__menu" onClick={exibeLoginLateral}>Perfil</p>
+            <Link to={"cadastros"} className="link__menu">Cadastros</Link>
+            <Link to={"pagamentos"} className="link__menu">Pagamentos</Link>
+        </nav>
+
+    }
 
     const exibeLoginLateral = () => {
         const signUpLateral = document.querySelector(".container__up");
@@ -41,12 +66,6 @@ export function SideMenu() {
     }
 
     return (
-        <nav className="menu__nav">
-            <Link to={"/"} className="link__menu">Inicio</Link>
-            <p className="link__menu" onClick={exibeLoginLateral}>Login</p>
-            <p className="link__menu" onClick={exibeSignUp}>Sign Up</p>
-            <Link to={"cadastros"} className="link__menu">Cadastros</Link>
-            <Link to={"pagamentos"} className="link__menu">Pagamentos</Link>
-        </nav>
+        <DefineMenuLateral />
     )
 }

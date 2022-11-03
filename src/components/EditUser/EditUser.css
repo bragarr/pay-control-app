@@ -1,0 +1,24 @@
+.campo__nome {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    padding: 0;
+}
+
+.campo__input {
+    height: 3vh;
+}
+
+.button__register {
+    margin: 3vh 0;
+    padding: 1vh 0;
+    background-color: var(--std-black);
+    border: 1px solid var(--std-white);
+    color: var(--std-white);
+    cursor: pointer;
+}
+
+.edicao__desativada {
+    display: none;
+}

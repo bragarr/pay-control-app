@@ -56,6 +56,10 @@
     cursor: pointer;
 }
 
+/* .barra__progresso {
+    display: none;
+} */
+
 @media screen and (max-width:400px) {
     .container__login {
         width: 70%;
