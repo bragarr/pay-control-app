@@ -9,6 +9,8 @@ import { useAuth } from "../../Hooks/useAuth";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
+import { FaUserCircle } from "react-icons/fa";
+
 import "./User.css"
 
 export function User() {
@@ -52,10 +54,18 @@ export function User() {
         )
     }
 
+    const DefineFotoUsuário = () => {
+        return !imgURL
+        ?
+        <FaUserCircle className="icones__nav"/>
+        :
+        <img src={imgURL} alt="Foto de perfil" className="foto__perfil"/>
+    }
+
 
     return (
         <article className="corpo">
-            <p>{user.email}</p>
+            <DefineFotoUsuário />
             <form onSubmit={handleUpload}>
                 <input 
                     type="file"
@@ -67,7 +77,9 @@ export function User() {
                 </button>
             </form>
             {!imgURL && <progress value={progress} max="100" />}
-            {imgURL && <img src={imgURL} alt="Imagem" width="100"/>}
+            <p>
+                Usuário: {user.email}
+            </p>
             <button
                 type="button"
                 className="button__register"
