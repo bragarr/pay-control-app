@@ -12,4 +12,6 @@ Status: Em desenvolvimento
 
 Projeto Iniciado em: 24/10/2022
 
-Prazo Estimado: 02/11/2022
+Fase 1 do projeto: 03/11/2022
+
+Fase 2 do projeto: TBD e atualizado em 03/11/2022
