@@ -35,6 +35,7 @@
     background-color: var(--std-black);
     border: 1px solid var(--std-white);
     color: var(--std-white);
+    cursor: pointer;
 }
 
 .campo__input {

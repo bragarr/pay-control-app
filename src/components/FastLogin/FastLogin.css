@@ -3,6 +3,10 @@
     font-size: 2rem;
 }
 
+.login__ativado {
+    display: none;
+}
+
 .container__login {
     position: fixed;
     top:11vh;
@@ -49,6 +53,7 @@
     background-color: var(--std-black);
     border: 1px solid var(--std-white);
     color: var(--std-white);
+    cursor: pointer;
 }
 
 @media screen and (max-width:400px) {

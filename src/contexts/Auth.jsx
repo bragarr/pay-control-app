@@ -23,12 +23,27 @@ export const AuthProvider = ({ children }) => {
         .then((userCredential) => {
         // Signed in
             const user = userCredential.user;
-            toast.success("Usuário Cadastrado com sucesso!");
+            const resolveThreeSecs = new Promise((resolve,reject) => {
+                setTimeout(resolve, 3000);
+            });
+            toast.promise(resolveThreeSecs, {
+                pending: "Cadastro em andamento...",
+                success: "Cadastro realizado com sucesso!",
+                error: "Erro! E-mail já cadastrado!"
+            })
+            
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            toast.error("Usuário Cadastrado com erro para cadastrar!");
+            const resolveThreeSecs = new Promise((resolve,reject) => {
+                setTimeout(reject, 3000);
+            });
+            toast.promise(resolveThreeSecs, {
+                pending: "Cadastro em andamento...",
+                success: "Cadastro realizado com sucesso!",
+                error: "Erro! E-mail já cadastrado!"
+            })
         });
     };
 
