@@ -75,7 +75,7 @@ export function FastLogin() {
                     <input
                         type="email"
                         name="email"
-                        className="campo__input"
+                        className="campo__input--login"
                         value={email}
                         onChange={(e) => [setEmail(e.target.value)]}
                         required
@@ -86,7 +86,7 @@ export function FastLogin() {
                     <input
                         type="password"
                         name="password"
-                        className="campo__input"
+                        className="campo__input--login"
                         value={password}
                         onChange={(e) => [setPassword(e.target.value)]}
                         required

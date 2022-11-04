@@ -51,7 +51,7 @@ export function FastSignUp() {
                     <input 
                         type="email"
                         name="email"
-                        className="campo__input"
+                        className="campo__input--signup"
                         id="email"
                         value={email}
                         onChange={(e) => [setEmail(e.target.value)]}
@@ -63,7 +63,7 @@ export function FastSignUp() {
                     <input 
                         type="password"
                         name="password"
-                        className="campo__input"
+                        className="campo__input--signup"
                         id="password"
                         value={password}
                         onChange={(e) => [setPassword(e.target.value)]}
@@ -75,7 +75,7 @@ export function FastSignUp() {
                     <input
                         type="password"
                         name="confirmar__password"
-                        className="campo__input"
+                        className="campo__input--signup"
                         id="confirmar__password"
                         value={confPassword}
                         onChange={(e) => [setConfPassword(e.target.value)]}

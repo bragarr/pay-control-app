@@ -13,7 +13,7 @@
     color: var(--std-white);
     transition: 1s;
     padding: 1vh 2vw;
-    line-height: 3vh;
+    line-height: 30px;
 }
 
 .campos__up {
@@ -30,7 +30,7 @@
 }
 
 .button__register {
-    margin: 3vh 0;
+    margin: 20px 0;
     padding: 1vh 0;
     background-color: var(--std-black);
     border: 1px solid var(--std-white);
@@ -38,8 +38,8 @@
     cursor: pointer;
 }
 
-.campo__input {
-    height: 3vh;
+.campo__input--signup {
+    height: 30px;
 }
 
 @media screen and (max-width:400px) {

@@ -11,7 +11,7 @@
 }
 
 .button__register {
-    margin: 3vh 0;
+    margin: 20px 0;
     padding: 1vh 0;
     background-color: var(--std-black);
     border: 1px solid var(--std-white);
