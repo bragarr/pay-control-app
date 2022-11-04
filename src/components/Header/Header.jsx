@@ -10,12 +10,34 @@ export function Header() {
 
     const [user] = useAuthState(auth);
 
+    const NomeUsuario = () => {
+        return user.displayName===null
+        ?
+        ""
+        :
+        user.displayName
+    }
+
+    const DefineIconeUsuario = () => {
+        return user.photoURL===null
+        ?
+        <figure className="conteiner__usuario">
+            <FaUserCircle className="icones__nav" onClick={exibeLoginLateral}/>
+            <p className="nome__usuario"><NomeUsuario/></p>
+        </figure>
+        :
+        <figure className="conteiner__usuario">
+            <img src={user.photoURL} alt="Foto de perfil" className="foto__perfil--cabecalho" onClick={exibeLoginLateral} />
+            <p className="nome__usuario"><NomeUsuario/></p>
+        </figure>
+    }
+
     const DefineFotoUsuario = () => {
         return !user
         ?
         <FaUserCircle className="icones__nav" onClick={exibeLoginLateral}/>
         :
-        <img src={user.photoURL} alt="Foto de perfil" className="foto__perfil--cabecalho" onClick={exibeLoginLateral} />
+        <DefineIconeUsuario />
     }
 
     const exibeLoginLateral = () => {

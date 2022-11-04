@@ -20,8 +20,15 @@ export function User() {
     const [progress, setProgress] = useState(0);
 
     const [user] = useAuthState(auth);
-    
 
+    const NomeUsuario = () => {
+        return user.displayName===null
+        ?
+        ""
+        :
+        <p>{user.displayName}</p>
+    }
+    
     const { logOut } = useAuth();
 
     const realizaLogOut = () => {
@@ -65,11 +72,11 @@ export function User() {
     }
 
     const DefineFotoUsuário = () => {
-        return !imgURL
+        return user.photoURL===null
         ?
-        <img src={user.photoURL} alt="Foto de perfil" className="foto__perfil"/>
-        :
         <FaUserCircle className="icones__nav"/>
+        :
+        <img src={user.photoURL} alt="Foto de perfil" className="foto__perfil"/>
     }
 
     const OcultaLogin = () => {
@@ -88,9 +95,19 @@ export function User() {
         document.querySelector(".form__nome").classList.toggle("edicao__desativada");
     }
 
+    const statusFoto = () => {
+        let botao = document.querySelector(".button__foto");
+        if(botao.textContent === "Enviar") {
+            botao.textContent = "Confirmar"
+        } else {
+            botao.textContent = "Enviar";
+        }
+    }
+
     return (
         <article className="corpo">
             <OcultaLogin />
+            <NomeUsuario />
             <DefineFotoUsuário />
             <div className="edicao__foto" onClick={editarFotoPerfil}>
                 <BsPencilSquare />
@@ -109,6 +126,7 @@ export function User() {
                 <button
                     type="submit"
                     className="button__foto"
+                    onClick={statusFoto}
                 >
                     Enviar
                 </button>

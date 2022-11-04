@@ -29,8 +29,8 @@ export function FastSignUp() {
         setEmail("");
         setPassword("")
         setConfPassword("")
-
-        navigate("/");
+        fechaTelaSignUp();
+        
     }
 
     const fechaTelaSignUp = () => {

@@ -32,6 +32,17 @@
     cursor: pointer;
 }
 
+.nome__usuario {
+    margin: 0;
+}
+
+.conteiner__usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
 .icone__app, .icones__nav {
     font-size: 2.5rem;
     cursor: pointer;
