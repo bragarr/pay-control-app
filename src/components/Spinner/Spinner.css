@@ -1,0 +1,14 @@
+.carregando {
+    border: 5px solid var(--std-white);
+    border-top: 5px solid var(--std-black);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    animation: spin 0.8s linear infinite;
+    margin: 20px auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

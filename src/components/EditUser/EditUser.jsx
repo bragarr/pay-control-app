@@ -8,6 +8,7 @@ export function EditUser() {
 
     const [user] = useAuthState(auth);
 
+    // Função para atualizar dados do usuário no Firebase (Nome)
     const atualizaNomeUsuario = () => {
 
         let nomeAtualizado = document.getElementById("nome").value;

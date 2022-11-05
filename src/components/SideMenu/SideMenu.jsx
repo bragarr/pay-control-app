@@ -9,6 +9,7 @@ export function SideMenu() {
 
     const [user] = useAuthState(auth);
 
+    // Parâmetro de definição entre Menu Lateral para novo usuário ou usuário com signin efetuado
     const DefineMenuLateral = () => {
         return !user
         ?
@@ -29,6 +30,7 @@ export function SideMenu() {
 
     }
 
+    // As duas funções englobadas abaixo definem-se a partir do comando do menu lateral para acessar págians de Login e SignUp
     const exibeLoginLateral = () => {
         const signUpLateral = document.querySelector(".container__up");
         signUpLateral.classList.remove("exibe__up--lateral");

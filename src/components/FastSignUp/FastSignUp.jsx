@@ -18,6 +18,7 @@ export function FastSignUp() {
     const [password, setPassword] = useState("");
     const [confPassword, setConfPassword] = useState("");
 
+    // Função que efetiva o cadastro de um novo usuário no sistema
     const verificacaoCadastro = () => {
         if(password !== confPassword) {
             alert("senha");
@@ -33,6 +34,7 @@ export function FastSignUp() {
         
     }
 
+    // Função que oculta tela de signUp após efetuação de cadastro ou Após usuário realizar comando para fechar container
     const fechaTelaSignUp = () => {
         const signUpLateral = document.querySelector(".container__up");
         signUpLateral.classList.remove("exibe__up--lateral");

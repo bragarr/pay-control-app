@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
             setUser(user);
             setLoading(false);
         })
-    }, []);    
+    }, []);
 
     const novoUsuario = (auth, email, password) => {
 
@@ -57,6 +57,11 @@ export const AuthProvider = ({ children }) => {
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            if(errorCode==="auth/wrong-password") {
+                toast.error("Senha Incorreta!")
+            } else {
+                toast.error("Usuário Não Cadastrado!")
+            }        
         });
     };
 

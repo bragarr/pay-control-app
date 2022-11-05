@@ -10,6 +10,7 @@ export function Header() {
 
     const [user] = useAuthState(auth);
 
+    // Função que define nome do usuário no cabeçalho abaixo da foto de perfil
     const NomeUsuario = () => {
         return user.displayName===null
         ?
@@ -18,6 +19,7 @@ export function Header() {
         user.displayName
     }
 
+    // Define container completo de foto + nome do usuário cadastrado
     const DefineIconeUsuario = () => {
         return user.photoURL===null
         ?
@@ -32,6 +34,7 @@ export function Header() {
         </figure>
     }
 
+    // Define se exibe uma foto de perfil genérica ou foto já definida pelo usuários
     const DefineFotoUsuario = () => {
         return !user
         ?
@@ -40,6 +43,7 @@ export function Header() {
         <DefineIconeUsuario />
     }
 
+    // Todas as condições para exibir o login lateral em versão mobile ou desktop
     const exibeLoginLateral = () => {
         const signUpLateral = document.querySelector(".container__up");
         signUpLateral.classList.remove("exibe__up--lateral");
@@ -57,6 +61,7 @@ export function Header() {
         fechaMenu.classList.add("icone__desativado");
     }
 
+    // Função para exibir menu lateral em versão mobile
     const exibeMenuLateral = () => {
 
         const signUpLateral = document.querySelector(".container__up");

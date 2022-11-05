@@ -25,13 +25,14 @@ export function FastLogin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    // Efetua comando do Firebase para realizar SignIn do usuário na Aplicação
     const realizarLogin = () => {
         const res = login(auth, email, password);
         setEmail("");
         setPassword("");
-        navigate("/");
     }
 
+    // Parâmetro de componente que altera título do container from: Login to: Meu Perfil
     const TituloSecao = () => {
         return !user
         ?
@@ -41,6 +42,7 @@ export function FastLogin() {
 
     }
 
+    // Container de dados do usuário é exibida somente se usuário estiver com SignIn ativo
     const ExibePerfil = () => {
         return !user
         ?
@@ -49,6 +51,7 @@ export function FastLogin() {
         <User />
     }
     
+    // Função para ocultar componente Login e exibir componente de Sign Up
     const acessoSignUp = () => {
         const loginLateral = document.querySelector(".container__login");
         loginLateral.classList.remove("exibe__login--lateral");
@@ -57,6 +60,7 @@ export function FastLogin() {
         signUpLateral.classList.add("exibe__up--lateral");
     }
 
+    // Componente que oculta container de Login após a efetividade do SignIn de usuário ou após comando do usuário
     const fechaTelaLogin = () => {
         const loginLateral = document.querySelector(".container__login");
         loginLateral.classList.remove("exibe__login--lateral");
