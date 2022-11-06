@@ -20,6 +20,10 @@
     line-height: 30px;
 }
 
+.tituto__login {
+    margin: 10px 0;
+}
+
 .campos__login {
     margin: 0;
     display: flex;

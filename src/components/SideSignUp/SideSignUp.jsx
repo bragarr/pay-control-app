@@ -8,9 +8,9 @@ import { useAuth } from "../../Hooks/useAuth";
 
 import { useNavigate } from 'react-router-dom';
 
-import "./FastSignUp.css";
+import "./SideSignUp.css";
 
-export function FastSignUp() {
+export function SideSignUp() {
     const { novoUsuario } = useAuth();
     const navigate = useNavigate();
 

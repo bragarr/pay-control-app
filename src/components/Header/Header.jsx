@@ -10,28 +10,21 @@ export function Header() {
 
     const [user] = useAuthState(auth);
 
-    // Função que define nome do usuário no cabeçalho abaixo da foto de perfil
-    const NomeUsuario = () => {
-        return user.displayName===null
-        ?
-        ""
-        :
-        user.displayName
-    }
-
     // Define container completo de foto + nome do usuário cadastrado
     const DefineIconeUsuario = () => {
         return user.photoURL===null
         ?
-        <figure className="conteiner__usuario">
-            <FaUserCircle className="icones__nav" onClick={exibeLoginLateral}/>
-            <p className="nome__usuario"><NomeUsuario/></p>
-        </figure>
+        <FaUserCircle
+            className="icones__nav"
+            onClick={exibeLoginLateral}
+        />
         :
-        <figure className="conteiner__usuario">
-            <img src={user.photoURL} alt="Foto de perfil" className="foto__perfil--cabecalho" onClick={exibeLoginLateral} />
-            <p className="nome__usuario"><NomeUsuario/></p>
-        </figure>
+        <img
+            src={user.photoURL}
+            alt="Foto de perfil"
+            className="foto__perfil--cabecalho"
+            onClick={exibeLoginLateral}
+        />
     }
 
     // Define se exibe uma foto de perfil genérica ou foto já definida pelo usuários

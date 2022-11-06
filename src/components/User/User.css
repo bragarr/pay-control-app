@@ -29,6 +29,11 @@
     border-radius: 50%;
 }
 
+.nome__usuario, .nome__usuario {
+    margin: 0;
+    font-weight: 700;
+}
+
 .campo__foto {
     display: flex;
     flex-direction: column;

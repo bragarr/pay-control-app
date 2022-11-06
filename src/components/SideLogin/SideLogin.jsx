@@ -12,10 +12,10 @@ import { FaArrowCircleRight } from "react-icons/fa";
 
 import { User } from "../User/User";
 
-import "./FastLogin.css";
+import "./SideLogin.css";
 
 
-export function FastLogin() {
+export function SideLogin() {
 
     const [user] = useAuthState(auth);
     

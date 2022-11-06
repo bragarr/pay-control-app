@@ -27,7 +27,7 @@ export function User() {
         ?
         ""
         :
-        <p>{user.displayName}</p>
+        <p className="nome__usuario">Nome: {user.displayName}</p>
     }
     
     const { logOut } = useAuth();
@@ -115,8 +115,11 @@ export function User() {
     return (
         <article className="corpo">
             <OcultaLogin />
-            <NomeUsuario />
             <DefineFotoUsuário />
+            <NomeUsuario />
+            <p className="nome__usuario">
+                Email: {user.email}
+            </p>
             <div className="edicao__foto" onClick={editarFotoPerfil}>
                 <BsPencilSquare />
                 <p className="texto__foto">Editar foto</p>
@@ -141,12 +144,9 @@ export function User() {
             </form>
             <div className="edicao__perfil" onClick={editarPerfil}>
                 <BsPencilSquare />
-                <p className="texto__edicao">Editar Perfil</p>
+                <p className="texto__edicao">Editar nome</p>
             </div>
             <EditUser />
-            <p>
-                Email: {user.email}
-            </p>
             <button
                 type="button"
                 className="button__register"
