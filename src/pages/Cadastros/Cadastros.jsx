@@ -79,7 +79,7 @@ export function Cadastros() {
             <form className="formulario__cadastro" ref={ref} onSubmit={handleSubmit}>
                 <fieldset className="containers__input">
                     <label htmlFor="name">
-                        Nome
+                        Nome: 
                     </label>
                     <input
                         type="text"
@@ -89,7 +89,7 @@ export function Cadastros() {
                         className="input__cadastros"
                     />
                     <label htmlFor="email">
-                        E-mail
+                        E-mail: 
                     </label>
                     <input
                         type="email"
@@ -99,7 +99,7 @@ export function Cadastros() {
                         className="input__cadastros"
                     />
                     <label htmlFor="fone">
-                        Telefone
+                        Telefone: 
                     </label>
                     <input
                         type="tel"
@@ -109,7 +109,7 @@ export function Cadastros() {
                         className="input__cadastros"
                     />
                     <label htmlFor="name">
-                        Valor
+                        Valor: 
                     </label>
                     <input
                         type="text"

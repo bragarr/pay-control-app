@@ -37,15 +37,16 @@
 }
 
 @media screen and (min-width:1280px) {
-    
+
     .containers__input {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        width: 60vw;
+        width: 80vw;
     }
 
     .input__cadastros {
         width: 10vw;
+        margin-right: 1vw;
     }
 }
