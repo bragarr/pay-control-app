@@ -77,45 +77,52 @@ export function Cadastros() {
         <section>
             <h2 className="titulo__cadastro">Tela de cadastros</h2>
             <form className="formulario__cadastro" ref={ref} onSubmit={handleSubmit}>
-                <fieldset>
+                <fieldset className="containers__input">
                     <label htmlFor="name">
-                        <figure>
-                            Nome
-                        </figure>
-                        <input type="text" name="nome"
-                            id="name"
-                            required
-                        />
+                        Nome
                     </label>
+                    <input
+                        type="text"
+                        name="nome"
+                        id="name"
+                        required
+                        className="input__cadastros"
+                    />
                     <label htmlFor="email">
-                        <figure>
-                            E-mail
-                        </figure>
-                        <input type="email" name="email"
-                            id="email"
-                            required
-                        />
+                        E-mail
                     </label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        required
+                        className="input__cadastros"
+                    />
                     <label htmlFor="fone">
-                        <figure>
-                            Telefone
-                        </figure>
-                        <input type="tel" name="fone"
-                            id="fone"
-                            required
-                        />
+                        Telefone
                     </label>
-                    <label htmlFor="name" className="label__inputs">
-                        <figure>
-                            Valor
-                        </figure>
-                        <input type="text" name="valor"
-                            id="valor"
-                            required
-                        />
+                    <input
+                        type="tel"
+                        name="fone"
+                        id="fone"
+                        required
+                        className="input__cadastros"
+                    />
+                    <label htmlFor="name">
+                        Valor
                     </label>
+                    <input
+                        type="text"
+                        name="valor"
+                        id="valor"
+                        required
+                        className="input__cadastros"
+                    />
                 </fieldset>
-                <button type="submit">
+                <button
+                    type="submit"
+                    className="botao__cadastro"
+                >
                     Cadastrar
                 </button>
             </form>
