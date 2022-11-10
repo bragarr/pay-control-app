@@ -132,7 +132,6 @@ export function Cadastros() {
                     Cadastrar
                 </button>
             </form>
-            <ToastContainer />
         </section>
     );
 };
