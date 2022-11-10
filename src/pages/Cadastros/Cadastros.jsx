@@ -60,8 +60,14 @@ export function Cadastros() {
                     fone: user.fone.value,
                     valor: user.valor.value,
                 })
-                .then (({ data }) => toast.success(data))
-                .catch(({ data }) => toast.error(data))
+                .then 
+                (
+                    ({ data }) => toast.success(data)
+                )
+                .catch
+                (
+                    ({ data }) => toast.error(data)
+                )
         }
 
         user.nome.value = "";
