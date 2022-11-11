@@ -17,8 +17,6 @@ export function SideMenu() {
             <Link to={"/"} className="link__menu">Inicio</Link>
             <p className="link__menu" onClick={exibeLoginLateral}>Login</p>
             <p className="link__menu" onClick={exibeSignUp}>Sign Up</p>
-            <Link to={"cadastros"} className="link__menu">Cadastros</Link>
-            <Link to={"pagamentos"} className="link__menu">Pagamentos</Link>
         </nav>
         :
         <nav className="menu__nav">

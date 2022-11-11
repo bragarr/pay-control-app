@@ -1,0 +1,4 @@
+.formulario__cred {
+    display: flex;
+    flex-direction: column;
+}

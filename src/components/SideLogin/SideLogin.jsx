@@ -30,6 +30,7 @@ export function SideLogin() {
         const res = login(auth, email, password);
         setEmail("");
         setPassword("");
+        navigate("/");
     }
 
     // Parâmetro de componente que altera título do container from: Login to: Meu Perfil
