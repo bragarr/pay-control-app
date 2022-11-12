@@ -16,6 +16,6 @@ Fase 1 do projeto: 03/11/2022
 
 Obs: Fase 1 do projeto finalizada. Definido: Layout e módulo para cadastro de usuários na plataforma utilizando Firebase.
 
-Fase 2 do projeto: 10/11/202
+Fase 2 do projeto: 10/11/202 -> Postponed to 12/11/2022
 
 Obs: Nesta próxima fase será efetuada a atulização do back end para o cadastro e inserção de dados na plataforma e definição da amostragem e exibição de fluxo de caixa para o usuário.
