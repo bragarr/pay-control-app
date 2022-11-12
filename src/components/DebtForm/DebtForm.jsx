@@ -2,7 +2,7 @@ import "./DebtForm.css";
 
 export function DebtForm() {
     return (
-        <form>
+        <form className="formulario__debitos">
             <fieldset className="formulario__cred">
                 <label htmlFor="name">
                     Nome: 

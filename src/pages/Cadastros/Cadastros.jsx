@@ -82,7 +82,56 @@ export function Cadastros() {
     return (
         <section>
             <h2 className="titulo__cadastro">Tela de cadastros</h2>
-            
+            <form className="formulario__cadastro" ref={ref} onSubmit={handleSubmit}>
+                <fieldset className="containers__input">
+                    <label htmlFor="name">
+                        Nome: 
+                    </label>
+                    <input
+                        type="text"
+                        name="nome"
+                        id="name"
+                        required
+                        className="input__cadastros"
+                    />
+                    <label htmlFor="email">
+                        E-mail: 
+                    </label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        required
+                        className="input__cadastros"
+                    />
+                    <label htmlFor="fone">
+                        Telefone: 
+                    </label>
+                    <input
+                        type="tel"
+                        name="fone"
+                        id="fone"
+                        required
+                        className="input__cadastros"
+                    />
+                    <label htmlFor="name">
+                        Valor: 
+                    </label>
+                    <input
+                        type="text"
+                        name="valor"
+                        id="valor"
+                        required
+                        className="input__cadastros"
+                    />
+                </fieldset>
+                <button
+                    type="submit"
+                    className="botao__cadastro"
+                >
+                    Cadastrar
+                </button>
+            </form>
         </section>
     );
 };
