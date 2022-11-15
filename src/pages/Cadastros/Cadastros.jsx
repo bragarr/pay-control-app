@@ -32,7 +32,7 @@ export function Cadastros() {
             user.nome.value = onEdit.nome;
             user.email.value = onEdit.email;
             user.fone.value = onEdit.fone;
-            user.valor.value = onEdit.valor;
+            user.categoria.value = onEdit.categoria;
         }
     }, [onEdit]);
 
@@ -47,7 +47,7 @@ export function Cadastros() {
                     nome: user.nome.value,
                     email: user.email.value,
                     fone: user.fone.value,
-                    valor: user.valor.value,
+                    categoria: user.categoria.value,
                 })
 
                 .then(({ data }) => toast.success(data))
@@ -58,7 +58,7 @@ export function Cadastros() {
                     nome: user.nome.value,
                     email: user.email.value,
                     fone: user.fone.value,
-                    valor: user.valor.value,
+                    categoria: user.categoria.value,
                 })
                 .then 
                 (
@@ -73,7 +73,7 @@ export function Cadastros() {
         user.nome.value = "";
         user.email.value = "";
         user.fone.value = "";
-        user.valor.value = "";
+        user.categoria.value = "";
 
         setOnEdit(null);
         getUsers();
@@ -114,16 +114,25 @@ export function Cadastros() {
                         required
                         className="input__cadastros"
                     />
-                    <label htmlFor="name">
-                        Valor: 
+                    <label htmlFor="categoria">
+                        Categoria: 
                     </label>
-                    <input
-                        type="text"
-                        name="valor"
-                        id="valor"
-                        required
+                    <select
+                        name="categoria"
+                        id="categoria"
                         className="input__cadastros"
-                    />
+                    >
+                        <option
+                            className="opcao__selecionada"
+                        >
+                            Fornecedor
+                        </option>
+                        <option
+                            className="opcao__selecionada"    
+                        >
+                            Contribuinte
+                        </option>
+                    </select>
                 </fieldset>
                 <button
                     type="submit"

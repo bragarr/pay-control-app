@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { CredForm } from "../../components/CredForm/CredForm";
-import { DebtForm } from "../../components/DebtForm/DebtForm";
+import { RegistroPagamentos } from "../../components/RegistroPagamentos/RegistroPagamentos";
 
 import { toast } from "react-toastify";
 
@@ -28,13 +27,9 @@ export function Pagamentos() {
     return (
         <section className="tela__pagamentos">
             <h2>Fluxo de Pagamentos</h2>
-            <article>
-                <h3>Entradas</h3>
-                <CredForm onEdit={onEdit} setOnEdit={setOnEdit} coletarPagamentos={coletarPagamentos} />
-            </article>
-            <article>
-                <h3>Despesas</h3>
-                <DebtForm/>
+            <article className="container__entradas">
+                <h3>Registro de Pagamentos/Despesas</h3>
+                <RegistroPagamentos onEdit={onEdit} setOnEdit={setOnEdit} coletarPagamentos={coletarPagamentos} />
             </article>
         </section>
     );

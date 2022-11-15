@@ -3,3 +3,13 @@
     flex-direction: column;
     align-items: center;
 }
+
+.container__entradas, .container__despesas {
+    width: 90vw;
+}
+
+@media screen and (min-width:720px) {
+    .container__entradas, .container__despesas {
+        width: 60vw;
+    }
+}

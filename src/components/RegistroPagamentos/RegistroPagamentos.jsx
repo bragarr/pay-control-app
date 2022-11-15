@@ -3,9 +3,9 @@ import axios from "axios";
 
 import { toast } from "react-toastify";
 
-import "./CredForm.css";
+import "./RegistroPagamentos.css";
 
-export function CredForm({ coletarPagamentos, onEdit, setOnEdit }) {
+export function RegistroPagamentos({ coletarPagamentos, onEdit, setOnEdit }) {
 
     const ref = useRef();
 
@@ -16,6 +16,7 @@ export function CredForm({ coletarPagamentos, onEdit, setOnEdit }) {
             user.nome.value = onEdit.nome;
             user.tipo_pagamento.value = onEdit.tipo_pagamento;
             user.valor_pagamento.value = onEdit.valor_pagamento;
+            user.obs.value = onEdit.obs;
             user.data_pagamento.value = onEdit.data_pagamento;
         }
     }, [onEdit]);
@@ -29,8 +30,9 @@ export function CredForm({ coletarPagamentos, onEdit, setOnEdit }) {
             await axios
                 .put("https://controle-pagamentos-backend.herokuapp.com/pagamentos" + onEdit.id, {
                     nome: user.nome.value,
-                    tipo_pagamento: "credito",
+                    tipo_pagamento: user.tipo_pagamento.value,
                     valor_pagamento: user.valor_pagamento.value,
+                    obs: user.obs.value,
                     data_pagamento: user.data_pagamento.value,
                 })
 
@@ -40,8 +42,9 @@ export function CredForm({ coletarPagamentos, onEdit, setOnEdit }) {
             await axios
                 .post("https://controle-pagamentos-backend.herokuapp.com/pagamentos", {
                     nome: user.nome.value,
-                    tipo_pagamento: "credito",
+                    tipo_pagamento: user.tipo_pagamento.value,
                     valor_pagamento: user.valor_pagamento.value,
+                    obs: user.obs.value,
                     data_pagamento: user.data_pagamento.value,
                 })
                 .then (({ data }) => toast.success(data))
@@ -50,6 +53,7 @@ export function CredForm({ coletarPagamentos, onEdit, setOnEdit }) {
 
         user.nome.value = "";
         user.valor_pagamento.value = "";
+        user.obs.value = "";
         user.data_pagamento.value = "";
 
         setOnEdit(null);
@@ -72,12 +76,19 @@ export function CredForm({ coletarPagamentos, onEdit, setOnEdit }) {
                 <label htmlFor="tipo_pagamento">
                     Tipo de Pagamento: 
                 </label>
-                <select>
+                <select
+                    name="tipo_pagamento"
+                    id="tipo_pagamento"
+                >
                     <option
-                        name="tipo_pagamento"
-                        id="tipo_pagamento"
+                        className="opcao__selecionada"
                     >
-                        Crédito
+                        Crédito (Entrada de Pagamentos)
+                    </option>
+                    <option
+                        className="opcao__selecionada"    
+                    >
+                        Débito (Saída para Despesas)
                     </option>
                 </select>
                 <label htmlFor="valor_pagamento">
@@ -89,7 +100,16 @@ export function CredForm({ coletarPagamentos, onEdit, setOnEdit }) {
                     id="valor_pagamento"
                     required
                 />
-                <label htmlFor="data_pagamento">
+                <label htmlFor="obs">
+                    Observação/Justificativa: 
+                </label>
+                <input
+                    type="text"
+                    name="obs"
+                    id="obs"
+                    required
+                />
+                 <label htmlFor="data_pagamento">
                     Data da Pagamento: 
                 </label>
                 <input
