@@ -1,95 +1,81 @@
-import { useRef ,useEffect } from "react";
+import { useRef ,useEffect, useState } from "react";
 import axios from "axios";
 
 import { toast } from "react-toastify";
 
 import "./RegistroPagamentos.css";
 
-export function RegistroPagamentos({ coletarPagamentos, onEdit, setOnEdit }) {
+export function RegistroPagamentos({ coletarPagamentos}) {
+
+    const [cadastrados, setCadastrados] = useState([]);
+
+    const getCadastrados = async (url) => {
+        const res = await fetch(url);
+        const data = await res.json();
+        setCadastrados(data);
+    }
+
+    useEffect(()=>{
+        const apiUrl = "https://controle-pagamentos-backend.herokuapp.com/";
+        getCadastrados(apiUrl);
+    },[])
 
     const ref = useRef();
 
-    useEffect(() => {
-        if(onEdit) {
-            const user = ref.current;
-
-            user.nome.value = onEdit.nome;
-            user.tipo_pagamento.value = onEdit.tipo_pagamento;
-            user.valor_pagamento.value = onEdit.valor_pagamento;
-            user.obs.value = onEdit.obs;
-            user.data_pagamento.value = onEdit.data_pagamento;
-        }
-    }, [onEdit]);
-
-    const handleSubmitCred = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const user = ref.current;
-        
-        if(onEdit) {
-            await axios
-                .put("https://controle-pagamentos-backend.herokuapp.com/pagamentos" + onEdit.id, {
-                    nome: user.nome.value,
-                    tipo_pagamento: user.tipo_pagamento.value,
-                    valor_pagamento: user.valor_pagamento.value,
-                    obs: user.obs.value,
-                    data_pagamento: user.data_pagamento.value,
-                })
-
-                .then(({ data }) => toast.success(data))
-                .catch(({ data }) => toast.error(data));
-        } else {
-            await axios
-                .post("https://controle-pagamentos-backend.herokuapp.com/pagamentos", {
-                    nome: user.nome.value,
-                    tipo_pagamento: user.tipo_pagamento.value,
-                    valor_pagamento: user.valor_pagamento.value,
-                    obs: user.obs.value,
-                    data_pagamento: user.data_pagamento.value,
-                })
-                .then (({ data }) => toast.success(data))
-                .catch(({ data }) => toast.error(data))
-        }
+    
+        await axios
+            .post("https://controle-pagamentos-backend.herokuapp.com/pagamentos", {
+                nome: user.nome.value,
+                tipo_pagamento: user.tipo_pagamento.value,
+                valor_pagamento: user.valor_pagamento.value,
+                obs: user.obs.value,
+                data_pagamento: user.data_pagamento.value,
+            })
+            .then (({ data }) => toast.success(data))
+            .catch(({ data }) => toast.error(data))
 
         user.nome.value = "";
         user.valor_pagamento.value = "";
         user.obs.value = "";
         user.data_pagamento.value = "";
 
-        setOnEdit(null);
-        coletarPagamentos();
     }
 
 
     return (
-        <form ref={ref} onSubmit={handleSubmitCred}>
+        <form ref={ref} onSubmit={handleSubmit}>
             <fieldset className="formulario__cred">
-                <label htmlFor="name">
-                    Nome: 
-                </label>
-                <input
-                    type="search"
-                    name="nome"
-                    id="name"
-                    required
-                />
                 <label htmlFor="tipo_pagamento">
                     Tipo de Pagamento: 
                 </label>
                 <select
                     name="tipo_pagamento"
                     id="tipo_pagamento"
+                    className="tipo__pagamento"
                 >
                     <option
-                        className="opcao__selecionada"
+                        className="opcao__1"
                     >
-                        Crédito (Entrada de Pagamentos)
+                        Entrada
                     </option>
                     <option
-                        className="opcao__selecionada"    
+                        className="opcao__2"
                     >
-                        Débito (Saída para Despesas)
+                        Despesa
                     </option>
+                </select>
+                <label htmlFor="name">
+                    Nome: 
+                </label>
+                <select>
+                    {cadastrados.length > 0 && cadastrados.map((cadastrado) => {
+                        <option>{cadastrado.nome}</option>
+                    }
+                    )}
                 </select>
                 <label htmlFor="valor_pagamento">
                     Valor
