@@ -68,20 +68,20 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                         Despesa
                     </option>
                 </select>
-                <label htmlFor="name">
+                <label htmlFor="nome">
                     Nome: 
                 </label>
-                <select>
-                    {cadastrados.length > 0 && cadastrados.map((cadastrado) => {
-                        <option>{cadastrado.nome}</option>
-                    }
-                    )}
+                <select
+                    name="nome"
+                    id="name"
+                >
+                    {cadastrados.length > 0 && cadastrados.map((cadastrado) =><option key={cadastrado.id}>{cadastrado.nome}</option>)}
                 </select>
                 <label htmlFor="valor_pagamento">
                     Valor
                 </label>
                 <input
-                    type="number"
+                    type="text"
                     name="valor_pagamento"
                     id="valor_pagamento"
                     required
