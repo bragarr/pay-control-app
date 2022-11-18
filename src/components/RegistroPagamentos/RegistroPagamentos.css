@@ -1,4 +1,29 @@
 .formulario__cred {
     display: flex;
     flex-direction: column;
+    align-items:center;
+}
+
+.campos__preenchimento {
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+    line-height: 40px;
+}
+
+#valor_pagamento, #obs, #name, #tipo_pagamento, #data_pagamento {
+    line-height: 30px;
+}
+
+#data_pagamento {
+    width: 100px;
+}
+
+.botao__pagamento {
+    margin: 20px 0;
+    padding: 10px 30px;
+    background-color: var(--std-black);
+    border: 1px solid var(--std-white);
+    color: var(--std-white);
+    cursor: pointer;
 }

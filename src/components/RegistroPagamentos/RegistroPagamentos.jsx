@@ -47,8 +47,8 @@ export function RegistroPagamentos({ coletarPagamentos}) {
 
 
     return (
-        <form ref={ref} onSubmit={handleSubmit}>
-            <fieldset className="formulario__cred">
+        <form ref={ref} onSubmit={handleSubmit} className="formulario__cred">
+            <fieldset className="campos__preenchimento">
                 <label htmlFor="tipo_pagamento">
                     Tipo de Pagamento: 
                 </label>
@@ -107,6 +107,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
             </fieldset>
             <button
                 type="submit"
+                className="botao__pagamento"
             >
                 Registrar
             </button>
