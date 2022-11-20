@@ -24,6 +24,7 @@ export function SideMenu() {
             <p className="link__menu" onClick={exibeLoginLateral}>Perfil</p>
             <Link to={"cadastros"} className="link__menu">Cadastros</Link>
             <Link to={"pagamentos"} className="link__menu">Pagamentos</Link>
+            <Link to={"historico"} className="link__menu">Histórico de Pagamentos</Link>
         </nav>
 
     }
