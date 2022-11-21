@@ -1,6 +1,8 @@
 import { useRef ,useEffect, useState } from "react";
 import axios from "axios";
 
+import { Spinner } from "../Spinner/Spinner";
+
 import { toast } from "react-toastify";
 
 import "./RegistroPagamentos.css";
@@ -45,8 +47,11 @@ export function RegistroPagamentos({ coletarPagamentos}) {
 
     }
 
-
-    return (
+    const CarregamentoDeDados = () => {
+        return cadastrados.length <= 0
+        ?
+        <Spinner />
+        :
         <form ref={ref} onSubmit={handleSubmit} className="formulario__cred">
             <fieldset className="campos__preenchimento">
                 <label htmlFor="tipo_pagamento">
@@ -112,5 +117,9 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                 Registrar
             </button>
         </form>
+    }
+
+    return (
+        <CarregamentoDeDados />
     );
 };

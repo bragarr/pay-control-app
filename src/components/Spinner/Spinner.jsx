@@ -2,6 +2,9 @@ import "./Spinner.css"
 
 export function Spinner() {
     return (
-        <div className="carregando" />
+        <article className="container__spinner">
+            <h3>Carregando dados cadastrados...</h3> 
+            <div className="carregando" />
+        </article>
     );
 }
