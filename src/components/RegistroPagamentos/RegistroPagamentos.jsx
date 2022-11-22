@@ -98,6 +98,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                     type="text"
                     name="obs"
                     id="obs"
+                    maxlength="30"
                     required
                 />
                  <label htmlFor="data_pagamento">

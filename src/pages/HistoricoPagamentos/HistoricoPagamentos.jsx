@@ -33,10 +33,9 @@ export function HistoricoPagamentos() {
             <table>
                 <thead>
                     <tr>
-                        <th>Tipo Pagamento</th>
-                        <th>Nome</th>
+                        <th>Tipo</th>
                         <th>Valor</th>
-                        <th>Obs/Justificativa</th>
+                        <th>Data</th>
                         <th>Editar</th>
                         <th>Deletar</th>
 
@@ -46,10 +45,16 @@ export function HistoricoPagamentos() {
                     {cadastrados.map((item, i) => (
                         <tr key={i}>
                             <td>{item.tipo_pagamento}</td>
-                            <td>{item.nome}</td>
                             <td>R${item.valor_pagamento}</td>
-                            <td>{item.obs}</td>
-                            <td>{item.data_pagamento}</td>
+                            <td>
+                                {
+                                item.data_pagamento[8]+item.data_pagamento[9]+
+                                item.data_pagamento[7]+
+                                item.data_pagamento[5]+item.data_pagamento[6]+
+                                item.data_pagamento[4]+
+                                item.data_pagamento[0]+item.data_pagamento[1]+item.data_pagamento[2]+item.data_pagamento[3]
+                                }
+                            </td>
                             <td>
                                 Editar
                             </td>
