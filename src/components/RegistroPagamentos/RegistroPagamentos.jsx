@@ -55,7 +55,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
         <form ref={ref} onSubmit={handleSubmit} className="formulario__cred">
             <fieldset className="campos__preenchimento">
                 <label htmlFor="tipo_pagamento">
-                    Tipo de Pagamento: 
+                    Tipo: 
                 </label>
                 <select
                     name="tipo_pagamento"
@@ -92,17 +92,17 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                     required
                 />
                 <label htmlFor="obs">
-                    Observação/Justificativa: 
+                    Obs: 
                 </label>
                 <input
                     type="text"
                     name="obs"
                     id="obs"
-                    maxlength="30"
+                    maxLength="30"
                     required
                 />
                  <label htmlFor="data_pagamento">
-                    Data da Pagamento: 
+                    Data:
                 </label>
                 <input
                     type="date"

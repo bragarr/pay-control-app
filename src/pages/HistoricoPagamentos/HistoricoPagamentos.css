@@ -1,10 +1,12 @@
-.excp {
-    display: none;
+td {
+    border: 1px solid var(--std-black);
+    margin: 0;
 }
 
-@media screen and (min-width:720px) {
-    .excp {
-        display: initial;
-    }
-    
+th {
+    width: 18vw;
+}
+
+.resumo__pagamentos {
+    text-align: left;
 }

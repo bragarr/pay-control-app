@@ -5,6 +5,9 @@ import "./Home.css";
 
 export function Home() {
 
+    const date = new Date();
+    const dataAtual = date.toLocaleDateString();
+
     const [user] = useAuthState(auth);
 
     const NomeUsuario = () => {
@@ -18,14 +21,24 @@ export function Home() {
     const DefineMensagemHome = () => {
         return !user
         ?
-        "Aqui será a mensagem de boas vindas!"
+        <article className="secao_homepage">
+            <h2>Resumo Geral</h2>
+            <h3>{dataAtual}</h3>
+        </article>
         :
-        <p>Seja Bem-vindo <NomeUsuario /></p>
+        <article className="secao_homepage">
+            <h2>Seja Bem-vindo <NomeUsuario /></h2>
+            <h3>Resumo Geral</h3>
+            <h4>{dataAtual}</h4>
+        </article>
     }
 
     return(
-        <section className="secao_homepage">
+        <section>
             <DefineMensagemHome />
+            <article>
+                
+            </article>
         </section>
     )
 }

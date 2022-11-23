@@ -1,0 +1,7 @@
+.container__edicao {
+    position: fixed;
+    top: 14vh;
+    background-color: var(--std-black);
+    color: var(--std-gold);
+    text-align: center;
+}

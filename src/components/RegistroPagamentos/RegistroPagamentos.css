@@ -33,3 +33,28 @@
         width: 400px;
     }
 }
+
+@media screen and (min-width:1280px) {
+    .campos__preenchimento {
+        flex-direction: row;
+        line-height: 40px;
+        width: auto;
+        align-items: center;
+    }
+
+    #valor_pagamento, #obs, #name, #tipo_pagamento, #data_pagamento {
+        line-height: 25px;
+    }
+    #tipo_pagamento {
+        width: 80px;
+    }
+
+    #name {
+        width: 200px;
+    }
+
+    #valor_pagamento, #obs {
+        width: 100px;
+    }
+
+}

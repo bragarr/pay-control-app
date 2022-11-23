@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 
+import { toast } from "react-toastify";
+
 import { Spinner } from "../../components/Spinner/Spinner";
 
 import axios from "axios";
 
+import "./HistoricoPagamentos.css"
+import { ContainerEdicao } from "../../components/containerEdicao/ContainerEdicao";
 
 export function HistoricoPagamentos() {
 
@@ -21,6 +25,11 @@ export function HistoricoPagamentos() {
 
     useEffect(() => {
         getcadastrados();
+        // const verificar = cadastrados[0].data_pagamento;
+        // const testeData = new Date(verificar);
+        // const testeAno = testeData.getFullYear();
+        // console.log(testeAno);
+        // console.log(verificar);
     }, [setCadastrados]);
 
     const CarregamentoDeDados = () => {
@@ -28,9 +37,9 @@ export function HistoricoPagamentos() {
         ?
         <Spinner />
         :
-        <section>
+        <section className="resumo__pagamentos">
             <h2>Histórico de Pagamentos</h2>
-            <table>
+            {/* <table>
                 <thead>
                     <tr>
                         <th>Tipo</th>
@@ -64,7 +73,8 @@ export function HistoricoPagamentos() {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table> */}
+            <ContainerEdicao />
         </section>
     }
 
