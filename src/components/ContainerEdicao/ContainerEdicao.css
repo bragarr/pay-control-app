@@ -5,3 +5,8 @@
     color: var(--std-gold);
     text-align: center;
 }
+
+.form__edicao {
+    display: flex;
+    flex-direction: row;
+}

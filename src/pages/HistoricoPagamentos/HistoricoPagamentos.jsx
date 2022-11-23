@@ -4,10 +4,12 @@ import { toast } from "react-toastify";
 
 import { Spinner } from "../../components/Spinner/Spinner";
 
+import { ContainerEdicao } from "../../components/ContainerEdicao/ContainerEdicao";
+
 import axios from "axios";
 
 import "./HistoricoPagamentos.css"
-import { ContainerEdicao } from "../../components/containerEdicao/ContainerEdicao";
+
 
 export function HistoricoPagamentos() {
 
@@ -39,7 +41,7 @@ export function HistoricoPagamentos() {
         :
         <section className="resumo__pagamentos">
             <h2>Histórico de Pagamentos</h2>
-            {/* <table>
+            <table>
                 <thead>
                     <tr>
                         <th>Tipo</th>
@@ -73,13 +75,15 @@ export function HistoricoPagamentos() {
                         </tr>
                     ))}
                 </tbody>
-            </table> */}
-            <ContainerEdicao />
+            </table>
         </section>
     }
 
 
     return(
-        <CarregamentoDeDados />
+        <section>
+            <CarregamentoDeDados />
+            <ContainerEdicao />
+        </section>
     )
 }

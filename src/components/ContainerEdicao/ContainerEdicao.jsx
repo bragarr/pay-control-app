@@ -1,12 +1,10 @@
-import { useRef ,useEffect, useState } from "react";
-
 import "./ContainerEdicao.css";
 
 export function ContainerEdicao() {
     return (
         <article className="container__edicao">
             <form>
-                <fieldset>
+                <fieldset className="form__edicao">
                     <label htmlFor="tipo_pagamento">
                         Tipo de Pagamento: 
                     </label>
