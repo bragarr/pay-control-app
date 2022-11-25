@@ -41,23 +41,23 @@ export function HistoricoPagamentos() {
         :
         <section className="resumo__pagamentos">
             <h2>Histórico de Pagamentos</h2>
-            <table>
+            <table className="dados__armazenados">
                 <thead>
                     <tr>
-                        <th>Tipo</th>
-                        <th>Valor</th>
-                        <th>Data</th>
-                        <th>Editar</th>
-                        <th>Deletar</th>
+                        <th className="tipo__pagamento">Tipo</th>
+                        <th className="info__valor">Valor</th>
+                        <th className="info__data">Data</th>
+                        <th className="campos__edicao">Editar</th>
+                        <th className="campos__edicao">Deletar</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     {cadastrados.map((item, i) => (
                         <tr key={i}>
-                            <td>{item.tipo_pagamento}</td>
-                            <td>R${item.valor_pagamento}</td>
-                            <td>
+                            <td className="tipo__pagamento">{item.tipo_pagamento}</td>
+                            <td className="info__valor">R${item.valor_pagamento}</td>
+                            <td className="info__data">
                                 {
                                 item.data_pagamento[8]+item.data_pagamento[9]+
                                 item.data_pagamento[7]+
@@ -66,10 +66,10 @@ export function HistoricoPagamentos() {
                                 item.data_pagamento[0]+item.data_pagamento[1]+item.data_pagamento[2]+item.data_pagamento[3]
                                 }
                             </td>
-                            <td>
+                            <td className="campos__edicao">
                                 Editar
                             </td>
-                            <td>
+                            <td className="campos__edicao">
                                 Deletar
                             </td>
                         </tr>

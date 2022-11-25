@@ -1,12 +1,15 @@
 .container__edicao {
     position: fixed;
     top: 14vh;
-    background-color: var(--std-black);
-    color: var(--std-gold);
+    left: -100%;
+    background-color: var(--std-gold);
     text-align: center;
+    padding: 20px 0;
 }
 
 .form__edicao {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    border: none;
 }

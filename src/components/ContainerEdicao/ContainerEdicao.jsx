@@ -62,7 +62,7 @@ export function ContainerEdicao() {
                 <button
                     type="submit"
                 >
-                    Registrar
+                    Atualizar
                 </button>
             </form>
         </article>
