@@ -53,6 +53,7 @@ export function SideSignUp() {
                     <input 
                         type="email"
                         name="email"
+                        placeholder="Digite o seu E-mail"
                         className="campo__input--signup"
                         id="email"
                         value={email}
@@ -65,6 +66,8 @@ export function SideSignUp() {
                     <input 
                         type="password"
                         name="password"
+                        placeholder="Digite a sua senha"
+                        autoComplete="on"
                         className="campo__input--signup"
                         id="password"
                         value={password}
@@ -77,6 +80,8 @@ export function SideSignUp() {
                     <input
                         type="password"
                         name="confirmar__password"
+                        placeholder="Confirme a sua senha"
+                        autoComplete="on"
                         className="campo__input--signup"
                         id="confirmar__password"
                         value={confPassword}

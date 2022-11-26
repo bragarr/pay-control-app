@@ -13,3 +13,11 @@
     align-items: center;
     border: none;
 }
+
+.campos__edicao {
+    cursor: pointer;
+}
+
+.container__ativo {
+    left: 30vw;   
+}

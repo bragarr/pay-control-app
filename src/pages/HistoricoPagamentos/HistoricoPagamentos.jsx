@@ -16,6 +16,10 @@ export function HistoricoPagamentos() {
     const [cadastrados, setCadastrados] = useState([]);
     const [onEdit, setOnEdit] = useState(null);
 
+    const handleEdit = (item) => {
+        setOnEdit(item);
+    };
+
     const getcadastrados = async () => {
         try {
             const res = await axios.get("https://controle-pagamentos-backend.herokuapp.com/pagamentos");
@@ -27,11 +31,6 @@ export function HistoricoPagamentos() {
 
     useEffect(() => {
         getcadastrados();
-        // const verificar = cadastrados[0].data_pagamento;
-        // const testeData = new Date(verificar);
-        // const testeAno = testeData.getFullYear();
-        // console.log(testeAno);
-        // console.log(verificar);
     }, [setCadastrados]);
 
     const CarregamentoDeDados = () => {
@@ -66,7 +65,9 @@ export function HistoricoPagamentos() {
                                 item.data_pagamento[0]+item.data_pagamento[1]+item.data_pagamento[2]+item.data_pagamento[3]
                                 }
                             </td>
-                            <td className="campos__edicao">
+                            <td className="campos__edicao"
+                                onClick={handleEdit(item)}
+                            >
                                 Editar
                             </td>
                             <td className="campos__edicao">
@@ -78,12 +79,10 @@ export function HistoricoPagamentos() {
             </table>
         </section>
     }
-
-
     return(
         <section>
             <CarregamentoDeDados />
-            <ContainerEdicao />
+            <ContainerEdicao onEdit={onEdit} setOnEdit={setOnEdit} />
         </section>
     )
 }

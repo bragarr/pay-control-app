@@ -80,6 +80,7 @@ export function SideLogin() {
                     <input
                         type="email"
                         name="email"
+                        placeholder="E-mail"
                         className="campo__input--login"
                         value={email}
                         onChange={(e) => [setEmail(e.target.value)]}
@@ -91,6 +92,8 @@ export function SideLogin() {
                     <input
                         type="password"
                         name="password"
+                        placeholder="Senha"
+                        autoComplete="on"
                         className="campo__input--login"
                         value={password}
                         onChange={(e) => [setPassword(e.target.value)]}
