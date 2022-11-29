@@ -37,7 +37,56 @@ export function Home() {
         <section>
             <DefineMensagemHome />
             <article>
-                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Entradas</th>
+                            <th>Despesas</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Jan</th>
+                            <th>Fev</th>
+                            <th>Mar</th>
+                            <th>Abr</th>
+                            <th>Mai</th>
+                            <th>Jun</th>
+                            <th>Jul</th>
+                            <th>Ago</th>
+                            <th>Set</th>
+                            <th>Out</th>
+                            <th>Nov</th>
+                            <th>Dez</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                            <td>500</td>
+                        </tr>
+                    </tbody>
+                </table>
             </article>
         </section>
     )
