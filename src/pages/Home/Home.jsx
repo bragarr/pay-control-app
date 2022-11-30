@@ -37,6 +37,33 @@ export function Home() {
         <section>
             <DefineMensagemHome />
             <article>
+                <form>
+                    <fieldset>
+                        <select>
+                            <option value=""></option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                        </select>
+                        <select>
+                            <option value=""></option>
+                            <option value="">Janeiro</option>
+                            <option value="">Fevereiro</option>
+                            <option value="">Março</option>
+                            <option value="">Abril</option>
+                            <option value="">Maio</option>
+                            <option value="">Junho</option>
+                            <option value="">Julho</option>
+                            <option value="">Agosto</option>
+                            <option value="">Setembro</option>
+                            <option value="">Outubro</option>
+                            <option value="">Novembro</option>
+                            <option value="">Dezembro</option>
+                        </select>
+                        <button type="button">Filtrar</button>
+                    </fieldset>
+                </form>
+            </article>
+            <article>
                 <table>
                     <thead>
                         <tr>
