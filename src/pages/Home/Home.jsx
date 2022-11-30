@@ -1,12 +1,72 @@
 import { auth } from "../../contexts/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useState, useEffect } from "react";
+
+import { toast } from "react-toastify";
+
+import axios from "axios";
 
 import "./Home.css";
+import { Spinner } from "../../components/Spinner/Spinner";
 
 export function Home() {
 
     const date = new Date();
     const dataAtual = date.toLocaleDateString();
+
+    // dados para dashboard principal
+
+    let entradas = 0;
+    let despesas = 0;
+    let saldo = 0;
+    
+    const [pagamentos, setPagamentos] = useState([]);
+
+    const getPagamentos = async () => {
+        try {
+            const res = await axios.get("https://controle-pagamentos-backend.herokuapp.com/pagamentos");
+            setPagamentos(res.data.sort((a,b) => (a.name > b.name ? 1 : -1)));
+        } catch (error) {
+            toast.error(error);
+        }
+    };
+
+    useEffect(() => {
+        getPagamentos();
+    }, [setPagamentos]);
+
+    const SaldoDespesas = () => {
+        pagamentos.map((item) => {
+            if(item.tipo_pagamento==="Entrada") {
+                entradas += item.valor_pagamento;
+            }
+        })
+
+        return (
+            <table>
+                <thead>
+                    <tr>
+                        <th>Entradas</th>
+                        <th>Despesas</th>
+                        <th>Saldo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{entradas}</td>
+                        <td>500</td>
+                        <td>500</td>
+                    </tr>
+                </tbody>
+            </table>
+        )
+    }
+
+    // useEffect(() => {
+    //     saldoDespesas();
+    //     console.log(entradas);
+    // }, [entradas]);
+
 
     const [user] = useAuthState(auth);
 
@@ -33,12 +93,20 @@ export function Home() {
         </article>
     }
 
+    const DefineDashBoard = () => {
+        return pagamentos.length <= 0
+        ?
+        "carregando..."
+        :
+        <SaldoDespesas />
+    }
+
     return(
-        <section>
+        <section className="dashboard__principal">
             <DefineMensagemHome />
             <article>
-                <form>
-                    <fieldset>
+                <form className="formulario__busca">
+                    <fieldset className="campos__filtro">
                         <select>
                             <option value=""></option>
                             <option value="2021">2021</option>
@@ -64,22 +132,7 @@ export function Home() {
                 </form>
             </article>
             <article>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Entradas</th>
-                            <th>Despesas</th>
-                            <th>Saldo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <DefineDashBoard />
                 <table>
                     <thead>
                         <tr>
