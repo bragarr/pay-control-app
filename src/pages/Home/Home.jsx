@@ -39,6 +39,8 @@ export function Home() {
         pagamentos.map((item) => {
             if(item.tipo_pagamento==="Entrada") {
                 entradas += item.valor_pagamento;
+            } else if (item.tipo_pagamento==="Despesa") {
+                despesas += item.valor_pagamento;
             }
         })
 
@@ -48,14 +50,14 @@ export function Home() {
                     <tr>
                         <th>Entradas</th>
                         <th>Despesas</th>
-                        <th>Saldo</th>
+                        <th>Saldo Atual</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{entradas}</td>
-                        <td>500</td>
-                        <td>500</td>
+                        <td>R${entradas/2}</td>
+                        <td>R${despesas/2}</td>
+                        <td>R${(entradas - despesas)/2}</td>
                     </tr>
                 </tbody>
             </table>
@@ -105,68 +107,7 @@ export function Home() {
         <section className="dashboard__principal">
             <DefineMensagemHome />
             <article>
-                <form className="formulario__busca">
-                    <fieldset className="campos__filtro">
-                        <select>
-                            <option value=""></option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                        </select>
-                        <select>
-                            <option value=""></option>
-                            <option value="">Janeiro</option>
-                            <option value="">Fevereiro</option>
-                            <option value="">Março</option>
-                            <option value="">Abril</option>
-                            <option value="">Maio</option>
-                            <option value="">Junho</option>
-                            <option value="">Julho</option>
-                            <option value="">Agosto</option>
-                            <option value="">Setembro</option>
-                            <option value="">Outubro</option>
-                            <option value="">Novembro</option>
-                            <option value="">Dezembro</option>
-                        </select>
-                        <button type="button">Filtrar</button>
-                    </fieldset>
-                </form>
-            </article>
-            <article>
                 <DefineDashBoard />
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Jan</th>
-                            <th>Fev</th>
-                            <th>Mar</th>
-                            <th>Abr</th>
-                            <th>Mai</th>
-                            <th>Jun</th>
-                            <th>Jul</th>
-                            <th>Ago</th>
-                            <th>Set</th>
-                            <th>Out</th>
-                            <th>Nov</th>
-                            <th>Dez</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                            <td>500</td>
-                        </tr>
-                    </tbody>
-                </table>
             </article>
         </section>
     )

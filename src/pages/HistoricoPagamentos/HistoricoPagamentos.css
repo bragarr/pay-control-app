@@ -1,8 +1,3 @@
-td {
-    border: 1px solid var(--std-black);
-    margin: 0;
-}
-
 .resumo__pagamentos {
     display: flex;
     flex-direction: column;

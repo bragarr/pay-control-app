@@ -27,23 +27,23 @@ export function RegistroPagamentos({ coletarPagamentos}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const user = ref.current;
+        const pagamentoAtual = ref.current;
     
         await axios
             .post("https://controle-pagamentos-backend.herokuapp.com/pagamentos", {
-                nome: user.nome.value,
-                tipo_pagamento: user.tipo_pagamento.value,
-                valor_pagamento: user.valor_pagamento.value,
-                obs: user.obs.value,
-                data_pagamento: user.data_pagamento.value,
+                nome: pagamentoAtual.nome.value,
+                tipo_pagamento: pagamentoAtual.tipo_pagamento.value,
+                valor_pagamento: pagamentoAtual.valor_pagamento.value,
+                obs: pagamentoAtual.obs.value,
+                data_pagamento: pagamentoAtual.data_pagamento.value,
             })
             .then (({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data))
 
-        user.nome.value = "";
-        user.valor_pagamento.value = "";
-        user.obs.value = "";
-        user.data_pagamento.value = "";
+        pagamentoAtual.nome.value = "";
+        pagamentoAtual.valor_pagamento.value = "";
+        pagamentoAtual.obs.value = "";
+        pagamentoAtual.data_pagamento.value = "";
 
     }
 
