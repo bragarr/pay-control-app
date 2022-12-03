@@ -24,7 +24,7 @@ export function Home() {
 
     const getPagamentos = async () => {
         try {
-            const res = await axios.get("https://controle-pagamentos-backend.herokuapp.com/pagamentos");
+            const res = await axios.get("https://controle-pagamentos-backend.onrender.com/pagamentos");
             setPagamentos(res.data.sort((a,b) => (a.name > b.name ? 1 : -1)));
         } catch (error) {
             toast.error(error);

@@ -18,7 +18,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
     }
 
     useEffect(()=>{
-        const apiUrl = "https://controle-pagamentos-backend.herokuapp.com/";
+        const apiUrl = "https://controle-pagamentos-backend.onrender.com/";
         getCadastrados(apiUrl);
     },[])
 
@@ -30,7 +30,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
         const pagamentoAtual = ref.current;
     
         await axios
-            .post("https://controle-pagamentos-backend.herokuapp.com/pagamentos", {
+            .post("https://controle-pagamentos-backend.onrender.com/pagamentos", {
                 nome: pagamentoAtual.nome.value,
                 tipo_pagamento: pagamentoAtual.tipo_pagamento.value,
                 valor_pagamento: pagamentoAtual.valor_pagamento.value,
