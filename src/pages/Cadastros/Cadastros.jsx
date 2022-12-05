@@ -14,7 +14,7 @@ export function Cadastros() {
 
     const getUsers = async () => {
         try {
-            const res = await axios.get("https://controle-pagamentos-backend.onrender.com/");
+            const res = await axios.get("https://controle-pagamentos-backend-api.onrender.com/");
             setUsers(res.data.sort((a,b) => (a.nome > b.nome ? 1 : -1)));
         } catch (error) {
             toast.error(error);
@@ -43,7 +43,7 @@ export function Cadastros() {
         
         if(onEdit) {
             await axios
-                .put("https://controle-pagamentos-backend.onrender.com/" + onEdit.id, {
+                .put("https://controle-pagamentos-backend-api.onrender.com/" + onEdit.id, {
                     nome: user.nome.value,
                     email: user.email.value,
                     fone: user.fone.value,
@@ -54,7 +54,7 @@ export function Cadastros() {
                 .catch(({ data }) => toast.error(data));
         } else {
             await axios
-                .post("https://controle-pagamentos-backend.onrender.com/", {
+                .post("https://controle-pagamentos-backend-api.onrender.com/", {
                     nome: user.nome.value,
                     email: user.email.value,
                     fone: user.fone.value,

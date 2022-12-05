@@ -27,7 +27,7 @@ export function ContainerEdicao({onEdit, setOnEdit}) {
         
         if(onEdit) {
             await axios
-                .put("https://mysql-cadastrousuarios.herokuapp.com/" + onEdit.id, {
+                .put("https://controle-pagamentos-backend-api.onrender.com/pagamentos" + onEdit.id, {
                     tipo_pagamento: pagamento.tipo_pagamento.value,
                     nome: pagamento.nome.value,
                     valor_pagamento: pagamento.valor_pagamento.value,

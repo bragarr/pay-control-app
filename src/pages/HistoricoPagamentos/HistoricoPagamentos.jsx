@@ -22,7 +22,7 @@ export function HistoricoPagamentos() {
 
     const getcadastrados = async () => {
         try {
-            const res = await axios.get("https://controle-pagamentos-backend.onrender.com/pagamentos");
+            const res = await axios.get("https://controle-pagamentos-backend-api.onrender.com/pagamentos");
             setCadastrados(res.data.sort((a,b) => (a.name > b.name ? 1 : -1)));
         } catch (error) {
             toast.error(error);
