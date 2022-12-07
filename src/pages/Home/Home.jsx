@@ -1,6 +1,7 @@
 import { auth } from "../../contexts/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useState, useEffect } from "react";
+import { Chart } from "react-google-charts";
 
 import { toast } from "react-toastify";
 
@@ -21,6 +22,10 @@ export function Home() {
     let saldo = 0;
     
     const [pagamentos, setPagamentos] = useState([]);
+
+    const [options, setOptions] = useState({
+        title: 'Gráfico de Dados'
+    });
 
     const getPagamentos = async () => {
         try {
@@ -44,8 +49,16 @@ export function Home() {
             }
         })
 
+        const [data, setData] = useState([
+            ['Tipo',"", { role: "style" }],
+            ['Entradas', (entradas/2), "green"],
+            ['Despesas', (despesas/2), "red"],
+            ['Saldo', (entradas - despesas)/2, "grey"],
+        ]);
+
         return (
-            <table>
+            <article>
+                <table>
                 <thead>
                     <tr>
                         <th>Entradas</th>
@@ -61,6 +74,14 @@ export function Home() {
                     </tr>
                 </tbody>
             </table>
+                <Chart
+                width={'500px'}
+                height={'300px'}
+                chartType="ColumnChart"
+                data={data}
+                options={options}
+                />
+            </article>
         )
     }
 
