@@ -1,4 +1,7 @@
 import { useRef ,useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../contexts/Firebase";
+
 import axios from "axios";
 
 import { Spinner } from "../Spinner/Spinner";
@@ -8,6 +11,8 @@ import { toast } from "react-toastify";
 import "./RegistroPagamentos.css";
 
 export function RegistroPagamentos({ coletarPagamentos}) {
+
+    const [userOn] = useAuthState(auth);
 
     const [cadastrados, setCadastrados] = useState([]);
 
@@ -36,6 +41,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                 valor_pagamento: pagamentoAtual.valor_pagamento.value,
                 obs: pagamentoAtual.obs.value,
                 data_pagamento: pagamentoAtual.data_pagamento.value,
+                usuario: userOn.displayName
             })
             .then (({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data))

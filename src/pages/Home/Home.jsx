@@ -24,7 +24,7 @@ export function Home() {
     const [pagamentos, setPagamentos] = useState([]);
 
     const [options, setOptions] = useState({
-        title: 'Gráfico de Dados'
+        title: 'Posição da carteira de pagamentos'
     });
 
     const getPagamentos = async () => {
@@ -50,32 +50,30 @@ export function Home() {
         })
 
         const [data, setData] = useState([
-            ['Tipo',"", { role: "style" }],
-            ['Entradas', (entradas/2), "green"],
-            ['Despesas', (despesas/2), "red"],
-            ['Saldo', (entradas - despesas)/2, "grey"],
+            ['Ano',"Entrada", "Despesa", "Saldo"],
+            ['2022',(entradas/2),(despesas/2) ,(entradas - despesas)/2]
         ]);
 
         return (
-            <article>
-                <table>
-                <thead>
-                    <tr>
-                        <th>Entradas</th>
-                        <th>Despesas</th>
-                        <th>Saldo Atual</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>R${entradas/2}</td>
-                        <td>R${despesas/2}</td>
-                        <td>R${(entradas - despesas)/2}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <article className="posicao__grafica">
+                <table className="tabela__dados">
+                    <thead>
+                        <tr>
+                            <th>Entradas</th>
+                            <th>Despesas</th>
+                            <th>Saldo Atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>R${entradas/2}</td>
+                            <td>R${despesas/2}</td>
+                            <td>R${(entradas - despesas)/2}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <Chart
-                width={'500px'}
+                width={'1020px'}
                 height={'300px'}
                 chartType="ColumnChart"
                 data={data}

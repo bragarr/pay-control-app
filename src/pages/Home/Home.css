@@ -19,3 +19,13 @@
     justify-content: center;
     width: 200px;
 }
+
+.tabela__dados {
+    text-align: center;
+}
+
+.posicao__grafica {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

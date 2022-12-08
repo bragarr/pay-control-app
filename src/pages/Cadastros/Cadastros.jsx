@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../contexts/Firebase";
 import axios from "axios";
 
 import { toast } from "react-toastify";
@@ -6,6 +8,8 @@ import { toast } from "react-toastify";
 import "./Cadastros.css"
 
 export function Cadastros() {
+
+    const [userOn] = useAuthState(auth);
 
     const ref = useRef();    
 
@@ -33,6 +37,7 @@ export function Cadastros() {
             user.email.value = onEdit.email;
             user.fone.value = onEdit.fone;
             user.categoria.value = onEdit.categoria;
+            user.usuario.value = userOn.displayName;
         }
     }, [onEdit]);
 
@@ -48,6 +53,7 @@ export function Cadastros() {
                     email: user.email.value,
                     fone: user.fone.value,
                     categoria: user.categoria.value,
+                    usuario: userOn.displayName
                 })
 
                 .then(({ data }) => toast.success(data))
@@ -59,6 +65,7 @@ export function Cadastros() {
                     email: user.email.value,
                     fone: user.fone.value,
                     categoria: user.categoria.value,
+                    usuario: userOn.displayName
                 })
                 .then 
                 (
