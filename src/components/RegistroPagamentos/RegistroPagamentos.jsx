@@ -19,7 +19,8 @@ export function RegistroPagamentos({ coletarPagamentos}) {
     const getCadastrados = async (url) => {
         const res = await fetch(url);
         const data = await res.json();
-        setCadastrados(data);
+        const listaCadastrados = data.filter((lista) => lista.usuario===userOn.uid)
+        setCadastrados(listaCadastrados);
     }
 
     useEffect(()=>{
@@ -41,7 +42,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                 valor_pagamento: pagamentoAtual.valor_pagamento.value,
                 obs: pagamentoAtual.obs.value,
                 data_pagamento: pagamentoAtual.data_pagamento.value,
-                usuario: userOn.displayName
+                usuario: userOn.uid
             })
             .then (({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data))
@@ -86,7 +87,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                     name="nome"
                     id="name"
                 >
-                    {cadastrados.length > 0 && cadastrados.map((cadastrado) =><option key={cadastrado.id}>{cadastrado.nome}</option>)}
+                    {cadastrados.length > 0 && cadastrados.map((item) =><option key={item.id}>{item.nome}</option>)}
                 </select>
                 <label htmlFor="valor_pagamento">
                     Valor

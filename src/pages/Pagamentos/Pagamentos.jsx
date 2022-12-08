@@ -1,8 +1,4 @@
-import { useState, useEffect } from "react";
-
 import { RegistroPagamentos } from "../../components/RegistroPagamentos/RegistroPagamentos";
-
-import { toast } from "react-toastify";
 
 import "./Pagamentos.css"
 

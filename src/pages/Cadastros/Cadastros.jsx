@@ -53,7 +53,7 @@ export function Cadastros() {
                     email: user.email.value,
                     fone: user.fone.value,
                     categoria: user.categoria.value,
-                    usuario: userOn.displayName
+                    usuario: userOn.uid
                 })
 
                 .then(({ data }) => toast.success(data))
@@ -65,7 +65,7 @@ export function Cadastros() {
                     email: user.email.value,
                     fone: user.fone.value,
                     categoria: user.categoria.value,
-                    usuario: userOn.displayName
+                    usuario: userOn.uid
                 })
                 .then 
                 (

@@ -6,12 +6,17 @@ import { Spinner } from "../../components/Spinner/Spinner";
 
 import { ContainerEdicao } from "../../components/ContainerEdicao/ContainerEdicao";
 
+import { auth } from "../../contexts/Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 import axios from "axios";
 
 import "./HistoricoPagamentos.css"
 
 
 export function HistoricoPagamentos() {
+
+    const [userOn] = useAuthState(auth);
 
     const [cadastrados, setCadastrados] = useState([]);
     const [onEdit, setOnEdit] = useState(null);
@@ -23,7 +28,8 @@ export function HistoricoPagamentos() {
     const getcadastrados = async () => {
         try {
             const res = await axios.get("https://controle-pagamentos-backend-api.onrender.com/pagamentos");
-            setCadastrados(res.data.sort((a,b) => (a.name > b.name ? 1 : -1)));
+            const listaCadastrados = res.data.sort((a,b) => (a.data_pagamento < b.data_pagamento ? 1 : -1));
+            setCadastrados(listaCadastrados.filter((lista) => lista.usuario===userOn.uid));
         } catch (error) {
             toast.error(error);
         }

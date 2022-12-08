@@ -12,6 +12,8 @@ import { Spinner } from "../../components/Spinner/Spinner";
 
 export function Home() {
 
+    const [user] = useAuthState(auth);
+
     const date = new Date();
     const dataAtual = date.toLocaleDateString();
 
@@ -41,60 +43,60 @@ export function Home() {
     }, [setPagamentos]);
 
     const SaldoDespesas = () => {
-        pagamentos.map((item) => {
-            if(item.tipo_pagamento==="Entrada") {
-                entradas += item.valor_pagamento;
-            } else if (item.tipo_pagamento==="Despesa") {
-                despesas += item.valor_pagamento;
-            }
-        })
-
-        const [data, setData] = useState([
-            ['Ano',"Entrada", "Despesa", "Saldo"],
-            ['2022',(entradas/2),(despesas/2) ,(entradas - despesas)/2]
-        ]);
-
-        return (
-            <article className="posicao__grafica">
-                <table className="tabela__dados">
-                    <thead>
-                        <tr>
-                            <th>Entradas</th>
-                            <th>Despesas</th>
-                            <th>Saldo Atual</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>R${entradas/2}</td>
-                            <td>R${despesas/2}</td>
-                            <td>R${(entradas - despesas)/2}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <Chart
-                width={'1020px'}
-                height={'300px'}
-                chartType="ColumnChart"
-                data={data}
-                options={options}
-                />
-            </article>
-        )
+        if(!user) {
+            return (
+                <article>
+                    <h2>Ainda não há pagamentos registrados aqui!</h2>
+                    <p>Se você ainda não possuí cadastro, registre-se logo!</p>
+                </article>
+            )
+        } else {
+            pagamentos.map((item) => {
+                if(item.tipo_pagamento==="Entrada" && item.usuario===user.uid) {
+                    entradas += item.valor_pagamento;
+                } else if (item.tipo_pagamento==="Despesa" && item.usuario===user.uid) {
+                    despesas += item.valor_pagamento;
+                }
+            })
+    
+            const [data, setData] = useState([
+                ['Ano',"Entrada", "Despesa", "Saldo"],
+                ['2022',(entradas/2),(despesas/2) ,(entradas - despesas)/2]
+            ]);
+            return (
+                <article className="posicao__grafica">
+                    <table className="tabela__dados">
+                        <thead>
+                            <tr>
+                                <th>Entradas</th>
+                                <th>Despesas</th>
+                                <th>Saldo Atual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>R${entradas/2}</td>
+                                <td>R${despesas/2}</td>
+                                <td>R${(entradas - despesas)/2}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <Chart
+                    width={'500px'}
+                    height={'300px'}
+                    chartType="ColumnChart"
+                    data={data}
+                    options={options}
+                    />
+                </article>
+            )
+        }
     }
-
-    // useEffect(() => {
-    //     saldoDespesas();
-    //     console.log(entradas);
-    // }, [entradas]);
-
-
-    const [user] = useAuthState(auth);
 
     const NomeUsuario = () => {
         return user.displayName===null
         ?
-        ""
+        "Nome de usuário ainda não definido. Por favor acesse o seu perfil e ajuste os seus dados"
         :
         user.displayName
     }
@@ -125,9 +127,7 @@ export function Home() {
     return(
         <section className="dashboard__principal">
             <DefineMensagemHome />
-            <article>
-                <DefineDashBoard />
-            </article>
+            <DefineDashBoard />
         </section>
     )
 }
