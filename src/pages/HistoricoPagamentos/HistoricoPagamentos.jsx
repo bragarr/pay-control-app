@@ -16,6 +16,8 @@ import "./HistoricoPagamentos.css"
 
 export function HistoricoPagamentos() {
 
+    const apiPagamentos= import.meta.env.VITE_API_PAGAMENTOS;
+
     const [userOn] = useAuthState(auth);
 
     const [cadastrados, setCadastrados] = useState([]);
@@ -27,7 +29,7 @@ export function HistoricoPagamentos() {
 
     const getcadastrados = async () => {
         try {
-            const res = await axios.get("https://controle-pagamentos-backend-api.onrender.com/pagamentos");
+            const res = await axios.get(apiPagamentos);
             const listaCadastrados = res.data.sort((a,b) => (a.data_pagamento < b.data_pagamento ? 1 : -1));
             setCadastrados(listaCadastrados.filter((lista) => lista.usuario===userOn.uid));
         } catch (error) {

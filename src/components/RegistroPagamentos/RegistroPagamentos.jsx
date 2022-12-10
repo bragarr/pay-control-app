@@ -12,6 +12,9 @@ import "./RegistroPagamentos.css";
 
 export function RegistroPagamentos({ coletarPagamentos}) {
 
+    const api = import.meta.env.VITE_API;
+    const apiPagamentos= import.meta.env.VITE_API_PAGAMENTOS;
+
     const [userOn] = useAuthState(auth);
 
     const [cadastrados, setCadastrados] = useState([]);
@@ -24,7 +27,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
     }
 
     useEffect(()=>{
-        const apiUrl = "https://controle-pagamentos-backend-api.onrender.com/";
+        const apiUrl = api;
         getCadastrados(apiUrl);
     },[])
 
@@ -36,7 +39,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
         const pagamentoAtual = ref.current;
     
         await axios
-            .post("https://controle-pagamentos-backend-api.onrender.com/pagamentos", {
+            .post(apiPagamentos, {
                 nome: pagamentoAtual.nome.value,
                 tipo_pagamento: pagamentoAtual.tipo_pagamento.value,
                 valor_pagamento: pagamentoAtual.valor_pagamento.value,

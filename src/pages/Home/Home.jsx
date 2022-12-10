@@ -12,6 +12,8 @@ import { Spinner } from "../../components/Spinner/Spinner";
 
 export function Home() {
 
+    const apiPagamentos= import.meta.env.VITE_API_PAGAMENTOS;
+
     const [user] = useAuthState(auth);
 
     const date = new Date();
@@ -31,7 +33,7 @@ export function Home() {
 
     const getPagamentos = async () => {
         try {
-            const res = await axios.get("https://controle-pagamentos-backend-api.onrender.com/pagamentos");
+            const res = await axios.get(apiPagamentos);
             setPagamentos(res.data.sort((a,b) => (a.name > b.name ? 1 : -1)));
         } catch (error) {
             toast.error(error);

@@ -9,6 +9,8 @@ import "./Cadastros.css"
 
 export function Cadastros() {
 
+    const api = import.meta.env.VITE_API;
+
     const [userOn] = useAuthState(auth);
 
     const ref = useRef();    
@@ -48,7 +50,7 @@ export function Cadastros() {
         
         if(onEdit) {
             await axios
-                .put("https://controle-pagamentos-backend-api.onrender.com/" + onEdit.id, {
+                .put(api + onEdit.id, {
                     nome: user.nome.value,
                     email: user.email.value,
                     fone: user.fone.value,
@@ -60,7 +62,7 @@ export function Cadastros() {
                 .catch(({ data }) => toast.error(data));
         } else {
             await axios
-                .post("https://controle-pagamentos-backend-api.onrender.com/", {
+                .post(api, {
                     nome: user.nome.value,
                     email: user.email.value,
                     fone: user.fone.value,
