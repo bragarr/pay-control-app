@@ -4,8 +4,6 @@ import { toast } from "react-toastify";
 
 import { Spinner } from "../../components/Spinner/Spinner";
 
-import { ContainerEdicao } from "../../components/ContainerEdicao/ContainerEdicao";
-
 import { auth } from "../../contexts/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -90,7 +88,6 @@ export function HistoricoPagamentos() {
     return(
         <section>
             <CarregamentoDeDados />
-            <ContainerEdicao onEdit={onEdit} setOnEdit={setOnEdit} />
         </section>
     )
 }

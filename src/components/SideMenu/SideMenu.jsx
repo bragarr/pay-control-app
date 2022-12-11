@@ -14,17 +14,17 @@ export function SideMenu() {
         return !user
         ?
         <nav className="menu__nav">
-            <Link to={"/"} className="link__menu">Inicio</Link>
+            <Link to={"/"} className="link__menu" onClick={escondeMenuLateral}>Inicio</Link>
             <p className="link__menu" onClick={exibeLoginLateral}>Login</p>
             <p className="link__menu" onClick={exibeSignUp}>Sign Up</p>
         </nav>
         :
         <nav className="menu__nav">
-            <Link to={"/"} className="link__menu">Inicio</Link>
+            <Link to={"/"} className="link__menu" onClick={escondeMenuLateral}>Inicio</Link>
             <p className="link__menu" onClick={exibeLoginLateral}>Perfil</p>
-            <Link to={"cadastros"} className="link__menu">Cadastros</Link>
-            <Link to={"pagamentos"} className="link__menu">Pagamentos</Link>
-            <Link to={"historico"} className="link__menu">Histórico de Pagamentos</Link>
+            <Link to={"cadastros"} className="link__menu" onClick={escondeMenuLateral}>Cadastros</Link>
+            <Link to={"pagamentos"} className="link__menu" onClick={escondeMenuLateral}>Pagamentos</Link>
+            <Link to={"historico"} className="link__menu" onClick={escondeMenuLateral}>Histórico de Pagamentos</Link>
         </nav>
 
     }
@@ -64,6 +64,17 @@ export function SideMenu() {
         // Condicionais para alterar o ícone de exibir ou esconeder  menu lateral
         botaoAtivaMenu.classList.remove("icone__desativado");
         fechaMenu.classList.add("icone__desativado");
+    }
+
+    const escondeMenuLateral = () => {
+        const botaoAtivaMenu = document.querySelector(".icone__menu");
+        const fechaMenu = document.querySelector(".fecha__menu");
+
+        // Condicionais para alterar o ícone de exibir ou esconeder  menu lateral
+        document.querySelector(".menu__nav").classList.remove("menu__ativado");
+        botaoAtivaMenu.classList.remove("icone__desativado");
+        fechaMenu.classList.add("icone__desativado");
+
     }
 
     return (

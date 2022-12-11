@@ -11,6 +11,14 @@
     align-items: center;
 }
 
+.intrucoes__aplicação {
+    margin: 0 40px;
+}
+
+.titutlo__pagina {
+    text-align: center;
+}
+
 
 @media screen and (min-width:720px) {
     .container__entradas {

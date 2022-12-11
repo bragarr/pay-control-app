@@ -44,12 +44,93 @@ export function Home() {
         getPagamentos();
     }, [setPagamentos]);
 
-    const SaldoDespesas = () => {
+    const NomeUsuario = () => {
+        return user.displayName===null
+        ?
+        "Novo Usuário. Acesse o seu Perfil e defina as suas configurações!"
+        :
+        user.displayName
+    }
+
+    const HomePageDeApresentacaoParaUsuario = () => {
+        return pagamentos.length <= 0
+        ?
+        <Spinner />
+        :
+        <ApresentacaoPrincipalHomePage />
+    }
+
+    const TituloDeApresentacaoDaPagina = () => {
+        return !user
+        ?
+        <h2>Opa! É muito bom ter você por aqui! </h2>
+        :
+        <article className="secao_homepage">
+            <h2>Seja Bem-vindo <NomeUsuario /></h2>
+            <h3>Resumo Geral</h3>
+            <h4>{dataAtual}</h4>
+        </article>
+    }
+
+    const ApresentacaoPrincipalHomePage = () => {
         if(!user) {
             return (
-                <article>
-                    <h2>Ainda não há pagamentos registrados aqui!</h2>
-                    <p>Se você ainda não possuí cadastro, registre-se logo!</p>
+                <article className="container__apresentacao">
+                    <h2>O que é o Controle de Pagamentos?</h2>
+                    <p>
+                        Esta é uma aplicação que possui como onjetivo principal realizar um controle 
+                        de fluxo de pagamentos. Basicamente, registrando entradas e saídas de pagamentos 
+                        como em um fluxo de caixa. Desta forma, a plataforma faz um controle de 
+                        registros com todas as entradas e depesas informando para o usuário seu saldo, 
+                        podendo ser positivo ou negativo
+                    </p>
+                    <h3>O que compõe o registro de pagamentos?</h3>
+                    <p>
+                        <ul>
+                            <li>Cadastro de Pessoas/Empresas</li>
+                            <li>Registro de Pagamentos</li>
+                            <li>Controle dos Dados</li>
+                            <li>Resumo global de todas as informações</li>
+                        </ul>
+                    </p>
+                    <h3>Cadastro de Pessoas/Empresas</h3>
+                    <p>
+                        Aqui você pode realizar o cadastro de pessoas e empresas e assim montar
+                        uma base de dados de informações para facilitar o registro de pagamentos
+                        e assim formular o fluxo de caixa.
+                    </p>
+                    <figure>
+                        <img src="#" alt="#" />
+                        <figcaption>Representação da legenda</figcaption>
+                    </figure>
+                    <h3>Registro de Pagamentos</h3>
+                    <p>
+                        Após contruir a base de cadastros com todas as pessoas e empresas que deseja
+                        realizar o controle de pagamentos, você pode começar a criar os registros de 
+                        pagamentos para iniciar a cadeia de dados para gerar o seu fluxo de caixa.
+                    </p>
+                    <figure>
+                        <img src="#" alt="#" />
+                        <figcaption>Representação da legenda</figcaption>
+                    </figure>
+                    <h3>Controle dos dados</h3>
+                    <p>
+                        Crie, Edite e Delete todos os dados que precisar, você pode gerenciar todas
+                        as informações necessárias para realizar o seu controle de pagamentos.
+                    </p>
+                    <figure>
+                        <img src="#" alt="#" />
+                        <figcaption>Representação da imagem</figcaption>
+                    </figure>
+                    <h3>Resumo Global de Todas as Informações</h3>
+                    <p>
+                        Tenha tudo resumido em uma dashboard com as principais informações do seu
+                        fluxo de pagamentos.
+                    </p>
+                    <figure>
+                        <img src="#" alt="#" />
+                        <figcaption>Representação da imagem</figcaption>
+                    </figure>
                 </article>
             )
         } else {
@@ -89,47 +170,17 @@ export function Home() {
                     chartType="ColumnChart"
                     data={data}
                     options={options}
+                    className="grafico"
                     />
                 </article>
             )
         }
     }
 
-    const NomeUsuario = () => {
-        return user.displayName===null
-        ?
-        "Nome de usuário ainda não definido. Por favor acesse o seu perfil e ajuste os seus dados"
-        :
-        user.displayName
-    }
-
-    const DefineMensagemHome = () => {
-        return !user
-        ?
-        <article className="secao_homepage">
-            <h2>Resumo Geral</h2>
-            <h3>{dataAtual}</h3>
-        </article>
-        :
-        <article className="secao_homepage">
-            <h2>Seja Bem-vindo <NomeUsuario /></h2>
-            <h3>Resumo Geral</h3>
-            <h4>{dataAtual}</h4>
-        </article>
-    }
-
-    const DefineDashBoard = () => {
-        return pagamentos.length <= 0
-        ?
-        "carregando..."
-        :
-        <SaldoDespesas />
-    }
-
     return(
         <section className="dashboard__principal">
-            <DefineMensagemHome />
-            <DefineDashBoard />
+            <TituloDeApresentacaoDaPagina />
+            <HomePageDeApresentacaoParaUsuario />
         </section>
     )
 }

@@ -20,8 +20,9 @@ export function Cadastros() {
 
     const getUsers = async () => {
         try {
-            const res = await axios.get("https://controle-pagamentos-backend-api.onrender.com/");
-            setUsers(res.data.sort((a,b) => (a.nome > b.nome ? 1 : -1)));
+            const res = await axios.get(api);
+            const listaUsuariosCadastrados = res.data.sort((a,b) => (a.nome > b.nome ? 1 : -1));
+            setUsers(listaUsuariosCadastrados.filter((lista) => lista.usuario===userOn.uid));
         } catch (error) {
             toast.error(error);
         }
@@ -88,9 +89,46 @@ export function Cadastros() {
         getUsers();
     }
 
+    const gerarDadosParaEditarConformeFiltro = () => {
+        const opcaoSelecionada = document.querySelector(".teste__opcao");
+
+        const usuarioSelecionado = users.filter((usuarioSelecionado) => usuarioSelecionado.nome===opcaoSelecionada.value);
++
+        console.log(usuarioSelecionado);
+
+    }
+
     return (
         <section>
-            <h2 className="titulo__cadastro">Tela de cadastros</h2>
+            <article className="apresentacao__cadastro">
+                <h2 className="titulo__cadastro">Tela de cadastros</h2>
+                <p>
+                    Aqui você realizará o cadastro de pessoas/empresas para realizar 
+                    o registro de pagamentos efetuados na página de registro de pagamentos
+                </p>
+                <p>
+                    Abaixo você pode conferir os campos que devem ser preenchidos
+                </p>
+                <p>
+                    Nome → O Campo "Nome" deve ser preenchido conforme o usuário definir 
+                    para ser visializado em toda base de dados na plataforma. 
+                    Este nome será a referência no registro de pagamentos e acesso de 
+                    qualquer outro dado.
+                </p>
+                <p>
+                    Email → O Campo "E-mail" deve ser preenchido com e-mail para contato 
+                    com a pessoa e/ou empresa.
+                </p>
+                <p>
+                    Telefone → O Compo "Telefone" pode ser preenchido com telefone comercial 
+                    e/ou Telefone celular para contato.
+                </p>
+                <p>
+                    Categoria → A categoria deve ser selecionada conforme a natureza da 
+                    pessoa e/ou empresa que será registro de pagamentos. Esse campo serve 
+                    para gerar dados de acompanhamento na página inicial da aplicação.
+                </p>
+            </article>
             <form className="formulario__cadastro" ref={ref} onSubmit={handleSubmit}>
                 <fieldset className="containers__input">
                     <label htmlFor="name">
@@ -150,6 +188,14 @@ export function Cadastros() {
                     Cadastrar
                 </button>
             </form>
+            <article>
+                <select className="teste__opcao">
+                    {users.map((item, i) => (
+                        <option key={i}>{item.nome}</option>
+                    ))}
+                </select>
+                <button type="button" onClick={gerarDadosParaEditarConformeFiltro}>Selecionar</button>
+            </article>
         </section>
     );
 };

@@ -29,3 +29,11 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.grafico {
+    display: none;
+}
+
+.container__apresentacao {
+    margin: 0 40px;
+}
