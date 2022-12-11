@@ -77,9 +77,9 @@ export function Home() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>R${entradas/2}</td>
-                                <td>R${despesas/2}</td>
-                                <td>R${(entradas - despesas)/2}</td>
+                                <td>R${entradas}</td>
+                                <td>R${despesas}</td>
+                                <td>R${(entradas - despesas)}</td>
                             </tr>
                         </tbody>
                     </table>
