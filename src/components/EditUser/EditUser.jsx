@@ -3,17 +3,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { updateProfile } from "firebase/auth";
 
 import "./EditUser.css"
+import { useState } from "react";
 
 export function EditUser() {
 
     const [user] = useAuthState(auth);
 
+    const [nomeUsuario, setNomeUsuario] = useState([]); 
+
     // Função para atualizar dados do usuário no Firebase (Nome)
     const atualizaNomeUsuario = () => {
-
-        let nomeAtualizado = document.getElementById("nome").value;
-        console.log(user.displayName);
-
         updateProfile(user, {
             displayName: nomeAtualizado
         }).then(() => {
@@ -21,6 +20,8 @@ export function EditUser() {
         }, (error) => {
             console.log(error);
         })
+
+        let nomeAtualizado = document.getElementById("nome").value;
 
         window.location.reload(true);
     }

@@ -1,7 +1,6 @@
 import { auth } from "../../contexts/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useState, useEffect } from "react";
-import { Chart } from "react-google-charts";
 
 import { toast } from "react-toastify";
 
@@ -9,6 +8,7 @@ import axios from "axios";
 
 import "./Home.css";
 import { Spinner } from "../../components/Spinner/Spinner";
+import { Graficos } from "../../components/Graficos/Graficos";
 
 export function Home() {
 
@@ -23,7 +23,6 @@ export function Home() {
 
     let entradas = 0;
     let despesas = 0;
-    let saldo = 0;
     
     const [pagamentos, setPagamentos] = useState([]);
 
@@ -63,7 +62,7 @@ export function Home() {
     const TituloDeApresentacaoDaPagina = () => {
         return !user
         ?
-        <h2>Opa! É muito bom ter você por aqui! </h2>
+        <h2 className="secao_homepage">Opa! É muito bom ter você por aqui! </h2>
         :
         <article className="secao_homepage">
             <h2>Seja Bem-vindo <NomeUsuario /></h2>
@@ -85,14 +84,12 @@ export function Home() {
                         podendo ser positivo ou negativo
                     </p>
                     <h3>O que compõe o registro de pagamentos?</h3>
-                    <p>
-                        <ul>
-                            <li>Cadastro de Pessoas/Empresas</li>
-                            <li>Registro de Pagamentos</li>
-                            <li>Controle dos Dados</li>
-                            <li>Resumo global de todas as informações</li>
-                        </ul>
-                    </p>
+                    <ul>
+                        <li>Cadastro de Pessoas/Empresas</li>
+                        <li>Registro de Pagamentos</li>
+                        <li>Controle dos Dados</li>
+                        <li>Resumo global de todas as informações</li>
+                    </ul>
                     <h3>Cadastro de Pessoas/Empresas</h3>
                     <p>
                         Aqui você pode realizar o cadastro de pessoas e empresas e assim montar
@@ -141,11 +138,6 @@ export function Home() {
                     despesas += item.valor_pagamento;
                 }
             })
-    
-            const [data, setData] = useState([
-                ['Ano',"Entrada", "Despesa", "Saldo"],
-                ['2022',(entradas/2),(despesas/2) ,(entradas - despesas)/2]
-            ]);
             return (
                 <article className="posicao__grafica">
                     <table className="tabela__dados">
@@ -164,14 +156,7 @@ export function Home() {
                             </tr>
                         </tbody>
                     </table>
-                    <Chart
-                    width={'500px'}
-                    height={'300px'}
-                    chartType="ColumnChart"
-                    data={data}
-                    options={options}
-                    className="grafico"
-                    />
+                    <Graficos entradas={entradas} despesas={despesas}/>
                 </article>
             )
         }

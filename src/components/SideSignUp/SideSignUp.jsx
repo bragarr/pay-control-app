@@ -55,7 +55,7 @@ export function SideSignUp() {
                         name="email"
                         placeholder="Digite o seu E-mail"
                         className="campo__input--signup"
-                        id="email"
+                        id="email__signup"
                         value={email}
                         onChange={(e) => [setEmail(e.target.value)]}
                         required

@@ -14,9 +14,9 @@ export function App() {
     <AuthProvider>
       <BrowserRouter>
         <Header />
-        <SideLogin />
-        <SideSignUp />
         <main>
+          <SideLogin />
+          <SideSignUp />
           <SideMenu />
           <MainRoutes />
         </main>
