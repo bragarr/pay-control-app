@@ -16,19 +16,12 @@ export function Home() {
 
     const [user] = useAuthState(auth);
 
-    const date = new Date();
-    const dataAtual = date.toLocaleDateString();
-
     // dados para dashboard principal
 
     let entradas = 0;
     let despesas = 0;
     
     const [pagamentos, setPagamentos] = useState([]);
-
-    const [options, setOptions] = useState({
-        title: 'Posição da carteira de pagamentos'
-    });
 
     const getPagamentos = async () => {
         try {
@@ -65,9 +58,8 @@ export function Home() {
         <h2 className="secao_homepage">Opa! É muito bom ter você por aqui! </h2>
         :
         <article className="secao_homepage">
-            <h2>Seja Bem-vindo <NomeUsuario /></h2>
-            <h3>Resumo Geral</h3>
-            <h4>{dataAtual}</h4>
+            <h2><b>Olá <NomeUsuario /></b></h2>
+            <p>Confira abaixo o resumo de suas movimentações!</p>
         </article>
     }
 
@@ -140,23 +132,13 @@ export function Home() {
             })
             return (
                 <article className="posicao__grafica">
-                    <table className="tabela__dados">
-                        <thead>
-                            <tr>
-                                <th>Entradas</th>
-                                <th>Despesas</th>
-                                <th>Saldo Atual</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>R${entradas}</td>
-                                <td>R${despesas}</td>
-                                <td>R${(entradas - despesas)}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div className="resumo__saldo">
+                        <h3 className="dados__saldo">Balanço Total<br/>(Entrada - Despesas)</h3>
+                        <p className="dados__saldo">R${(entradas)-(despesas)}</p>
+                    </div>
                     <Graficos entradas={entradas} despesas={despesas}/>
+                    <h4>Principais Entradas</h4>
+                    <h4>Principais Despesas</h4>
                 </article>
             )
         }

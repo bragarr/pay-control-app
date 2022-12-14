@@ -8,20 +8,11 @@
     text-align: center;
 }
 
-/* .formulario__busca {
-    display: flex;
-    justify-content: center;
-} */
-
 .campos__filtro {
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 200px;
-}
-
-.tabela__dados {
-    text-align: center;
 }
 
 .posicao__grafica {
@@ -30,6 +21,19 @@
     justify-content: center;
 }
 
+.resumo__saldo {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.dados__saldo {
+    margin: 0;
+}
+
 .container__apresentacao {
     margin: 0 40px;
+}
+
+.negativo {
+    color: red;
 }

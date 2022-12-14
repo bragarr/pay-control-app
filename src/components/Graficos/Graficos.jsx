@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { Chart } from "react-google-charts";
 
+
 export function Graficos({entradas, despesas}) {
 
     const [tabela, setTabela] = useState([
@@ -10,10 +11,13 @@ export function Graficos({entradas, despesas}) {
         ["Despesas (R$)",Math.round((-despesas))]
     ]);
 
-    const opcaoFormato = {
+    const opcaoFormatoTabela = {
         allowHtml: true,
-        showRowNumber: true,
-      };
+    };
+
+    const opcaoFormatoGraficoPizza = {
+        width:"350px"
+    }
 
     const formatters = [
         {
@@ -32,17 +36,22 @@ export function Graficos({entradas, despesas}) {
     ]);
 
     return (
-        <div className="area__graficos">
+        <div
+            style={{
+                zIndex: -1,
+                textAlign: "center",
+            }}
+        >
             <Chart
                 chartType="Table"
                 data={tabela}
-                options={opcaoFormato}
+                options={opcaoFormatoTabela}
                 formatters={formatters}
-                display="none"
             />
             <Chart 
                 chartType="PieChart"
                 data={pizza}
+                options={opcaoFormatoGraficoPizza}
             />
         </div>
     );
