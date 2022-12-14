@@ -61,7 +61,7 @@ export function HistoricoPagamentos() {
                     {cadastrados.map((item, i) => (
                         <tr key={i}>
                             <td className="tipo__pagamento">{item.tipo_pagamento}</td>
-                            <td className="info__valor">R${item.valor_pagamento}</td>
+                            <td className="info__valor">R${(item.valor_pagamento).toFixed(2)}</td>
                             <td className="info__data">
                                 {
                                 item.data_pagamento[8]+item.data_pagamento[9]+

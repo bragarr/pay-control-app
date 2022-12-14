@@ -15,10 +15,6 @@ export function Graficos({entradas, despesas}) {
         allowHtml: true,
     };
 
-    const opcaoFormatoGraficoPizza = {
-        width:"350px"
-    }
-
     const formatters = [
         {
           type: "BarFormat",
@@ -34,6 +30,10 @@ export function Graficos({entradas, despesas}) {
         ["Entradas", (entradas)],
         ["Despesas", (despesas)]
     ]);
+
+    const opcaoFormatoGraficoPizza = {
+        width:"350px"
+    }
 
     return (
         <div

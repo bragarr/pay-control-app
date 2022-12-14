@@ -26,7 +26,11 @@ export function Home() {
     const getPagamentos = async () => {
         try {
             const res = await axios.get(apiPagamentos);
-            setPagamentos(res.data.sort((a,b) => (a.name > b.name ? 1 : -1)));
+            setPagamentos(res.data.sort((a,b) => (a.valor_pagamento > b.valor_pagamento ? 1 : -1)));
+            console.log(pagamentos);
+            // itemFiltro = pagamentos.filter((item) => item.usuario===user.uid);
+            // console.log(itemFiltro);
+
         } catch (error) {
             toast.error(error);
         }
@@ -34,7 +38,7 @@ export function Home() {
 
     useEffect(() => {
         getPagamentos();
-    }, [setPagamentos]);
+    }, []);
 
     const NomeUsuario = () => {
         return user.displayName===null
@@ -134,7 +138,7 @@ export function Home() {
                 <article className="posicao__grafica">
                     <div className="resumo__saldo">
                         <h3 className="dados__saldo">Balanço Total<br/>(Entrada - Despesas)</h3>
-                        <p className="dados__saldo">R${(entradas)-(despesas)}</p>
+                        <p className="dados__saldo">R${((entradas)-(despesas)).toFixed(2)}</p>
                     </div>
                     <Graficos entradas={entradas} despesas={despesas}/>
                     <h4>Principais Entradas</h4>
@@ -151,3 +155,5 @@ export function Home() {
         </section>
     )
 }
+
+// res.data.sort((a,b) => (a.name > b.name ? 1 : -1))
