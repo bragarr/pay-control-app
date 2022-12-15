@@ -26,11 +26,7 @@ export function Home() {
     const getPagamentos = async () => {
         try {
             const res = await axios.get(apiPagamentos);
-            setPagamentos(res.data.sort((a,b) => (a.valor_pagamento > b.valor_pagamento ? 1 : -1)));
-            console.log(pagamentos);
-            // itemFiltro = pagamentos.filter((item) => item.usuario===user.uid);
-            // console.log(itemFiltro);
-
+            setPagamentos(res.data.sort((a,b) => (a.valor_pagamento < b.valor_pagamento ? 1 : -1)));
         } catch (error) {
             toast.error(error);
         }

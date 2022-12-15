@@ -19,6 +19,7 @@
 
 .input__cadastros {
     height: 30px;
+    border-radius: 10px;
 }
 
 .botao__cadastro {

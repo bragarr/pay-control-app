@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items:center;
+    background-color: var(--std-gold);
+    border-radius: 10px;
 }
 
 .campos__preenchimento {
@@ -9,10 +11,13 @@
     flex-direction: column;
     width: 60vw;
     line-height: 40px;
+    border: none;
 }
 
 #valor_pagamento, #obs, #name, #tipo_pagamento, #data_pagamento {
     line-height: 30px;
+    border-radius: 10px;
+    border: 1px solid black;
 }
 
 #data_pagamento {
@@ -44,6 +49,7 @@
 
     #valor_pagamento, #obs, #name, #tipo_pagamento, #data_pagamento {
         line-height: 25px;
+        margin-right: 1vw;
     }
     #tipo_pagamento {
         width: 80px;

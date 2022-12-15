@@ -65,7 +65,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
         <form ref={ref} onSubmit={handleSubmit} className="formulario__cred">
             <fieldset className="campos__preenchimento">
                 <label htmlFor="tipo_pagamento">
-                    Tipo: 
+                    Tipo 
                 </label>
                 <select
                     name="tipo_pagamento"
@@ -84,7 +84,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                     </option>
                 </select>
                 <label htmlFor="nome">
-                    Nome: 
+                    Nome 
                 </label>
                 <select
                     name="nome"
@@ -102,7 +102,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                     required
                 />
                 <label htmlFor="obs">
-                    Obs: 
+                    Descrição  
                 </label>
                 <input
                     type="text"

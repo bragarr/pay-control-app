@@ -32,8 +32,8 @@ export function Pagamentos() {
                     seguir: 500.25 | 1025.73 | 10500.72 | 500325.47
                 </p>
                 <p>
-                    Obs → O Campo de observações serve para que o usuário descreva brevemente
-                    uma observação a respeito pagamento a ser registrado.
+                    Descrição → O Campo de Descrição serve para que o usuário descreva brevemente
+                    o registro do pagamento que está salvando na plataforma.
                 </p>
                 <p>
                     Data → A data deve ser registrada conforme a data que os pagamentos serão

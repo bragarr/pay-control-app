@@ -14,6 +14,7 @@
     transition: 1s;
     padding: 1vh 2vw;
     line-height: 30px;
+    outline: 1px solid black;
 }
 
 .campos__up {
