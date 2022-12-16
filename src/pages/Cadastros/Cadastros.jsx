@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 import "./Cadastros.css"
+import { EdicaoCadastro } from "../../components/EdicaoCadastro/EdicaoCadastro";
 
 export function Cadastros() {
 
@@ -15,91 +16,64 @@ export function Cadastros() {
 
     const ref = useRef();    
 
-    const [users, setUsers] = useState([]);
+    const [cadastrados, setCadastrados] = useState([]);
     const [onEdit, setOnEdit] = useState(null);
 
-    const getUsers = async () => {
+    const getCadastrados = async () => {
         try {
             const res = await axios.get(api);
             const listaUsuariosCadastrados = res.data.sort((a,b) => (a.nome > b.nome ? 1 : -1));
-            setUsers(listaUsuariosCadastrados.filter((lista) => lista.usuario===userOn.uid));
+            setCadastrados(listaUsuariosCadastrados.filter((lista) => lista.usuario===userOn.uid));
         } catch (error) {
             toast.error(error);
         }
     };
 
     useEffect(() => {
-        getUsers();
-    }, [setUsers])
-
-    useEffect(() => {
-        if(onEdit) {
-            const user = ref.current;
-
-            user.nome.value = onEdit.nome;
-            user.email.value = onEdit.email;
-            user.fone.value = onEdit.fone;
-            user.categoria.value = onEdit.categoria;
-            user.usuario.value = userOn.displayName;
-        }
-    }, [onEdit]);
+        getCadastrados();
+    }, [setCadastrados])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const user = ref.current;
-        
-        if(onEdit) {
-            await axios
-                .put(api + onEdit.id, {
-                    nome: user.nome.value,
-                    email: user.email.value,
-                    fone: user.fone.value,
-                    categoria: user.categoria.value,
-                    usuario: userOn.uid
-                })
-
-                .then(({ data }) => toast.success(data))
-                .catch(({ data }) => toast.error(data));
-        } else {
-            await axios
-                .post(api, {
-                    nome: user.nome.value,
-                    email: user.email.value,
-                    fone: user.fone.value,
-                    categoria: user.categoria.value,
-                    usuario: userOn.uid
-                })
-                .then 
-                (
-                    ({ data }) => toast.success(data)
-                )
-                .catch
-                (
-                    ({ data }) => toast.error(data)
-                )
-        }
+    
+        await axios
+            .post(api, {
+                nome: user.nome.value,
+                email: user.email.value,
+                fone: user.fone.value,
+                categoria: user.categoria.value,
+                usuario: userOn.uid
+            })
+            .then 
+            (
+                ({ data }) => toast.success(data)
+            )
+            .catch
+            (
+                ({ data }) => toast.error(data)
+            )
 
         user.nome.value = "";
         user.email.value = "";
         user.fone.value = "";
         user.categoria.value = "";
-
-        setOnEdit(null);
-        getUsers();
+        getCadastrados();
     }
 
-    const gerarDadosParaEditarConformeFiltro = () => {
-        const opcaoSelecionada = document.querySelector(".teste__opcao");
-
-        const usuarioSelecionado = users.filter((usuarioSelecionado) => usuarioSelecionado.nome===opcaoSelecionada.value);
-+
-        console.log(usuarioSelecionado);
-
+    const getOpcaoSelecionada = async () => {
+        try {
+            let cadastroSelecionado =  document.querySelector(".teste__opcao").value;
+            setOnEdit(cadastrados.filter((selecionado) => selecionado.nome===cadastroSelecionado));
+            console.log(onEdit);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
-        <section>
+        <section className="pagina__cadastros">
             <article className="apresentacao__cadastro">
                 <h2 className="titulo__cadastro">Tela de cadastros</h2>
                 <p>
@@ -188,14 +162,20 @@ export function Cadastros() {
                     Cadastrar
                 </button>
             </form>
-            <article>
-                <select className="teste__opcao">
-                    {users.map((item, i) => (
-                        <option key={i}>{item.nome}</option>
-                    ))}
-                </select>
-                <button type="button" onClick={gerarDadosParaEditarConformeFiltro}>Selecionar</button>
+            <article className="lista__cadastrados">
+                <h3>Lista de Contribuintes/Fornecedores Cadastrados</h3>
+                <form>
+                    <select className="teste__opcao">
+                        {cadastrados.map((item, i) => (
+                            <option key={i}>{item.nome}</option>
+                        ))}
+                    </select>
+                    <button type="button" onClick={getOpcaoSelecionada}>Selecionar</button>
+                </form>
             </article>
+            <div className="area__containerEdicao">
+                <EdicaoCadastro cadastrados={cadastrados} setCadastrados={setCadastrados} />
+            </div>
         </section>
     );
 };

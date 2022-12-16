@@ -6,15 +6,29 @@
     border-radius: 10px;
 }
 
+.grupo__dadosPrenchimento {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+}
+
 .campos__preenchimento {
     display: flex;
     flex-direction: column;
-    width: 60vw;
+    width: 300px;
     line-height: 40px;
     border: none;
 }
 
-#valor_pagamento, #obs, #name, #tipo_pagamento, #data_pagamento {
+.selecao__opcao {
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    outline: 1px solid black;
+    border: none;
+}
+
+#valor_pagamento, #obs, #data_pagamento {
     line-height: 30px;
     border-radius: 10px;
     border: 1px solid black;
@@ -33,9 +47,9 @@
     cursor: pointer;
 }
 
-@media screen and (min-width:720px) {
+@media screen and (max-width:380px) {
     .campos__preenchimento {
-        width: 400px;
+        width: 200px;
     }
 }
 
@@ -45,22 +59,6 @@
         line-height: 40px;
         width: auto;
         align-items: center;
-    }
-
-    #valor_pagamento, #obs, #name, #tipo_pagamento, #data_pagamento {
-        line-height: 25px;
-        margin-right: 1vw;
-    }
-    #tipo_pagamento {
-        width: 80px;
-    }
-
-    #name {
-        width: 200px;
-    }
-
-    #valor_pagamento, #obs {
-        width: 100px;
     }
 
 }

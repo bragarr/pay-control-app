@@ -1,3 +1,7 @@
+.pagina__cadastros {
+    overflow: auto;
+}
+
 .titulo__cadastro {
     text-align: center;
 }
@@ -33,6 +37,14 @@
 
 .apresentacao__cadastro {
     margin: 0 40px;
+}
+
+.lista__cadastrados {
+    text-align: center;
+}
+
+.area__containerEdicao {
+    text-align: center;
 }
 
 @media screen and (min-width:720px) {

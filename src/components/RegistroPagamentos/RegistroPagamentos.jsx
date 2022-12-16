@@ -64,67 +64,67 @@ export function RegistroPagamentos({ coletarPagamentos}) {
         :
         <form ref={ref} onSubmit={handleSubmit} className="formulario__cred">
             <fieldset className="campos__preenchimento">
-                <label htmlFor="tipo_pagamento">
-                    Tipo 
-                </label>
-                <select
-                    name="tipo_pagamento"
-                    id="tipo_pagamento"
-                    className="tipo__pagamento"
-                >
-                    <option
-                        className="opcao__1"
+                <div className="grupo__dadosPrenchimento">
+                    <label htmlFor="tipo_pagamento">
+                        Tipo 
+                    </label>
+                    <select
+                        name="tipo_pagamento"
+                        id="tipo_pagamento"
+                        className="selecao__opcao"
                     >
-                        Entrada
-                    </option>
-                    <option
-                        className="opcao__2"
+                        <option>Entrada</option>
+                        <option>Despesa</option>
+                    </select>
+                </div>
+                <div className="grupo__dadosPrenchimento">
+                    <label htmlFor="nome">
+                        Nome 
+                    </label>
+                    <select
+                        name="nome"
+                        id="name"
+                        className="selecao__opcao"
                     >
-                        Despesa
-                    </option>
-                </select>
-                <label htmlFor="nome">
-                    Nome 
-                </label>
-                <select
-                    name="nome"
-                    id="name"
-                >
-                    {cadastrados.length > 0 && cadastrados.map((item) =><option key={item.id}>{item.nome}</option>)}
-                </select>
-                <label htmlFor="valor_pagamento">
-                    Valor
-                </label>
-                <input
-                    type="text"
-                    name="valor_pagamento"
-                    id="valor_pagamento"
-                    required
-                />
-                <label htmlFor="obs">
-                    Descrição  
-                </label>
-                <input
-                    type="text"
-                    name="obs"
-                    id="obs"
-                    maxLength="30"
-                    required
-                />
-                 <label htmlFor="data_pagamento">
-                    Data:
-                </label>
-                <input
-                    type="date"
-                    name="data_pagamento"
-                    id="data_pagamento"
-                    required
-                />
+                        {cadastrados.length > 0 && cadastrados.map((item) =><option key={item.id}>{item.nome}</option>)}
+                    </select>
+                </div>
+                <div className="grupo__dadosPrenchimento">
+                    <label htmlFor="valor_pagamento">
+                        Valor
+                    </label>
+                    <input
+                        type="text"
+                        name="valor_pagamento"
+                        id="valor_pagamento"
+                        required
+                    />
+                </div>
+                <div className="grupo__dadosPrenchimento">
+                    <label htmlFor="obs">
+                        Descrição  
+                    </label>
+                    <input
+                        type="text"
+                        name="obs"
+                        id="obs"
+                        maxLength="30"
+                        required
+                    />
+                </div>
+                <div className="grupo__dadosPrenchimento">
+                    <label htmlFor="data_pagamento">
+                        Data:
+                    </label>
+                    <input
+                        type="date"
+                        name="data_pagamento"
+                        id="data_pagamento"
+                        required
+                    />
+                </div>
             </fieldset>
-            <button
-                type="submit"
-                className="botao__pagamento"
-            >
+            <button type="submit" className="botao__pagamento">
                 Registrar
             </button>
         </form>

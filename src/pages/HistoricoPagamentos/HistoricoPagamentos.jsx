@@ -46,7 +46,7 @@ export function HistoricoPagamentos() {
         :
         <section className="resumo__pagamentos">
             <h2>Histórico de Pagamentos</h2>
-            <table className="dados__armazenados">
+            {/* <table className="dados__armazenados">
                 <thead>
                     <tr>
                         <th className="tipo__pagamento">Tipo</th>
@@ -82,12 +82,10 @@ export function HistoricoPagamentos() {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table> */}
         </section>
     }
     return(
-        <section>
-            <CarregamentoDeDados />
-        </section>
+        <CarregamentoDeDados />
     )
 }

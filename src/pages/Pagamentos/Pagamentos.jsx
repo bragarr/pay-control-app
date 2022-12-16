@@ -33,7 +33,8 @@ export function Pagamentos() {
                 </p>
                 <p>
                     Descrição → O Campo de Descrição serve para que o usuário descreva brevemente
-                    o registro do pagamento que está salvando na plataforma.
+                    o registro do pagamento que está salvando na plataforma. A descrição não poderá
+                    exceder o máximo de 30 caracteres.
                 </p>
                 <p>
                     Data → A data deve ser registrada conforme a data que os pagamentos serão

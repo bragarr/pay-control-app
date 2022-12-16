@@ -1,7 +1,5 @@
 .container__edicao {
-    position: fixed;
-    top: 14vh;
-    left: -100%;
+    display: inline-block;
     background-color: var(--std-gold);
     text-align: center;
     padding: 20px 0;
