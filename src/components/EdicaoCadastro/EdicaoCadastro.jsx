@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 
+import axios from "axios";
+
+import { toast } from "react-toastify";
+
 import "./EdicaoCadastro.css";
 
-export function EdicaoCadastro({cadastrados, setCadastrados}) {
-
+export function EdicaoCadastro({onEdit, setOnEdit}) {
     const api= import.meta.env.VITE_API;
 
     const ref = useRef();
@@ -22,84 +25,83 @@ export function EdicaoCadastro({cadastrados, setCadastrados}) {
         setOnEdit(null);
     }
 
-    const handleSubmit = async (e) => {
+    useEffect(() => {
+        if(onEdit) {
+            const selecionado = ref.current;
+            selecionado.nomeEdicao.value = onEdit[0].nome;
+            selecionado.emailEdicao.value = onEdit[0].email;
+            selecionado.foneEdicao.value = onEdit[0].fone;
+            selecionado.categoriaEdicao.value = onEdit[0].categoriaEdicao;
+        }
+    },[onEdit]);
+
+    const handleEdit = async (e) => {
         e.preventDefault();
 
-        const pagamento = ref.current;
-        
-        if(onEdit) {
-            await axios
-                .put(api + onEdit.id, {
-                    tipo_pagamento: pagamento.tipo_pagamento.value,
-                    nome: pagamento.nome.value,
-                    valor_pagamento: pagamento.valor_pagamento.value,
-                    obs: pagamento.obs.value,
-                    data_pagamento: pagamento.data_pagamento.value
-                })
+        const selecionado = ref.current;
 
-                .then(({ data }) => toast.success(data))
-                .catch(({ data }) => toast.error(data));
-        }
+        await axios
+            .put(api + onEdit[0].id, {
+                nome: selecionado.nomeEdicao.value,
+                email: selecionado.emailEdicao.value,
+                fone: selecionado.foneEdicao.value,
+                categoria: selecionado.categoriaEdicao.value,
+            })
+
+            .then(({ data }) => toast.success(data))
+            .catch(({ data }) => toast.error(data));
+
     }
 
     return (
         <article className="container__edicao">
-            <form>
+            <form ref={ref}>
                 <fieldset className="form__edicao">
-                    <label htmlFor="tipo_pagamento">
-                        Tipo: 
-                    </label>
-                    <select
-                        name="tipo_pagamento"
-                        id="tipo_pagamento"
-                    >
-                        <option
-                        >
-                            Entrada
-                        </option>
-                        <option
-                        >
-                            Despesa
-                        </option>
-                    </select>
-                    <label htmlFor="nome">
+                    <label htmlFor="nomeEdicao">
                         Nome: 
                     </label>
                     <input
                         type="text"
-                        name="nome"
-                        id="name"
+                        name="nomeEdicao"
+                        id="nameEdicao"
                     />
-                    <label htmlFor="valor_pagamento">
-                        Valor
+                    <label htmlFor="emailEdicao">
+                        Email
                     </label>
                     <input
                         type="text"
-                        name="valor_pagamento"
-                        id="valor_pagamento"
+                        name="emailEdicao"
+                        id="emailEdicao"
                         required
                     />
-                    <label htmlFor="obs">
-                        Observação/Justificativa: 
+                    <label htmlFor="foneEdicao">
+                        Telefone: 
                     </label>
                     <input
-                        type="text"
-                        name="obs"
-                        id="obs"
-                        maxLength="30"
+                        type="tel"
+                        name="foneEdicao"
+                        id="foneEdicao"
+
                         required
                     />
-                    <label htmlFor="data_pagamento">
-                        Data da Pagamento: 
+                    <label htmlFor="categoriaEdicao">
+                        Tipo: 
                     </label>
-                    <input
-                        type="date"
-                        name="data_pagamento"
-                        id="data_pagamento"
-                        required
-                    />
+                    <select
+                        name="categoriaEdicao"
+                        id="categoriaEdicao"
+                    >
+                        <option
+                        >
+                            Contribuinte
+                        </option>
+                        <option
+                        >
+                            Fornecedor
+                        </option>
+                    </select>
                 </fieldset>
-                <button type="submit">Atualizar</button>
+                <button type="submit" onClick={handleEdit}>Atualizar</button>
                 <button type="submit">Deletar</button>
             </form>
         </article>

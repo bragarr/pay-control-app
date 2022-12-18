@@ -62,14 +62,8 @@ export function Cadastros() {
         getCadastrados();
     }
 
-    const getOpcaoSelecionada = async () => {
-        try {
-            let cadastroSelecionado =  document.querySelector(".teste__opcao").value;
-            setOnEdit(cadastrados.filter((selecionado) => selecionado.nome===cadastroSelecionado));
-            console.log(onEdit);
-        } catch (error) {
-            console.log(error);
-        }
+    const defineOpcaoParaEditarOuDeletar = () => {
+        setOnEdit(cadastrados.filter((item) => item.nome===(document.querySelector(".teste__opcao").value)));
     }
 
     return (
@@ -170,11 +164,11 @@ export function Cadastros() {
                             <option key={i}>{item.nome}</option>
                         ))}
                     </select>
-                    <button type="button" onClick={getOpcaoSelecionada}>Selecionar</button>
+                    <button type="button" onClick={defineOpcaoParaEditarOuDeletar}>Selecionar</button>
                 </form>
             </article>
             <div className="area__containerEdicao">
-                <EdicaoCadastro cadastrados={cadastrados} setCadastrados={setCadastrados} />
+                <EdicaoCadastro onEdit={onEdit} setOnEdit={setOnEdit} />
             </div>
         </section>
     );
