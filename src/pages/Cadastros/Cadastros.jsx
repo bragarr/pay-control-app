@@ -96,7 +96,6 @@ export function Cadastros() {
             (
                 ({ data }) => toast.error(data)
             )
-        console.log(userOn.displayName)
         novaCategoria.nova__categoria.value = "";
     }
 
