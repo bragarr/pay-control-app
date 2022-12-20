@@ -6,18 +6,24 @@ import { toast } from "react-toastify";
 
 import "./EdicaoCadastro.css";
 
-export function EdicaoCadastro({onEdit, setOnEdit}) {
+export function EdicaoCadastro({getCadastrados, cadastrados, setCadastrados, onEdit, setOnEdit}) {
     const api= import.meta.env.VITE_API;
 
     const ref = useRef();
     
-    const handleDelete = async (id) => {
+    const handleDelete = async (e) => {
+        e.preventDefault();
         await axios
-            .delete(api + id)
+            .delete(api + onEdit[0].id)
             .then(({ data }) => {
-                const newArray = cadastrados.filter((user) => user.id !== id);
-                setCadastrados(newArray);
                 toast.success(data);
+                getCadastrados();
+                const selecionado = ref.current;
+                selecionado.nomeEdicao.value = "";
+                selecionado.emailEdicao.value = "";
+                selecionado.foneEdicao.value = "";
+                selecionado.categoriaEdicao.value = "";
+
             })
 
             .catch(({ data }) => toast.error(data));
@@ -47,9 +53,14 @@ export function EdicaoCadastro({onEdit, setOnEdit}) {
                 fone: selecionado.foneEdicao.value,
                 categoria: selecionado.categoriaEdicao.value,
             })
-
+            
             .then(({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data));
+
+        selecionado.nomeEdicao.value = "";
+        selecionado.emailEdicao.value = "";
+        selecionado.foneEdicao.value = "";
+        selecionado.categoriaEdicao.value = "";
 
     }
 
@@ -64,6 +75,7 @@ export function EdicaoCadastro({onEdit, setOnEdit}) {
                         type="text"
                         name="nomeEdicao"
                         id="nameEdicao"
+                        className="containers__inputEdicao"
                     />
                     <label htmlFor="emailEdicao">
                         Email
@@ -72,7 +84,7 @@ export function EdicaoCadastro({onEdit, setOnEdit}) {
                         type="text"
                         name="emailEdicao"
                         id="emailEdicao"
-                        required
+                        className="containers__inputEdicao"
                     />
                     <label htmlFor="foneEdicao">
                         Telefone: 
@@ -81,28 +93,28 @@ export function EdicaoCadastro({onEdit, setOnEdit}) {
                         type="tel"
                         name="foneEdicao"
                         id="foneEdicao"
-
-                        required
+                        className="containers__inputEdicao"
                     />
                     <label htmlFor="categoriaEdicao">
-                        Tipo: 
+                        Categoria: 
                     </label>
                     <select
                         name="categoriaEdicao"
                         id="categoriaEdicao"
+                        className="seletores__EdicaoCategoria"
                     >
-                        <option
-                        >
+                        <option value="Contribuinte">
                             Contribuinte
                         </option>
-                        <option
-                        >
+                        <option value="Fornecedor">
                             Fornecedor
                         </option>
                     </select>
                 </fieldset>
-                <button type="submit" onClick={handleEdit}>Atualizar</button>
-                <button type="submit">Deletar</button>
+                <div className="botoes">
+                    <button type="submit" onClick={handleEdit}>Atualizar</button>
+                    <button type="submit" onClick={handleDelete}>Deletar</button>
+                </div>
             </form>
         </article>
     );

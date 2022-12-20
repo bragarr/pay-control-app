@@ -11,12 +11,14 @@ import { EdicaoCadastro } from "../../components/EdicaoCadastro/EdicaoCadastro";
 export function Cadastros() {
 
     const api = import.meta.env.VITE_API;
+    const apiCadastroCategorias = import.meta.env.VITE_API_CATEGORIAS;
 
     const [userOn] = useAuthState(auth);
 
     const ref = useRef();    
 
     const [cadastrados, setCadastrados] = useState([]);
+    const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
     const [onEdit, setOnEdit] = useState(null);
 
     const getCadastrados = async () => {
@@ -29,9 +31,23 @@ export function Cadastros() {
         }
     };
 
+    const getCategoriasRegistradas = async () => {
+        try {
+            const res = await axios.get(apiCadastroCategorias);
+            const categoriasRegistradasPorTodosOsUsuariosDaPlataforma = res.data.sort((a,b) => (a.categoria > b.categoria ? 1 : -1));
+            setCategoriasRegistradas(categoriasRegistradasPorTodosOsUsuariosDaPlataforma);
+        } catch (error) {
+            toast.error(error);
+        }
+    }
+
     useEffect(() => {
         getCadastrados();
     }, [setCadastrados])
+
+    useEffect(() => {
+        getCategoriasRegistradas();
+    }, [setCategoriasRegistradas]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,6 +76,28 @@ export function Cadastros() {
         user.fone.value = "";
         user.categoria.value = "";
         getCadastrados();
+    }
+
+    const handleSubmitNovaCategoria = async (e) => {
+        e.preventDefault();
+
+        const novaCategoria = ref.current;
+    
+        await axios
+            .post(apiCadastroCategorias, {
+                categoria: novaCategoria.nova__categoria.value,
+                criador: userOn.displayName
+            })
+            .then 
+            (
+                ({ data }) => toast.success(data)
+            )
+            .catch
+            (
+                ({ data }) => toast.error(data)
+            )
+        console.log(userOn.displayName)
+        novaCategoria.nova__categoria.value = "";
     }
 
     const defineOpcaoParaEditarOuDeletar = () => {
@@ -104,10 +142,11 @@ export function Cadastros() {
                     </label>
                     <input
                         type="text"
-                        name="nome"
-                        id="name"
+                        name="name"
+                        id="nome"
                         required
                         className="input__cadastros"
+                        placeholder="Digite o nome completo"
                     />
                     <label htmlFor="email">
                         E-mail: 
@@ -118,6 +157,7 @@ export function Cadastros() {
                         id="email"
                         required
                         className="input__cadastros"
+                        placeholder="teste@test.com"
                     />
                     <label htmlFor="fone">
                         Telefone: 
@@ -128,6 +168,7 @@ export function Cadastros() {
                         id="fone"
                         required
                         className="input__cadastros"
+                        placeholder="(xx)xxxxx-xxxx"
                     />
                     <label htmlFor="categoria">
                         Categoria: 
@@ -168,8 +209,39 @@ export function Cadastros() {
                 </form>
             </article>
             <div className="area__containerEdicao">
-                <EdicaoCadastro onEdit={onEdit} setOnEdit={setOnEdit} />
-            </div>
+                <EdicaoCadastro onEdit={onEdit}
+                    setOnEdit={setOnEdit}
+                    cadastrados={cadastrados}
+                    setCadastrados={setCadastrados}
+                    getCadastrados={getCadastrados}
+                />
+            </div> 
+            <article className="container__categorias">
+                <h3>Lista de Categorias</h3>
+                <form ref={ref} onSubmit={handleSubmitNovaCategoria}>
+                    <fieldset>
+                        <label htmlFor="nova__categoria">Nova Categoria </label>
+                        <input type="text" name="nova__categoria" id="nova__categoria" />
+                        <button type="submit">Salvar</button>
+                    </fieldset>
+                </form>
+                <table className="tabela__categorias">
+                    <thead className="table__head">
+                            <tr>
+                                <th className="tipo__categorias">Categoria</th>
+                                <th className="tipo__criadoPor">Criada por:</th>
+                            </tr>
+                    </thead>
+                    <tbody className="table__body">
+                        {categoriasRegistradas.map((item, i) => (
+                            <tr key={i}>
+                                <td className="item__categoria">{item.categoria}</td>
+                                <td className="item__criador">{item.criador}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </article>
         </section>
     );
 };

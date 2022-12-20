@@ -47,6 +47,38 @@
     text-align: center;
 }
 
+.container__categorias {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabela__categorias {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.table__head {
+    border-bottom: 1px solid var(--std-gold);
+}
+
+.table__body {
+    border-top: 1px solid var(--std-gold);
+}
+
+.tipo__categorias, .tipo__criadoPor, .item__categoria, .item__criador {
+    outline: 1px solid var(--std-gold);
+}
+
+.tipo__categorias, .item__categoria {
+    width: 20vw;
+}
+
+.tipo__criadoPor, .item__criador {
+    width: 30vw;
+}
+
 @media screen and (min-width:720px) {
     .containers__input {
         width: 40vw;

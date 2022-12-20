@@ -63,13 +63,7 @@ export function HistoricoPagamentos() {
                             <td className="tipo__pagamento">{item.tipo_pagamento}</td>
                             <td className="info__valor">R${(item.valor_pagamento).toFixed(2)}</td>
                             <td className="info__data">
-                                {
-                                item.data_pagamento[8]+item.data_pagamento[9]+
-                                item.data_pagamento[7]+
-                                item.data_pagamento[5]+item.data_pagamento[6]+
-                                item.data_pagamento[4]+
-                                item.data_pagamento[0]+item.data_pagamento[1]+item.data_pagamento[2]+item.data_pagamento[3]
-                                }
+                                <input type="date" value={item.data_pagamento}/>
                             </td>
                             <td className="campos__edicao"
                                 onClick={handleEdit(item)}
