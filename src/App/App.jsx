@@ -13,7 +13,7 @@ import { Footer } from '../components/Footer/Footer';
 export function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <Header />
         <main>
           <SideLogin />
