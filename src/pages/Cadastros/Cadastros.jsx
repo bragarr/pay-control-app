@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 import "./Cadastros.css"
 import { EdicaoCadastro } from "../../components/EdicaoCadastro/EdicaoCadastro";
+import { CadastroNovaCategoria } from "../../components/CadastroNovaCategoria/CadastroNovaCategoria";
 
 export function Cadastros() {
 
@@ -16,9 +17,6 @@ export function Cadastros() {
     const [userOn] = useAuthState(auth);
 
     const ref = useRef();
-    const refCategoria = useRef();
-    console.log(ref);
-    console.log(refCategoria);
 
     const [cadastrados, setCadastrados] = useState([]);
     const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
@@ -47,10 +45,6 @@ export function Cadastros() {
         getCadastrados();
     }, [setCadastrados])
 
-    useEffect(() => {
-        getCategoriasRegistradas();
-    }, [setCategoriasRegistradas]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -78,27 +72,6 @@ export function Cadastros() {
         user.fone.value = "";
         user.categoria.value = "";
         getCadastrados();
-    }
-
-    const handleSubmitNovaCategoria = async (e) => {
-        e.preventDefault();
-
-        const categoriaNova = refCategoria.current;
-
-        await axios
-            .post(apiCadastroCategorias, {
-                categoria: categoriaNova.nova__categoria.value,
-                criador: userOn.displayName
-            })
-            .then 
-            (
-                ({ data }) => toast.success(data)
-            )
-            .catch
-            (
-                ({ data }) => toast.error(data)
-            )
-            categoriaNova.nova__categoria.value = "";
     }
 
     const defineOpcaoParaEditarOuDeletar = () => {
@@ -210,33 +183,14 @@ export function Cadastros() {
                     setCadastrados={setCadastrados}
                     getCadastrados={getCadastrados}
                 />
-            </div> 
-            <article className="container__categorias">
-                <h3>Lista de Categorias</h3>
-                <form refCategoria={refCategoria} onSubmit={handleSubmitNovaCategoria} className="formulario__categoria">
-                    <fieldset>
-                        <label htmlFor="nova__categoria">Nova Categoria </label>
-                        <input type="text" name="nova__categoria" id="nova__categoria" />
-                        <button type="submit">Salvar</button>
-                    </fieldset>
-                </form>
-                <table className="tabela__categorias">
-                    <thead className="table__head">
-                            <tr>
-                                <th className="tipo__categorias">Categoria</th>
-                                <th className="tipo__criadoPor">Criado por:</th>
-                            </tr>
-                    </thead>
-                    <tbody className="table__body">      
-                        {categoriasRegistradas.map((item, i) => (
-                            <tr key={i}>
-                                <td className="item__categoria">{item.categoria}</td>
-                                <td className="item__criador">{item.criador}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </article>
+            </div>
+            <CadastroNovaCategoria
+                apiCadastroCategorias={apiCadastroCategorias}
+                userOn={userOn}
+                categoriasRegistradas={categoriasRegistradas}
+                setCategoriasRegistradas={setCategoriasRegistradas}
+                getCategoriasRegistradas={getCategoriasRegistradas}
+            />
         </section>
     );
 };
