@@ -15,7 +15,10 @@ export function Cadastros() {
 
     const [userOn] = useAuthState(auth);
 
-    const ref = useRef();    
+    const ref = useRef();
+    const refCategoria = useRef();
+    console.log(ref);
+    console.log(refCategoria);
 
     const [cadastrados, setCadastrados] = useState([]);
     const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
@@ -30,7 +33,6 @@ export function Cadastros() {
             toast.error(error);
         }
     };
-
     const getCategoriasRegistradas = async () => {
         try {
             const res = await axios.get(apiCadastroCategorias);
@@ -53,7 +55,7 @@ export function Cadastros() {
         e.preventDefault();
 
         const user = ref.current;
-    
+
         await axios
             .post(api, {
                 nome: user.nome.value,
@@ -81,11 +83,11 @@ export function Cadastros() {
     const handleSubmitNovaCategoria = async (e) => {
         e.preventDefault();
 
-        const novaCategoria = ref.current;
-    
+        const categoriaNova = refCategoria.current;
+
         await axios
             .post(apiCadastroCategorias, {
-                categoria: novaCategoria.nova__categoria.value,
+                categoria: categoriaNova.nova__categoria.value,
                 criador: userOn.displayName
             })
             .then 
@@ -96,11 +98,12 @@ export function Cadastros() {
             (
                 ({ data }) => toast.error(data)
             )
-        novaCategoria.nova__categoria.value = "";
+            categoriaNova.nova__categoria.value = "";
     }
 
     const defineOpcaoParaEditarOuDeletar = () => {
         setOnEdit(cadastrados.filter((item) => item.nome===(document.querySelector(".teste__opcao").value)));
+        document.querySelector(".container__edicao").classList.add("exibe__containerEdicao")
     }
 
     return (
@@ -177,16 +180,9 @@ export function Cadastros() {
                         id="categoria"
                         className="input__cadastros"
                     >
-                        <option
-                            className="opcao__selecionada"
-                        >
-                            Fornecedor
-                        </option>
-                        <option
-                            className="opcao__selecionada"    
-                        >
-                            Contribuinte
-                        </option>
+                        {categoriasRegistradas.map((item, i) => (
+                            <option key={i}>{item.categoria}</option>
+                        ))}
                     </select>
                 </fieldset>
                 <button
@@ -217,7 +213,7 @@ export function Cadastros() {
             </div> 
             <article className="container__categorias">
                 <h3>Lista de Categorias</h3>
-                <form ref={ref} onSubmit={handleSubmitNovaCategoria}>
+                <form refCategoria={refCategoria} onSubmit={handleSubmitNovaCategoria} className="formulario__categoria">
                     <fieldset>
                         <label htmlFor="nova__categoria">Nova Categoria </label>
                         <input type="text" name="nova__categoria" id="nova__categoria" />
@@ -228,10 +224,10 @@ export function Cadastros() {
                     <thead className="table__head">
                             <tr>
                                 <th className="tipo__categorias">Categoria</th>
-                                <th className="tipo__criadoPor">Criada por:</th>
+                                <th className="tipo__criadoPor">Criado por:</th>
                             </tr>
                     </thead>
-                    <tbody className="table__body">
+                    <tbody className="table__body">      
                         {categoriasRegistradas.map((item, i) => (
                             <tr key={i}>
                                 <td className="item__categoria">{item.categoria}</td>
