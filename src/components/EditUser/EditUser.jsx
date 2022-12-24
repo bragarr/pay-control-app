@@ -13,6 +13,9 @@ export function EditUser() {
 
     // Função para atualizar dados do usuário no Firebase (Nome)
     const atualizaNomeUsuario = () => {
+        
+        let nomeAtualizado = document.getElementById("nome").value;
+
         updateProfile(user, {
             displayName: nomeAtualizado
         }).then(() => {
@@ -20,8 +23,6 @@ export function EditUser() {
         }, (error) => {
             console.log(error);
         })
-
-        let nomeAtualizado = document.getElementById("nome").value;
 
         window.location.reload(true);
     }

@@ -67,7 +67,7 @@
     border: 1px solid var(--std-gold);
 }
 
-.tipo__categorias, .tipo__criadoPor, .item__categoria, .item__criador {
+.tipo__categorias, .tipo__criadoPor, .item__categoria, .item__criador, .tipo__editar, .tipo__deletar, .item__editar, .item__deletar {
     outline: 1px solid var(--std-gold);
 }
 
@@ -77,6 +77,12 @@
 
 .tipo__criadoPor, .item__criador {
     width: 200px;
+}
+
+.item__editar, .item__deletar {
+    color: var(--std-gold);
+    text-align: center;
+    cursor: pointer;
 }
 
 @media screen and (min-width:720px) {

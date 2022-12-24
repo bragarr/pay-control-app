@@ -55,6 +55,7 @@ export function Home() {
         <ApresentacaoPlataforma />
         :
         <InformacoesGeraisUsuario pagamentos={pagamentos} user={user} />
+
     }
 
     return(

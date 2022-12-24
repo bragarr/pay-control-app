@@ -1,5 +1,6 @@
 import { Graficos } from "../Graficos/Graficos";
 import { Spinner } from "../Spinner/Spinner";
+import { TopPagamentos } from "../TopPagamentos/TopPagamentos";
 
 export function InformacoesGeraisUsuario({pagamentos, user}) {
 
@@ -13,7 +14,7 @@ export function InformacoesGeraisUsuario({pagamentos, user}) {
             despesas += item.valor_pagamento;
         }
     })
-
+    
     return pagamentos.length > 0
     ?
     <article className="posicao__grafica">
@@ -22,6 +23,9 @@ export function InformacoesGeraisUsuario({pagamentos, user}) {
             <p className="dados__saldo">R${((entradas)-(despesas)).toFixed(2)}</p>
         </div>
         <Graficos entradas={entradas} despesas={despesas}/>
+        <div>
+            <TopPagamentos pagamentos={pagamentos}/>
+        </div>
     </article>
     :
     <Spinner />

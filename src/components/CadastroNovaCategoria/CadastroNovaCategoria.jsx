@@ -2,6 +2,8 @@ import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+
 export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categoriasRegistradas, setCategoriasRegistradas, getCategoriasRegistradas}) {
 
     const ref = useRef();
@@ -31,6 +33,17 @@ export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categorias
         getCategoriasRegistradas();
     }, [setCategoriasRegistradas]);
 
+    const handleDeleteCategoria = async (idcategorias) => {
+        await axios
+            .delete(apiCadastroCategorias +"/"+ idcategorias)
+            .then(({ data }) => {
+                toast.success(data);
+                getCategoriasRegistradas();
+            })
+
+            .catch(({ data }) => toast.error(data));
+    }
+
     return (
         <article className="container__categorias">
             <h3>Lista de Categorias</h3>
@@ -46,6 +59,7 @@ export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categorias
                         <tr>
                             <th className="tipo__categorias">Categoria</th>
                             <th className="tipo__criadoPor">Criado por:</th>
+                            <th className="tipo__deletar">Deletar</th>
                         </tr>
                 </thead>
                 <tbody className="table__body">      
@@ -53,6 +67,7 @@ export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categorias
                         <tr key={i}>
                             <td className="item__categoria">{item.categoria}</td>
                             <td className="item__criador">{item.criador}</td>
+                            <td className="item__deletar"><AiFillDelete onClick={() => handleDeleteCategoria(item.idcategorias)} /></td>
                         </tr>
                     ))}
                 </tbody>

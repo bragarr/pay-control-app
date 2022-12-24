@@ -3,10 +3,11 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 import { toast } from "react-toastify";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 import "./EdicaoCadastro.css";
 
-export function EdicaoCadastro({getCadastrados, cadastrados, setCadastrados, onEdit, setOnEdit}) {
+export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasRegistradas, getCategoriasRegistradas, setCategoriasRegistradas}) {
     const api= import.meta.env.VITE_API;
 
     const ref = useRef();
@@ -41,6 +42,10 @@ export function EdicaoCadastro({getCadastrados, cadastrados, setCadastrados, onE
         }
     },[onEdit]);
 
+    useEffect(() => {
+        getCategoriasRegistradas();
+    }, [setCategoriasRegistradas]);
+
     const handleEdit = async (e) => {
         e.preventDefault();
 
@@ -64,8 +69,15 @@ export function EdicaoCadastro({getCadastrados, cadastrados, setCadastrados, onE
 
     }
 
+    const fechaContainerEdicaoCadastro = () => {
+        document.querySelector(".container__edicao").classList.remove("exibe__containerEdicao");
+    }
+
     return (
         <article className="container__edicao">
+            <div className="container__botaoFechar">
+                <AiFillCloseCircle onClick={fechaContainerEdicaoCadastro}/>
+            </div>
             <form ref={ref}>
                 <fieldset className="form__edicao">
                     <label htmlFor="nomeEdicao">
@@ -103,16 +115,13 @@ export function EdicaoCadastro({getCadastrados, cadastrados, setCadastrados, onE
                         id="categoriaEdicao"
                         className="seletores__EdicaoCategoria"
                     >
-                        <option value="Contribuinte">
-                            Contribuinte
-                        </option>
-                        <option value="Fornecedor">
-                            Fornecedor
-                        </option>
+                        {categoriasRegistradas.map((item, i) => (
+                            <option key={i}>{item.categoria}</option>
+                        ))}
                     </select>
                 </fieldset>
                 <div className="botoes">
-                    <button type="submit" onClick={handleEdit}>Atualizar</button>
+                    <button type="submit" onClick={handleEdit}>Salvar</button>
                     <button type="submit" onClick={handleDelete}>Deletar</button>
                 </div>
             </form>

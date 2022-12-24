@@ -97,6 +97,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                         type="text"
                         name="valor_pagamento"
                         id="valor_pagamento"
+                        placeholder="R$1000.00"
                         required
                     />
                 </div>
@@ -109,6 +110,7 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                         name="obs"
                         id="obs"
                         maxLength="30"
+                        placeholder="Descrição do Registro"
                         required
                     />
                 </div>

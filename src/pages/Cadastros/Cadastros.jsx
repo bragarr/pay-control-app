@@ -1,13 +1,15 @@
+import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../contexts/Firebase";
-import axios from "axios";
-
-import { toast } from "react-toastify";
-
-import "./Cadastros.css"
 import { EdicaoCadastro } from "../../components/EdicaoCadastro/EdicaoCadastro";
 import { CadastroNovaCategoria } from "../../components/CadastroNovaCategoria/CadastroNovaCategoria";
+
+//Componentes de Estilização
+import { toast } from "react-toastify";
+import "./Cadastros.css"
+
+
 
 export function Cadastros() {
 
@@ -177,11 +179,13 @@ export function Cadastros() {
                 </form>
             </article>
             <div className="area__containerEdicao">
-                <EdicaoCadastro onEdit={onEdit}
+                <EdicaoCadastro
+                    onEdit={onEdit}
                     setOnEdit={setOnEdit}
-                    cadastrados={cadastrados}
-                    setCadastrados={setCadastrados}
                     getCadastrados={getCadastrados}
+                    categoriasRegistradas={categoriasRegistradas}
+                    setCategoriasRegistradas={setCategoriasRegistradas}
+                    getCategoriasRegistradas={getCategoriasRegistradas}
                 />
             </div>
             <CadastroNovaCategoria
