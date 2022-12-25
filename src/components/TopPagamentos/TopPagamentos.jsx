@@ -5,35 +5,109 @@ export function TopPagamentos(pagamentos) {
     let listaDeEntradas = listaDePagamentos.filter((lista) => lista.tipo_pagamento==="Entrada");
     let listaDeDespesas = listaDePagamentos.filter((lista) => lista.tipo_pagamento==="Despesa");
 
-    let topOneEntrada = listaDeEntradas[0].valor_pagamento;
-    let topTwoEntrada = listaDeEntradas[1].valor_pagamento;
-    let TopThreeEntrada = listaDeEntradas[2].valor_pagamento;
-    let TopFourEntrada = listaDeEntradas[3].valor_pagamento;
-    let TopFiveEntrada = listaDeEntradas[4].valor_pagamento;
+    let topOneEntrada = listaDeEntradas[0];
+    let topTwoEntrada = listaDeEntradas[1];
+    let TopThreeEntrada = listaDeEntradas[2];
+    let TopFourEntrada = listaDeEntradas[3];
+    let TopFiveEntrada = listaDeEntradas[4];
 
-    let topOneDespesa = listaDeDespesas[0].valor_pagamento;
-    let topTwoDespesa = listaDeDespesas[1].valor_pagamento;
-    let TopThreeDespesa = listaDeDespesas[2].valor_pagamento;
-    let TopFourDespesa = listaDeDespesas[3].valor_pagamento;
-    let TopFiveDespesa = listaDeDespesas[4].valor_pagamento;
+    let topOneDespesa = listaDeDespesas[0];
+    let topTwoDespesa = listaDeDespesas[1];
+    let TopThreeDespesa = listaDeDespesas[2];
+    let TopFourDespesa = listaDeDespesas[3];
+    let TopFiveDespesa = listaDeDespesas[4];
     
     return (
-        <article>
-            <div>
+        <article className="bloco__topPagamentos">
+            <div className="div__categoria">
                 <h3>Principais Entradas</h3>
-                <p>{topOneEntrada}</p>
-                <p>{topTwoEntrada}</p>
-                <p>{TopThreeEntrada}</p>
-                <p>{TopFourEntrada}</p>
-                <p>{TopFiveEntrada}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Nome</th>
+                            <th>Valor</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>{topOneEntrada.nome}</td>
+                            <td>R${topOneEntrada.valor_pagamento}</td>
+                            <td>{topOneEntrada.obs}</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>{topTwoEntrada.nome}</td>
+                            <td>R${topTwoEntrada.valor_pagamento}</td>
+                            <td>{topTwoEntrada.obs}</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>{TopThreeEntrada.nome}</td>
+                            <td>R${TopThreeEntrada.valor_pagamento}</td>
+                            <td>{TopThreeEntrada.obs}</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>{TopFourEntrada.nome}</td>
+                            <td>R${TopFourEntrada.valor_pagamento}</td>
+                            <td>{TopFourEntrada.obs}</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>{TopFiveEntrada.nome}</td>
+                            <td>R${TopFiveEntrada.valor_pagamento}</td>
+                            <td>{TopFiveEntrada.obs}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div>
+            <div className="div__categoria">
                 <h3>Principais Despesas</h3>
-                <p>{topOneDespesa}</p>
-                <p>{topTwoDespesa}</p>
-                <p>{TopThreeDespesa}</p>
-                <p>{TopFourDespesa}</p>
-                <p>{TopFiveDespesa}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Nome</th>
+                            <th>Valor</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>{topOneDespesa.nome}</td>
+                            <td>R${topOneDespesa.valor_pagamento}</td>
+                            <td>{topOneDespesa.obs}</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>{topTwoDespesa.nome}</td>
+                            <td>R${topTwoDespesa.valor_pagamento}</td>
+                            <td>{topTwoDespesa.obs}</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>{TopThreeDespesa.nome}</td>
+                            <td>R${TopThreeDespesa.valor_pagamento}</td>
+                            <td>{TopThreeDespesa.obs}</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>{TopFourDespesa.nome}</td>
+                            <td>R${TopFourDespesa.valor_pagamento}</td>
+                            <td>{TopFourDespesa.obs}</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>{TopFiveDespesa.nome}</td>
+                            <td>R${TopFiveDespesa.valor_pagamento}</td>
+                            <td>{TopFiveDespesa.obs}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </article>
     );

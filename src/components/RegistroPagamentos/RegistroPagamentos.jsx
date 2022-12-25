@@ -5,8 +5,8 @@ import { auth } from "../../contexts/Firebase";
 import axios from "axios";
 
 import { Spinner } from "../Spinner/Spinner";
-
 import { toast } from "react-toastify";
+import { AiFillSave } from "react-icons/ai";
 
 import "./RegistroPagamentos.css";
 
@@ -125,10 +125,12 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                         required
                     />
                 </div>
+                <div className="grupo__dadosPrenchimento">
+                    <button type="submit" className="botao__pagamento">
+                        Salvar
+                    </button>
+                </div>
             </fieldset>
-            <button type="submit" className="botao__pagamento">
-                Registrar
-            </button>
         </form>
     }
 

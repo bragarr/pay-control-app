@@ -38,3 +38,15 @@
 .negativo {
     color: red;
 }
+
+@media screen and (min-width: 1280px) {
+    .bloco__topPagamentos {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .div__categoria {
+        margin: 30px;
+        text-align: left;
+    }
+}

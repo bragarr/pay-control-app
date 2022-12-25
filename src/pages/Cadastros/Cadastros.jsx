@@ -159,13 +159,13 @@ export function Cadastros() {
                             <option key={i}>{item.categoria}</option>
                         ))}
                     </select>
-                </fieldset>
-                <button
+                    <button
                     type="submit"
                     className="botao__cadastro"
-                >
-                    Cadastrar
-                </button>
+                    >
+                        Cadastrar
+                    </button>
+                </fieldset>
             </form>
             <article className="lista__cadastrados">
                 <h3>Lista de Contribuintes/Fornecedores Cadastrados</h3>

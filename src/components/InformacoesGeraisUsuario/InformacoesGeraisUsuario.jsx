@@ -23,9 +23,7 @@ export function InformacoesGeraisUsuario({pagamentos, user}) {
             <p className="dados__saldo">R${((entradas)-(despesas)).toFixed(2)}</p>
         </div>
         <Graficos entradas={entradas} despesas={despesas}/>
-        <div>
-            <TopPagamentos pagamentos={pagamentos}/>
-        </div>
+        <TopPagamentos pagamentos={pagamentos}/>
     </article>
     :
     <Spinner />

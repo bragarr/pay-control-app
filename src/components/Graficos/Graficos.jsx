@@ -32,7 +32,7 @@ export function Graficos({entradas, despesas}) {
     ]);
 
     const opcaoFormatoGraficoPizza = {
-        width:"350px"
+        width:"auto"
     }
 
     return (
