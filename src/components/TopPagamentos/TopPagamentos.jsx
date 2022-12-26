@@ -1,9 +1,14 @@
+import { auth } from "../../contexts/Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 export function TopPagamentos(pagamentos) {
+
+    const [userOn] = useAuthState(auth);
 
     let listaDePagamentos = pagamentos.pagamentos;
 
-    let listaDeEntradas = listaDePagamentos.filter((lista) => lista.tipo_pagamento==="Entrada");
-    let listaDeDespesas = listaDePagamentos.filter((lista) => lista.tipo_pagamento==="Despesa");
+    let listaDeEntradas = listaDePagamentos.filter((lista) => lista.tipo_pagamento==="Entrada" && lista.usuario===userOn.uid);
+    let listaDeDespesas = listaDePagamentos.filter((lista) => lista.tipo_pagamento==="Despesa" && lista.usuario===userOn.uid);
 
     let topOneEntrada = listaDeEntradas[0];
     let topTwoEntrada = listaDeEntradas[1];
@@ -17,7 +22,9 @@ export function TopPagamentos(pagamentos) {
     let TopFourDespesa = listaDeDespesas[3];
     let TopFiveDespesa = listaDeDespesas[4];
     
-    return (
+    const TabelaTopPagamentos = () => {
+        return listaDeEntradas!="" && listaDeDespesas!=""
+        ?
         <article className="bloco__topPagamentos">
             <div className="div__categoria">
                 <h3>Principais Entradas</h3>
@@ -110,5 +117,12 @@ export function TopPagamentos(pagamentos) {
                 </table>
             </div>
         </article>
+        :
+        <article>
+        </article>
+    }
+
+    return (
+        <TabelaTopPagamentos />
     );
 }
