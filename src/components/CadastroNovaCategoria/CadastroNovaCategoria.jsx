@@ -31,9 +31,10 @@ export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categorias
 
     useEffect(() => {
         getCategoriasRegistradas();
-    }, [setCategoriasRegistradas]);
+    }, [categoriasRegistradas]);
 
     const handleDeleteCategoria = async (idcategorias) => {
+        console.log("teste")
         await axios
             .delete(apiCadastroCategorias +"/"+ idcategorias)
             .then(({ data }) => {
