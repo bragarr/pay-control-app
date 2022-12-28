@@ -35,14 +35,19 @@
     margin: 0 40px;
 }
 
-.negativo {
-    color: red;
+.tabela__topPagamentos {
+    text-align: left;
+}
+
+.table__head, .table__body, .table__rows, .table__row {
+    outline: 1px solid var(--std-gold);
 }
 
 @media screen and (min-width: 1280px) {
     .bloco__topPagamentos {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        align-items: center;
     }
 
     .div__categoria {

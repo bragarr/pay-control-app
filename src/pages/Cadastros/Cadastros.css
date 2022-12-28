@@ -16,9 +16,12 @@
     border: none;
     display: flex;
     flex-direction: column;
-    width: 60vw;
+    width: 260px;
     line-height: 40px;
     padding: 0;
+    background-color: var(--std-gold);
+    border-radius: 10px;
+    padding: 30px 0;
 }
 
 .input__cadastros {
@@ -85,23 +88,19 @@
     cursor: pointer;
 }
 
-@media screen and (min-width:720px) {
+@media screen and (max-width:380px) {
     .containers__input {
-        width: 40vw;
+        width: 200px;
     }
 }
 
 @media screen and (min-width:1280px) {
-
     .containers__input {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 80vw;
-    }
-
-    .input__cadastros {
-        width: 10vw;
-        margin-right: 1vw;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        line-height: 40px;
+        padding: 30px 10px;
+        border-radius: 10px;
     }
 }

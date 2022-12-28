@@ -7,7 +7,7 @@ export function Pagamentos() {
     return (
         <section className="tela__pagamentos">
             <article className="intrucoes__aplicação">
-                <h2 className="titutlo__pagina">Fluxo de Pagamentos</h2>
+                <h2 className="titutlo__pagina">Pagamentos</h2>
                 <p>
                     Aqui você realizará o registro de pagamentos de pessoas/empresas
                     conforme o preenchimento dos campos abaixo:

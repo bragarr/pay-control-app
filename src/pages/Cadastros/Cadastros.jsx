@@ -115,7 +115,7 @@ export function Cadastros() {
             <form className="formulario__cadastro" ref={ref} onSubmit={handleSubmit}>
                 <fieldset className="containers__input">
                     <label htmlFor="name">
-                        Nome: 
+                        Nome 
                     </label>
                     <input
                         type="text"
@@ -126,7 +126,7 @@ export function Cadastros() {
                         placeholder="Digite o nome completo"
                     />
                     <label htmlFor="email">
-                        E-mail: 
+                        E-mail 
                     </label>
                     <input
                         type="email"
@@ -137,7 +137,7 @@ export function Cadastros() {
                         placeholder="teste@test.com"
                     />
                     <label htmlFor="fone">
-                        Telefone: 
+                        Telefone 
                     </label>
                     <input
                         type="tel"
@@ -148,7 +148,7 @@ export function Cadastros() {
                         placeholder="(xx)xxxxx-xxxx"
                     />
                     <label htmlFor="categoria">
-                        Categoria: 
+                        Categoria 
                     </label>
                     <select
                         name="categoria"
