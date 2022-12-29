@@ -5,7 +5,7 @@
 
 .container__up {
     position: fixed;
-    top:11vh;
+    top:0;
     bottom: 0;
     right: -100%;
     width: 50%;

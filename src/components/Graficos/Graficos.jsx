@@ -35,7 +35,7 @@ export function Graficos({entradas, despesas}) {
         width:"auto"
     }
 
-    return entradas > 0 && despesas > 0
+    return entradas > 0 || despesas > 0
     ?
     <div
         style={{
