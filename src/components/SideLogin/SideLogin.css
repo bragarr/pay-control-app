@@ -16,7 +16,7 @@
     background-color: var(--std-gold);
     color: var(--std-white);
     transition: 1s;
-    padding: 1vh 2vw;
+    padding: 5px 10px;
     line-height: 30px;
     outline: 1px solid black;
 }
@@ -54,7 +54,7 @@
 
 .button__register {
     margin: 20px 0;
-    padding: 1vh 0;
+    padding: 5px 0;
     background-color: var(--std-black);
     border: 1px solid var(--std-white);
     color: var(--std-white);
