@@ -32,8 +32,8 @@ export function MainRoutes() {
     return(
         <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="cadastros" element={<AreaReservadaCadastros Item={Cadastros} />}></Route>
-            <Route path="pagamentos" element={<AreaReservadaPagamentos Item={Pagamentos} />}></Route>
+            <Route exact path="/cadastros" element={<AreaReservadaCadastros Item={Cadastros} />}></Route>
+            <Route exact path="/pagamentos" element={<AreaReservadaPagamentos Item={Pagamentos} />}></Route>
             <Route path="*" element={<Navigate to={"/"}/>}></Route>
         </Routes>
     )
