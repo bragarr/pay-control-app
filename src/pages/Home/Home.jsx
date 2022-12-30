@@ -41,7 +41,7 @@ export function Home() {
     const TituloDeApresentacaoDaPagina = () => {
         return !user
         ?
-        <h2 className="secao_homepage">É muito bom ter você por aqui!</h2>
+        ""
         :
         <article className="secao_homepage">
             <h2><b>Olá <NomeUsuario />!</b></h2>

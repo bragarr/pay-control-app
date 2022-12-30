@@ -88,6 +88,22 @@
     cursor: pointer;
 }
 
+.formulario__categoria {
+    display: flex;
+    flex-direction: column;
+}
+
+.container__cadastroCategoria {
+    display: flex;
+    flex-direction: column;
+}
+
+.lista__registrados {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 @media screen and (max-width:380px) {
     .containers__input {
         width: 200px;
@@ -102,5 +118,18 @@
         line-height: 40px;
         padding: 30px 10px;
         border-radius: 10px;
+    }
+
+    .div__listaCategoriasRegistradas {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: left;
+    }
+
+    .divisao__containersCadastro {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

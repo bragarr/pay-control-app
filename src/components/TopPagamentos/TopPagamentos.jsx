@@ -7,7 +7,7 @@ export function TopPagamentos(pagamentos) {
 
     const listaDePagamentos = pagamentos.pagamentos;
 
-    const listaDePrincipaisPagamentos = (listaDePagamentos.filter((lista) => lista.usuario===userOn.uid)).slice(0,5);
+    const listaDePrincipaisPagamentos = (listaDePagamentos.filter((lista) => lista.usuario===userOn.uid)).slice(0,10);
     
     const TabelaTopPagamentos = () => {
         return listaDePrincipaisPagamentos.length > 0

@@ -92,109 +92,92 @@ export function Cadastros() {
                 <p>
                     Abaixo você pode conferir os campos que devem ser preenchidos
                 </p>
-                <p>
-                    Nome → O Campo "Nome" deve ser preenchido conforme o usuário definir 
-                    para ser visializado em toda base de dados na plataforma. 
-                    Este nome será a referência no registro de pagamentos e acesso de 
-                    qualquer outro dado.
-                </p>
-                <p>
-                    Email → O Campo "E-mail" deve ser preenchido com e-mail para contato 
-                    com a pessoa e/ou empresa.
-                </p>
-                <p>
-                    Telefone → O Compo "Telefone" pode ser preenchido com telefone comercial 
-                    e/ou Telefone celular para contato.
-                </p>
-                <p>
-                    Categoria → A categoria deve ser selecionada conforme a natureza da 
-                    pessoa e/ou empresa que será registro de pagamentos. Esse campo serve 
-                    para gerar dados de acompanhamento na página inicial da aplicação.
-                </p>
             </article>
-            <form className="formulario__cadastro" ref={ref} onSubmit={handleSubmit}>
-                <fieldset className="containers__input">
-                    <label htmlFor="name">
-                        Nome 
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="nome"
-                        required
-                        className="input__cadastros"
-                        placeholder="Digite o nome completo"
-                    />
-                    <label htmlFor="email">
-                        E-mail 
-                    </label>
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        required
-                        className="input__cadastros"
-                        placeholder="teste@test.com"
-                    />
-                    <label htmlFor="fone">
-                        Telefone 
-                    </label>
-                    <input
-                        type="tel"
-                        name="fone"
-                        id="fone"
-                        required
-                        className="input__cadastros"
-                        placeholder="(xx)xxxxx-xxxx"
-                    />
-                    <label htmlFor="categoria">
-                        Categoria 
-                    </label>
-                    <select
-                        name="categoria"
-                        id="categoria"
-                        className="input__cadastros"
-                    >
-                        {categoriasRegistradas.map((item, i) => (
-                            <option key={i}>{item.categoria}</option>
-                        ))}
-                    </select>
-                    <button
-                    type="submit"
-                    className="botao__cadastro"
-                    >
-                        Cadastrar
-                    </button>
-                </fieldset>
-            </form>
-            <article className="lista__cadastrados">
-                <h3>Lista de Contribuintes/Fornecedores Cadastrados</h3>
-                <form>
-                    <select className="teste__opcao">
-                        {cadastrados.map((item, i) => (
-                            <option key={i}>{item.nome}</option>
-                        ))}
-                    </select>
-                    <button type="button" onClick={defineOpcaoParaEditarOuDeletar}>Selecionar</button>
+            <div className="divisao__containersCadastro">
+                <form className="formulario__cadastro" ref={ref} onSubmit={handleSubmit}>
+                    <fieldset className="containers__input">
+                        <label htmlFor="name">
+                            Nome 
+                        </label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="nome"
+                            required
+                            className="input__cadastros"
+                            placeholder="Digite o nome completo"
+                        />
+                        <label htmlFor="email">
+                            E-mail 
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            required
+                            className="input__cadastros"
+                            placeholder="teste@test.com"
+                        />
+                        <label htmlFor="fone">
+                            Telefone 
+                        </label>
+                        <input
+                            type="tel"
+                            name="fone"
+                            id="fone"
+                            required
+                            className="input__cadastros"
+                            placeholder="(xx)xxxxx-xxxx"
+                        />
+                        <label htmlFor="categoria">
+                            Categoria 
+                        </label>
+                        <select
+                            name="categoria"
+                            id="categoria"
+                            className="input__cadastros"
+                        >
+                            {categoriasRegistradas.map((item, i) => (
+                                <option key={i}>{item.categoria}</option>
+                            ))}
+                        </select>
+                        <button
+                        type="submit"
+                        className="botao__cadastro"
+                        >
+                            Cadastrar
+                        </button>
+                    </fieldset>
                 </form>
-            </article>
-            <div className="area__containerEdicao">
-                <EdicaoCadastro
-                    onEdit={onEdit}
-                    setOnEdit={setOnEdit}
-                    getCadastrados={getCadastrados}
+                <article className="lista__cadastrados">
+                    <h3>Lista de Registrados</h3>
+                    <form className="lista__registrados">
+                        <select className="teste__opcao">
+                            {cadastrados.map((item, i) => (
+                                <option key={i}>{item.nome}</option>
+                            ))}
+                        </select>
+                        <button type="button" onClick={defineOpcaoParaEditarOuDeletar}>Selecionar</button>
+                    </form>
+                </article>
+                <div className="area__containerEdicao">
+                    <EdicaoCadastro
+                        onEdit={onEdit}
+                        setOnEdit={setOnEdit}
+                        getCadastrados={getCadastrados}
+                        categoriasRegistradas={categoriasRegistradas}
+                        setCategoriasRegistradas={setCategoriasRegistradas}
+                        getCategoriasRegistradas={getCategoriasRegistradas}
+                    />
+                </div>
+                <CadastroNovaCategoria
+                    apiCadastroCategorias={apiCadastroCategorias}
+                    userOn={userOn}
                     categoriasRegistradas={categoriasRegistradas}
                     setCategoriasRegistradas={setCategoriasRegistradas}
                     getCategoriasRegistradas={getCategoriasRegistradas}
                 />
             </div>
-            <CadastroNovaCategoria
-                apiCadastroCategorias={apiCadastroCategorias}
-                userOn={userOn}
-                categoriasRegistradas={categoriasRegistradas}
-                setCategoriasRegistradas={setCategoriasRegistradas}
-                getCategoriasRegistradas={getCategoriasRegistradas}
-            />
         </section>
     );
 };

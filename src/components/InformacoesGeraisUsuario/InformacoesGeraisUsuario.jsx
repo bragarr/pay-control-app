@@ -18,10 +18,6 @@ export function InformacoesGeraisUsuario({pagamentos, user}) {
     return pagamentos.length > 0
     ?
     <article className="posicao__grafica">
-        <div className="resumo__saldo">
-            <h3 className="dados__saldo">Balanço Total<br/>(Entrada - Despesas)</h3>
-            <p className="dados__saldo">R${((entradas)-(despesas)).toFixed(2)}</p>
-        </div>
         <Graficos entradas={entradas} despesas={despesas}/>
         <TopPagamentos pagamentos={pagamentos}/>
     </article>

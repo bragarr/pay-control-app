@@ -7,9 +7,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 15px;
+    padding: 3vh 2vw;
     outline: 2px solid var(--std-gold);
-    height: 30px;
+    height: 5vh;
 }
 
 .container__logo {
