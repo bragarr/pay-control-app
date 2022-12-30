@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import { useAuth } from "../Hooks/useAuth";
 import { auth } from "../contexts/Firebase";
@@ -34,6 +34,7 @@ export function MainRoutes() {
             <Route path="/" element={<Home />}></Route>
             <Route path="cadastros" element={<AreaReservadaCadastros Item={Cadastros} />}></Route>
             <Route path="pagamentos" element={<AreaReservadaPagamentos Item={Pagamentos} />}></Route>
+            <Route path="*" element={<Navigate to={"/"}/>}></Route>
         </Routes>
     )
 }
