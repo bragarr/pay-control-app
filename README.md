@@ -12,8 +12,6 @@ Para criação do front end deste projeto está sendo considerado a bliblioteca 
 
 Para acessar o projeto basta acessar o link a seguir: https://controle-pagamentos.vercel.app/
 
-![image](https://user-images.githubusercontent.com/108424896/210155618-efce01d6-2d8b-441e-a2c4-6bda9c0294e5.png)
-
 ![image](https://user-images.githubusercontent.com/108424896/210155622-22b0ecf2-da50-4101-a96d-136663bdcf17.png)
 
 ![image](https://user-images.githubusercontent.com/108424896/210155625-e2930372-82a8-4331-9118-f7864c0c1e47.png)
