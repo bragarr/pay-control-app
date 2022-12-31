@@ -11,7 +11,6 @@ import { AiFillSave } from "react-icons/ai";
 import "./RegistroPagamentos.css";
 
 export function RegistroPagamentos({ coletarPagamentos}) {
-
     const api = import.meta.env.VITE_API;
     const apiPagamentos= import.meta.env.VITE_API_PAGAMENTOS;
 

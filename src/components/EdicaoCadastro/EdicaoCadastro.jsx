@@ -30,6 +30,7 @@ export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasReg
             .catch(({ data }) => toast.error(data));
             
         setOnEdit(null);
+        fechaContainerEdicaoCadastro();
     }
 
     useEffect(() => {
@@ -67,6 +68,8 @@ export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasReg
         selecionado.foneEdicao.value = "";
         selecionado.categoriaEdicao.value = "";
 
+        fechaContainerEdicaoCadastro();
+
     }
 
     const fechaContainerEdicaoCadastro = () => {
@@ -75,11 +78,11 @@ export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasReg
 
     return (
         <article className="container__edicao">
-            <div className="container__botaoFechar">
-                <AiFillCloseCircle onClick={fechaContainerEdicaoCadastro}/>
-            </div>
-            <form ref={ref}>
+            <form ref={ref} className="container__formularioEdicao">
                 <fieldset className="form__edicao">
+                    <div className="container__botaoFechar">
+                        <AiFillCloseCircle onClick={fechaContainerEdicaoCadastro}/>
+                    </div>
                     <label htmlFor="nomeEdicao">
                         Nome: 
                     </label>
@@ -119,11 +122,11 @@ export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasReg
                             <option key={i}>{item.categoria}</option>
                         ))}
                     </select>
+                    <div className="botoes__edicao">
+                        <button type="submit" onClick={handleEdit} className="botao__edicao botao__edicao--editar">Salvar</button>
+                        <button type="submit" onClick={handleDelete} className="botao__edicao botao__edicao--deletar">Deletar</button>
+                    </div>
                 </fieldset>
-                <div className="botoes">
-                    <button type="submit" onClick={handleEdit}>Salvar</button>
-                    <button type="submit" onClick={handleDelete}>Deletar</button>
-                </div>
             </form>
         </article>
     );

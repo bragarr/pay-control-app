@@ -8,6 +8,7 @@ import { Home } from "../pages/Home/Home";
 import { Loading } from "../pages/Loading/Loading";
 import { Cadastros } from "../pages/Cadastros/Cadastros"
 import { Pagamentos } from "../pages/Pagamentos/Pagamentos"
+import { HistoricoPagamentos } from "../pages/HistoricoPagamentos/HistoricoPagamentos";
 
 export function MainRoutes() {
 
@@ -34,6 +35,7 @@ export function MainRoutes() {
             <Route exact path="/" element={<Home />}></Route>
             <Route exact path="/cadastros" element={<AreaReservadaCadastros Item={Cadastros} />}></Route>
             <Route exact path="/pagamentos" element={<AreaReservadaPagamentos Item={Pagamentos} />}></Route>
+            <Route exact path="/historico" element={<AreaReservadaHistorico Item={HistoricoPagamentos} />}></Route>
             <Route path="*" element={<Navigate to={"/"}/>}></Route>
         </Routes>
     )

@@ -149,17 +149,6 @@ export function Cadastros() {
                         </button>
                     </fieldset>
                 </form>
-                <article className="lista__cadastrados">
-                    <h3>Lista de Registrados</h3>
-                    <form className="lista__registrados">
-                        <select className="teste__opcao">
-                            {cadastrados.map((item, i) => (
-                                <option key={i}>{item.nome}</option>
-                            ))}
-                        </select>
-                        <button type="button" onClick={defineOpcaoParaEditarOuDeletar}>Selecionar</button>
-                    </form>
-                </article>
                 <div className="area__containerEdicao">
                     <EdicaoCadastro
                         onEdit={onEdit}
@@ -178,6 +167,17 @@ export function Cadastros() {
                     getCategoriasRegistradas={getCategoriasRegistradas}
                 />
             </div>
+            <article className="lista__cadastrados">
+                <h3>Lista de Registrados</h3>
+                <form className="lista__registrados">
+                    <select className="teste__opcao">
+                        {cadastrados.map((item, i) => (
+                            <option key={i}>{item.nome}</option>
+                        ))}
+                    </select>
+                    <button type="button" onClick={defineOpcaoParaEditarOuDeletar}>Selecionar</button>
+                </form> 
+            </article>
         </section>
     );
 };

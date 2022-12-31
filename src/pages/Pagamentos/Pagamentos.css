@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     overflow: auto;
+    padding-bottom: 30px;
 }
 
 .container__entradas {

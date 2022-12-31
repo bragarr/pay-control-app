@@ -1,5 +1,6 @@
 .pagina__cadastros {
     overflow: auto;
+    padding-bottom: 30px;
 }
 
 .titulo__cadastro {
@@ -93,9 +94,17 @@
     flex-direction: column;
 }
 
+.div__listaCategoriasRegistradas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .container__cadastroCategoria {
     display: flex;
     flex-direction: column;
+    background-color: var(--std-gold);
+    border-radius: 10px;
 }
 
 .lista__registrados {
@@ -105,9 +114,24 @@
 }
 
 @media screen and (max-width:380px) {
-    .containers__input {
+    .containers__input, .container__cadastroCategoria {
         width: 200px;
     }
+
+    .tabela__categorias {
+        font-size: 10px;
+        width: 200px;
+    }
+
+    .tipo__categorias, .item__categoria {
+        width: 50px;
+    }
+    
+    .tipo__criadoPor, .item__criador {
+        width: 100px;
+    }
+
+
 }
 
 @media screen and (min-width:1280px) {

@@ -1,0 +1,10 @@
+.secao__historico {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabela__historico {
+    text-align: left;
+}
