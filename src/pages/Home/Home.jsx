@@ -33,7 +33,7 @@ export function Home() {
     const NomeUsuario = () => {
         return user.displayName===null
         ?
-        "Novo Usuário. Acesse o seu Perfil e defina as suas configurações!"
+        "New User. Go to your profile and set up your personal informations!"
         :
         user.displayName
     }
@@ -44,8 +44,8 @@ export function Home() {
         ""
         :
         <article className="secao_homepage">
-            <h2><b>Olá <NomeUsuario />!</b></h2>
-            <p>Confira abaixo o resumo de suas movimentações!</p>
+            <h2><b>Hello <NomeUsuario />!</b></h2>
+            <p>Check it out a brief about your data in and outs!</p>
         </article>
     }
 
