@@ -5,9 +5,9 @@ import { auth } from "../../contexts/Firebase";
 import { Spinner } from "../../components/Spinner/Spinner";
 
 import { toast } from "react-toastify";
-import "./HistoricoPagamentos.css"
+import "./CashFlowHistory.css"
 
-export function HistoricoPagamentos() {
+export function CashFlowHistory() {
 
     const [userOn] = useAuthState(auth);
 

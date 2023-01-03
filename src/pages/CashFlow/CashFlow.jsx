@@ -1,13 +1,13 @@
 import { RegistroPagamentos } from "../../components/RegistroPagamentos/RegistroPagamentos";
 
-import "./Pagamentos.css"
+import "./CashFlow.css"
 
-export function Pagamentos() {
+export function CashFlow() {
 
     return (
         <section className="tela__pagamentos">
             <article className="intrucoes__aplicação">
-                <h2 className="titutlo__pagina">Pagamentos</h2>
+                <h2 className="titutlo__pagina">Payments</h2>
                 <p>
                     Aqui você realizará o registro de pagamentos de pessoas/empresas
                     conforme o preenchimento dos campos abaixo:
@@ -43,7 +43,7 @@ export function Pagamentos() {
                 </p>
             </article>
             <article className="container__entradas">
-                <h3>Registro de Entradas/Despesas</h3>
+                <h3>Moviments/Transactions</h3>
                 <RegistroPagamentos />
             </article>
         </section>

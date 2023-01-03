@@ -1,15 +1,14 @@
-import { BrowserRouter, MemoryRouter ,Outlet } from 'react-router-dom';
+import { MemoryRouter ,Outlet } from 'react-router-dom';
 import { SideLogin } from '../components/SideLogin/SideLogin';
 import { SideSignUp } from '../components/SideSignUp/SideSignUp';
 import { Header } from '../components/Header/Header';
 import { SideMenu } from "../components/SideMenu/SideMenu";
 import { AuthProvider } from '../contexts/Auth';
-import { MainRoutes } from "../routes";
+import { MainRoutes } from "../routes/MainRoutes";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
 import { Footer } from '../components/Footer/Footer';
-import { Home } from '../pages/Home/Home';
 
 export function App() {
   return (

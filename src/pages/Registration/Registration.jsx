@@ -7,23 +7,30 @@ import { CadastroNovaCategoria } from "../../components/CadastroNovaCategoria/Ca
 
 //Componentes de Estilização
 import { toast } from "react-toastify";
-import "./Cadastros.css"
+import "./Registration.css"
 
 
 
-export function Cadastros() {
+export function Registration() {
 
+    // Keys to access API - Names/Companies Registration and Categories Registration
     const api = import.meta.env.VITE_API;
     const apiCadastroCategorias = import.meta.env.VITE_API_CATEGORIAS;
 
+    // State about user being logged in (Firebase Auth)
     const [userOn] = useAuthState(auth);
 
+    // Reference to get data values to create/update/delete informations in API
     const ref = useRef();
 
+
+    // State to Data Registrated
     const [cadastrados, setCadastrados] = useState([]);
     const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
     const [onEdit, setOnEdit] = useState(null);
 
+
+    // API call to get All data registrated by Name/Company
     const getCadastrados = async () => {
         try {
             const res = await axios.get(api);
@@ -33,6 +40,8 @@ export function Cadastros() {
             toast.error(error);
         }
     };
+
+    // API call to get All data registrated for categories
     const getCategoriasRegistradas = async () => {
         try {
             const res = await axios.get(apiCadastroCategorias);
@@ -43,10 +52,7 @@ export function Cadastros() {
         }
     }
 
-    useEffect(() => {
-        getCadastrados();
-    }, [setCadastrados])
-
+    // Submit information to API
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -76,28 +82,33 @@ export function Cadastros() {
         getCadastrados();
     }
 
+    // Modifies Style to make visible container to edit or delete Name/Company registered
     const defineOpcaoParaEditarOuDeletar = () => {
         setOnEdit(cadastrados.filter((item) => item.nome===(document.querySelector(".teste__opcao").value)));
         document.querySelector(".container__edicao").classList.add("exibe__containerEdicao")
     }
 
+    useEffect(() => {
+        getCadastrados();
+    }, [setCadastrados])
+
     return (
         <section className="pagina__cadastros">
             <article className="apresentacao__cadastro">
-                <h2 className="titulo__cadastro">Tela de cadastros</h2>
+                <h2 className="titulo__cadastro">Registration</h2>
                 <p>
-                    Aqui você realizará o cadastro de pessoas/empresas para realizar 
-                    o registro de pagamentos efetuados na página de registro de pagamentos
+                    Here you can make registration by name/company so you can create
+                    an organized cash flow.
                 </p>
                 <p>
-                    Abaixo você pode conferir os campos que devem ser preenchidos
+                    Bellow you can see the form to submit information to registration.
                 </p>
             </article>
             <div className="divisao__containersCadastro">
                 <form className="formulario__cadastro" ref={ref} onSubmit={handleSubmit}>
                     <fieldset className="containers__input">
                         <label htmlFor="name">
-                            Nome 
+                            Name 
                         </label>
                         <input
                             type="text"
@@ -119,7 +130,7 @@ export function Cadastros() {
                             placeholder="teste@test.com"
                         />
                         <label htmlFor="fone">
-                            Telefone 
+                            Phone 
                         </label>
                         <input
                             type="tel"
@@ -130,7 +141,7 @@ export function Cadastros() {
                             placeholder="(xx)xxxxx-xxxx"
                         />
                         <label htmlFor="categoria">
-                            Categoria 
+                            Category 
                         </label>
                         <select
                             name="categoria"
@@ -145,7 +156,7 @@ export function Cadastros() {
                         type="submit"
                         className="botao__cadastro"
                         >
-                            Cadastrar
+                            Save
                         </button>
                     </fieldset>
                 </form>
@@ -168,7 +179,7 @@ export function Cadastros() {
                 />
             </div>
             <article className="lista__cadastrados">
-                <h3>Lista de Registrados</h3>
+                <h3>Name/Companies on Database</h3>
                 <form className="lista__registrados">
                     <select className="teste__opcao">
                         {cadastrados.map((item, i) => (
