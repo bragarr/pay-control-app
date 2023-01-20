@@ -4,6 +4,12 @@ Este é um projeto para criação de uma aplicação que efetua controle de paga
 
 VISUALIZE, CADASTRE, ATUALIZE E DELETE dados e contrua um fluxo de pagamentos que possa acompanhar e visualizar!
 
+Perfil para Teste :
+Se você for testar esta aplicação você pode utilizar as credenciais abaixo:
+
+Email: teste@teste.com
+Senha: teste123
+
 Para criação deste projeto está sendo executada a formulação do backend conforme informações e arquivos do diretório abaixo:
 
 https://github.com/bragarr/controle-pagamentos-backend
