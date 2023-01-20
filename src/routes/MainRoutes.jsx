@@ -12,19 +12,19 @@ import { CashFlowHistory } from "../pages/CashFlowHistory/CashFlowHistory";
 
 export function MainRoutes() {
 
-    const AllowsUserAccessRegistration = (parametro) => {
+    const AllowsUserAccessRegistration = () => {
         const { logged } = useAuth();
 
         return logged > 0 ? <Registration /> : <Loading /> 
     }
 
-    const AllowsUserAccessCashFlow = (parametro) => {
+    const AllowsUserAccessCashFlow = () => {
         const { logged } = useAuth();
 
         return logged > 0 ? <CashFlow /> : <Loading /> 
     }
 
-    const AllowsUserAccessHistory = (parametro) => {
+    const AllowsUserAccessHistory = () => {
         const { logged } = useAuth();
 
         return logged > 0 ? <CashFlowHistory /> : <Loading /> 
