@@ -7,8 +7,6 @@ import axios from "axios";
 import { ApresentacaoPlataforma } from "../../components/ApresentacaoPlataforma/ApresentacaoPlataforma";
 import { InformacoesGeraisUsuario } from "../../components/InformacoesGeraisUsuario/InformacoesGeraisUsuario";
 
-import "./Home.css";
-
 export function Home() {
 
     const apiPagamentos= import.meta.env.VITE_API_PAGAMENTOS;
@@ -43,7 +41,7 @@ export function Home() {
         ?
         ""
         :
-        <article className="secao_homepage">
+        <article>
             <h2><b>Hello <NomeUsuario />!</b></h2>
             <p>Check it out a brief about your data in and outs!</p>
         </article>
@@ -59,7 +57,7 @@ export function Home() {
     }
 
     return(
-        <section className="dashboard__principal">
+        <section>
             <TituloDeApresentacaoDaPagina />
             <ApresentacaoPrincipalHomePage />
         </section>

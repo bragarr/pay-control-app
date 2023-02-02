@@ -1,16 +1,13 @@
+import axios from "axios";
 import { useRef ,useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../contexts/Firebase";
 
-import axios from "axios";
-
-import { Spinner } from "../Spinner/Spinner";
 import { toast } from "react-toastify";
-import { AiFillSave } from "react-icons/ai";
+import { Spinner } from "../Spinner/Spinner";
 
-import "./RegistroPagamentos.css";
 
-export function RegistroPagamentos({ coletarPagamentos}) {
+export function PayInput({ coletarPagamentos}) {
     const api = import.meta.env.VITE_API;
     const apiPagamentos= import.meta.env.VITE_API_PAGAMENTOS;
 
@@ -61,49 +58,33 @@ export function RegistroPagamentos({ coletarPagamentos}) {
         ?
         <Spinner />
         :
-        <form ref={ref} onSubmit={handleSubmit} className="formulario__cred">
-            <fieldset className="campos__preenchimento">
-                <div className="grupo__dadosPrenchimento">
-                    <label htmlFor="tipo_pagamento">
-                        Tipo 
-                    </label>
-                    <select
-                        name="tipo_pagamento"
-                        id="tipo_pagamento"
-                        className="selecao__opcao"
-                    >
+        <form ref={ref} onSubmit={handleSubmit} className="row g-3">
+                <div className="col-md-6">
+                    <label htmlFor="tipo_pagamento" className="form-label">Tipo </label>
+                    <select name="tipo_pagamento" id="tipo_pagamento" className="form-select">
                         <option>Entrada</option>
                         <option>Despesa</option>
                     </select>
                 </div>
-                <div className="grupo__dadosPrenchimento">
-                    <label htmlFor="nome">
-                        Nome 
-                    </label>
-                    <select
-                        name="nome"
-                        id="name"
-                        className="selecao__opcao"
-                    >
+                <div class="col-md-6">
+                    <label htmlFor="nome" className="form-label">Nome</label>
+                    <select name="nome" id="name" className="form-select">
                         {cadastrados.length > 0 && cadastrados.map((item) =><option key={item.id}>{item.nome}</option>)}
                     </select>
                 </div>
-                <div className="grupo__dadosPrenchimento">
-                    <label htmlFor="valor_pagamento">
-                        Valor
-                    </label>
+                <div class="col-md-6">
+                    <label htmlFor="valor_pagamento" className="form-label">Valor</label>
                     <input
                         type="text"
                         name="valor_pagamento"
                         id="valor_pagamento"
                         placeholder="R$1000.00"
                         required
+                        class="form-control"
                     />
                 </div>
-                <div className="grupo__dadosPrenchimento">
-                    <label htmlFor="obs">
-                        Descrição  
-                    </label>
+                <div class="col-md-6">
+                    <label htmlFor="obs" className="form-label">Descrição</label>
                     <input
                         type="text"
                         name="obs"
@@ -111,25 +92,16 @@ export function RegistroPagamentos({ coletarPagamentos}) {
                         maxLength="30"
                         placeholder="Descrição do Registro"
                         required
+                        class="form-control"
                     />
                 </div>
-                <div className="grupo__dadosPrenchimento">
-                    <label htmlFor="data_pagamento">
-                        Data:
-                    </label>
-                    <input
-                        type="date"
-                        name="data_pagamento"
-                        id="data_pagamento"
-                        required
-                    />
+                <div class="col-md-6">
+                    <label htmlFor="data_pagamento" className="form-label">Data:</label>
+                    <input type="date" name="data_pagamento" id="data_pagamento" required class="form-control" />
                 </div>
-                <div className="grupo__dadosPrenchimento">
-                    <button type="submit" className="botao__pagamento">
-                        Salvar
-                    </button>
+                <div>
+                    <button type="submit" class="btn btn-outline-success">Save</button>
                 </div>
-            </fieldset>
         </form>
     }
 

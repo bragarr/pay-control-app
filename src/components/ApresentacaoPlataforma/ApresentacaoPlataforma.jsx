@@ -1,6 +1,6 @@
 export function ApresentacaoPlataforma() {
     return (
-        <article className="container__apresentacao">
+        <article>
             <h2>O que é o Controle de Pagamentos?</h2>
             <p>
                 Esta é uma aplicação que possui como onjetivo principal realizar um controle 

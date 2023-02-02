@@ -1,8 +1,6 @@
-import "./Footer.css"
-
 export function Footer() {
     return (
-        <footer className="rodape">
+        <footer>
             Projeto idealizado e construído por Reinaldo Braga
         </footer>
     );

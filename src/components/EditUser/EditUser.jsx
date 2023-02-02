@@ -1,8 +1,6 @@
 import { auth } from "../../contexts/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { updateProfile } from "firebase/auth";
-
-import "./EditUser.css"
 import { useState } from "react";
 
 export function EditUser() {

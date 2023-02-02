@@ -1,10 +1,10 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import axios from "axios";
+
 import { toast } from "react-toastify";
+import { AiFillDelete } from "react-icons/ai";
 
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-
-export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categoriasRegistradas, setCategoriasRegistradas, getCategoriasRegistradas}) {
+export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categoriasRegistradas, getCategoriasRegistradas}) {
 
     const ref = useRef();
 
@@ -34,7 +34,6 @@ export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categorias
     }, [categoriasRegistradas]);
 
     const handleDeleteCategoria = async (idcategorias) => {
-        console.log("teste")
         await axios
             .delete(apiCadastroCategorias +"/"+ idcategorias)
             .then(({ data }) => {
@@ -46,30 +45,32 @@ export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categorias
     }
 
     return (
-        <article className="container__categorias">
+        <article>
             <h3>Lista de Categorias</h3>
-            <div className="div__listaCategoriasRegistradas">  
-                <form ref={ref} onSubmit={handleSubmitNovaCategoria} className="formulario__categoria">
-                    <fieldset className="container__cadastroCategoria">
-                        <label htmlFor="nova__categoria">Nova Categoria </label>
-                        <input type="text" name="nova__categoria" id="nova__categoria" />
-                        <button type="submit" className="botao__cadastro" >Salvar</button>
-                    </fieldset>
+            <div>  
+                <form ref={ref} onSubmit={handleSubmitNovaCategoria} className="row g-3 align-items-center">
+                    <div class="col-12">
+                        <label htmlFor="nova__categoria" className="form-label">Nova Categoria </label>
+                        <input type="text" name="nova__categoria" id="nova__categoria" class="form-control" />
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
                 </form>
-                <table className="tabela__categorias">
-                    <thead className="table__head">
+                <table>
+                    <thead>
                             <tr>
-                                <th className="tipo__categorias">Categoria</th>
-                                <th className="tipo__criadoPor">Criado por:</th>
-                                <th className="tipo__deletar">Deletar</th>
+                                <th>Categoria</th>
+                                <th>Criado por:</th>
+                                <th>Deletar</th>
                             </tr>
                     </thead>
-                    <tbody className="table__body">      
+                    <tbody>      
                         {categoriasRegistradas.map((item, i) => (
                             <tr key={i}>
-                                <td className="item__categoria">{item.categoria}</td>
-                                <td className="item__criador">{item.criador}</td>
-                                <td className="item__deletar"><AiFillDelete onClick={() => handleDeleteCategoria(item.idcategorias)} /></td>
+                                <td>{item.categoria}</td>
+                                <td>{item.criador}</td>
+                                <td><AiFillDelete onClick={() => handleDeleteCategoria(item.idcategorias)} /></td>
                             </tr>
                         ))}
                     </tbody>

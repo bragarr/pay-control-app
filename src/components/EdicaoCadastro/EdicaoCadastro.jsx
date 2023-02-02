@@ -1,11 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-
+import { useEffect, useRef } from "react";
 import axios from "axios";
 
 import { toast } from "react-toastify";
 import { AiFillCloseCircle } from "react-icons/ai";
-
-import "./EdicaoCadastro.css";
 
 export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasRegistradas, getCategoriasRegistradas, setCategoriasRegistradas}) {
     const api= import.meta.env.VITE_API;
@@ -77,10 +74,10 @@ export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasReg
     }
 
     return (
-        <article className="container__edicao">
-            <form ref={ref} className="container__formularioEdicao">
-                <fieldset className="form__edicao">
-                    <div className="container__botaoFechar">
+        <article>
+            <form ref={ref}>
+                <fieldset>
+                    <div>
                         <AiFillCloseCircle onClick={fechaContainerEdicaoCadastro}/>
                     </div>
                     <label htmlFor="nomeEdicao">
@@ -90,7 +87,6 @@ export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasReg
                         type="text"
                         name="nomeEdicao"
                         id="nameEdicao"
-                        className="containers__inputEdicao"
                     />
                     <label htmlFor="emailEdicao">
                         Email
@@ -99,7 +95,6 @@ export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasReg
                         type="text"
                         name="emailEdicao"
                         id="emailEdicao"
-                        className="containers__inputEdicao"
                     />
                     <label htmlFor="foneEdicao">
                         Telefone: 
@@ -108,7 +103,6 @@ export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasReg
                         type="tel"
                         name="foneEdicao"
                         id="foneEdicao"
-                        className="containers__inputEdicao"
                     />
                     <label htmlFor="categoriaEdicao">
                         Categoria: 
@@ -116,15 +110,14 @@ export function EdicaoCadastro({getCadastrados, onEdit, setOnEdit, categoriasReg
                     <select
                         name="categoriaEdicao"
                         id="categoriaEdicao"
-                        className="seletores__EdicaoCategoria"
                     >
                         {categoriasRegistradas.map((item, i) => (
                             <option key={i}>{item.categoria}</option>
                         ))}
                     </select>
                     <div className="botoes__edicao">
-                        <button type="submit" onClick={handleEdit} className="botao__edicao botao__edicao--editar">Salvar</button>
-                        <button type="submit" onClick={handleDelete} className="botao__edicao botao__edicao--deletar">Deletar</button>
+                        <button type="submit" onClick={handleEdit}>Salvar</button>
+                        <button type="submit" onClick={handleDelete}>Deletar</button>
                     </div>
                 </fieldset>
             </form>

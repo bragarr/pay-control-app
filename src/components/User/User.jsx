@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import { EditUser } from "../EditUser/EditUser";
-
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth } from "../../contexts/Firebase";
 import { storage } from "../../contexts/Firebase";
@@ -11,8 +9,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import { FaUserCircle } from "react-icons/fa";
 import { BsPencilSquare, BsFileEarmarkArrowDown } from "react-icons/bs";
-
-import "./User.css"
 
 export function User() {
 
@@ -27,7 +23,7 @@ export function User() {
         ?
         ""
         :
-        <p className="nome__usuario">Nome: {user.displayName}</p>
+        <p>Nome: {user.displayName}</p>
     }
     
     const { logOut } = useAuth();
@@ -78,19 +74,12 @@ export function User() {
     const DefineFotoUsuário = () => {
         return user.photoURL===null
         ?
-        <FaUserCircle className="icones__nav"/>
+        <FaUserCircle />
         :
-        <img src={user.photoURL} alt="Foto de perfil" className="foto__perfil"/>
+        <img src={user.photoURL} alt="Foto de perfil"/>
     }
 
     // Oculta campos de login quando o usuário estiver com signin ativo
-    const OcultaLogin = () => {
-        return !user
-        ?
-        "Login Desativado - Usuário Signed in"
-        :
-        document.querySelector(".form__login").classList.add("login__ativado")
-    }
 
     //Exibe campos para edição de fotos
     const editarFotoPerfil = () => {
@@ -113,20 +102,19 @@ export function User() {
     }
 
     return (
-        <article className="corpo">
-            <OcultaLogin />
+        <article>
             <DefineFotoUsuário />
             <NomeUsuario />
-            <p className="nome__usuario">
+            <p>
                 Email: {user.email}
             </p>
-            <div className="edicao__foto" onClick={editarFotoPerfil}>
+            <div onClick={editarFotoPerfil}>
                 <BsPencilSquare />
-                <p className="texto__foto">Editar foto</p>
+                <p>Editar foto</p>
             </div>
-            <form onSubmit={handleUpload} className="campo__foto edicao__desativada">
-                {!imgURL && <progress value={progress} max="100" className="barra__progresso"/>}
-                <label htmlFor="enviarFoto" className="selecionar__foto">
+            <form onSubmit={handleUpload}>
+                {!imgURL && <progress value={progress} max="100"/>}
+                <label htmlFor="enviarFoto">
                     <BsFileEarmarkArrowDown /> Escolher arquivo
                 </label>
                 <input 
@@ -136,20 +124,18 @@ export function User() {
                 />
                 <button
                     type="submit"
-                    className="button__foto"
                     onClick={statusFoto}
                 >
                     Enviar
                 </button>
             </form>
-            <div className="edicao__perfil" onClick={editarPerfil}>
+            <div onClick={editarPerfil}>
                 <BsPencilSquare />
-                <p className="texto__edicao">Editar nome</p>
+                <p>Editar nome</p>
             </div>
             <EditUser />
             <button
                 type="button"
-                className="button__register"
                 onClick={realizaLogOut}
             >
                 Sair

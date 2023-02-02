@@ -1,31 +1,25 @@
-import { MemoryRouter ,Outlet } from 'react-router-dom';
-import { SideLogin } from '../components/SideLogin/SideLogin';
-import { SideSignUp } from '../components/SideSignUp/SideSignUp';
-import { Header } from '../components/Header/Header';
-import { SideMenu } from "../components/SideMenu/SideMenu";
+import { BrowserRouter ,Outlet } from 'react-router-dom';
 import { AuthProvider } from '../contexts/Auth';
 import { MainRoutes } from "../routes/MainRoutes";
+
+import { NavBar } from "../components/NavBar/NavBar"
+import { Footer } from '../components/Footer/Footer';
+
+import "./App.css"
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import './App.css'
-import { Footer } from '../components/Footer/Footer';
 
 export function App() {
   return (
     <AuthProvider>
-      <MemoryRouter
-        forceRefresh={true}
-      >
-        <Header />
+      <BrowserRouter>
+        <NavBar />
         <main>
-          <SideLogin />
-          <SideSignUp />
-          <SideMenu />
           <MainRoutes />
+          <Outlet />
         </main>
-        <Outlet />
         <Footer />
-      </MemoryRouter>
+      </BrowserRouter>
       <ToastContainer autoClose={3000} position={toast.POSITION.TOP_CENTER}/>
     </AuthProvider>
   )

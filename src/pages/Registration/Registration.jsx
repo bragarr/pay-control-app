@@ -2,14 +2,11 @@ import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../contexts/Firebase";
-import { EdicaoCadastro } from "../../components/EdicaoCadastro/EdicaoCadastro";
 import { CadastroNovaCategoria } from "../../components/CadastroNovaCategoria/CadastroNovaCategoria";
+import { IoIosArrowDroprightCircle } from "react-icons/io"
 
 //Componentes de Estilização
 import { toast } from "react-toastify";
-import "./Registration.css"
-
-
 
 export function Registration() {
 
@@ -93,9 +90,9 @@ export function Registration() {
     }, [setCadastrados])
 
     return (
-        <section className="pagina__cadastros">
-            <article className="apresentacao__cadastro">
-                <h2 className="titulo__cadastro">Registration</h2>
+        <section>
+            <article>
+                <h2>Input <IoIosArrowDroprightCircle /> Users</h2>
                 <p>
                     Here you can make registration by name/company so you can create
                     an organized cash flow.
@@ -104,72 +101,53 @@ export function Registration() {
                     Bellow you can see the form to submit information to registration.
                 </p>
             </article>
-            <div className="divisao__containersCadastro">
-                <form className="formulario__cadastro" ref={ref} onSubmit={handleSubmit}>
-                    <fieldset className="containers__input">
-                        <label htmlFor="name">
-                            Name 
-                        </label>
+            <div>
+                <form ref={ref} onSubmit={handleSubmit} className="row g-3">
+                    <div className="mb-3">
+                        <label htmlFor="name" className="form-label">Name</label>
                         <input
                             type="text"
                             name="name"
                             id="nome"
+                            className="form-control"
                             required
-                            className="input__cadastros"
                             placeholder="Digite o nome completo"
                         />
-                        <label htmlFor="email">
-                            E-mail 
-                        </label>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">E-mail</label>
                         <input
                             type="email"
                             name="email"
                             id="email"
                             required
-                            className="input__cadastros"
                             placeholder="teste@test.com"
+                            className="form-control"
                         />
-                        <label htmlFor="fone">
-                            Phone 
-                        </label>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="fone" className="form-label">Phone</label>
                         <input
                             type="tel"
                             name="fone"
                             id="fone"
                             required
-                            className="input__cadastros"
                             placeholder="(xx)xxxxx-xxxx"
+                            className="form-control"
                         />
-                        <label htmlFor="categoria">
-                            Category 
-                        </label>
-                        <select
-                            name="categoria"
-                            id="categoria"
-                            className="input__cadastros"
-                        >
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="categoria" className="form-label">Category</label>
+                        <select className="categoria" id="categoria" class="form-select" aria-label="Default select example">
                             {categoriasRegistradas.map((item, i) => (
                                 <option key={i}>{item.categoria}</option>
                             ))}
                         </select>
-                        <button
-                        type="submit"
-                        className="botao__cadastro"
-                        >
-                            Save
-                        </button>
-                    </fieldset>
+                    </div>
+                    <div>
+                        <button type="submit" className="btn btn-outline-success">Save</button>
+                    </div>
                 </form>
-                <div className="area__containerEdicao">
-                    <EdicaoCadastro
-                        onEdit={onEdit}
-                        setOnEdit={setOnEdit}
-                        getCadastrados={getCadastrados}
-                        categoriasRegistradas={categoriasRegistradas}
-                        setCategoriasRegistradas={setCategoriasRegistradas}
-                        getCategoriasRegistradas={getCategoriasRegistradas}
-                    />
-                </div>
                 <CadastroNovaCategoria
                     apiCadastroCategorias={apiCadastroCategorias}
                     userOn={userOn}
@@ -178,10 +156,10 @@ export function Registration() {
                     getCategoriasRegistradas={getCategoriasRegistradas}
                 />
             </div>
-            <article className="lista__cadastrados">
+            <article>
                 <h3>Name/Companies on Database</h3>
-                <form className="lista__registrados">
-                    <select className="teste__opcao">
+                <form>
+                    <select>
                         {cadastrados.map((item, i) => (
                             <option key={i}>{item.nome}</option>
                         ))}
