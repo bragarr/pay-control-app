@@ -2,13 +2,12 @@ import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../contexts/Firebase";
-import { CadastroNovaCategoria } from "../../components/CadastroNovaCategoria/CadastroNovaCategoria";
-import { IoIosArrowDroprightCircle } from "react-icons/io"
+import { IoIosArrowDroprightCircle } from "react-icons/io";
 
 //Componentes de Estilização
 import { toast } from "react-toastify";
 
-export function Registration() {
+export function Users() {
 
     // Keys to access API - Names/Companies Registration and Categories Registration
     const api = import.meta.env.VITE_API;
@@ -148,13 +147,6 @@ export function Registration() {
                         <button type="submit" className="btn btn-outline-success">Save</button>
                     </div>
                 </form>
-                <CadastroNovaCategoria
-                    apiCadastroCategorias={apiCadastroCategorias}
-                    userOn={userOn}
-                    categoriasRegistradas={categoriasRegistradas}
-                    setCategoriasRegistradas={setCategoriasRegistradas}
-                    getCategoriasRegistradas={getCategoriasRegistradas}
-                />
             </div>
             <article>
                 <h3>Name/Companies on Database</h3>

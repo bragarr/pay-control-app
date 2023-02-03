@@ -1,22 +1,17 @@
 import { auth } from "../../contexts/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useAuth } from "../../Hooks/useAuth";
 import { Link } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
 import { BsCashCoin } from "react-icons/bs";
 
-export function NavBar() {
+export function NavBarNotSignedIn() {
     const [user] = useAuthState(auth);
     const menuButton =  document.querySelector(".offcanvas");
     const menuSubPages = document.querySelector(".dropdown-menu");
 
     const activeDesactiveMenu = () => {
         menuButton.classList.toggle("show");
-    }
-
-    const subPages = () => {
-        menuSubPages.classList.toggle("show");
     }
 
     const DefineIconeUsuario = () => {
@@ -61,23 +56,14 @@ export function NavBar() {
                                 <Link to={"/"} className="nav-link">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={"profile"} className="nav-link">Profile</Link>
+                                <Link to={"signin"} className="nav-link">Sign In</Link>
                             </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={subPages}>
-                                    Data Inputs
-                                </a>
-                                <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown" >
-                                    <li><Link to={"users"} className="dropdown-item">Users</Link></li>
-                                    <li><Link to={"categories"} className="dropdown-item">Categories</Link></li>
-                                    <li><Link to={"payflow"} className="dropdown-item">PayFlow</Link></li>
-                                </ul>
+                            <li className="nav-item">
+                                <Link to={"signup"} className="nav-link">Sign Up</Link>
                             </li>
-                            <li><Link to={"history"} className="nav-link">History</Link></li>
                         </ul>
                         <div class="d-flex">
                             <DefineFotoUsuario />
-                            <button type="button" className="btn btn-outline-primary">Log Out</button>
                         </div>
                     </div>
                 </div>

@@ -14,13 +14,13 @@ export function TopPagamentos(pagamentos) {
         ?
         <article>
             <h3>Top In/Outs</h3>
-            <table className="table table-responsive{-sm|-md|-lg|-xl|-xxl}" width="300px">
+            <table className="table table-sm" width="300px">
                 <thead className="table-dark">
                     <tr>
                         <th>N°</th>
-                        <th>Tipo</th>
-                        <th>Valor</th>
-                        <th>Descrição</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>

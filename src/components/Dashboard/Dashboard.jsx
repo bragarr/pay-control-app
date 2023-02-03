@@ -2,7 +2,7 @@ import { Graficos } from "../Graficos/Graficos";
 import { Spinner } from "../Spinner/Spinner";
 import { TopPagamentos } from "../TopPagamentos/TopPagamentos";
 
-export function InformacoesGeraisUsuario({pagamentos, user}) {
+export function Dashboard({pagamentos, user}) {
 
     let entradas = 0;
     let despesas = 0;

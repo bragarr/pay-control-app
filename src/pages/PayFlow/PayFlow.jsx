@@ -1,7 +1,7 @@
 import { PayInput } from "../../components/PayInput/PayInput";
 import { IoIosArrowDroprightCircle } from "react-icons/io"
 
-export function CashFlow() {
+export function PayFlow() {
 
     return (
         <section>

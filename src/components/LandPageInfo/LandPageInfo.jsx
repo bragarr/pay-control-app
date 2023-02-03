@@ -1,4 +1,4 @@
-export function ApresentacaoPlataforma() {
+export function LandPageInfo() {
     return (
         <article>
             <h2>O que é o Controle de Pagamentos?</h2>

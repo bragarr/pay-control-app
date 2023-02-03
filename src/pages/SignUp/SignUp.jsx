@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { auth } from "../../contexts/Firebase";
 import { useAuth } from "../../Hooks/useAuth";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function SignUp() {
     const { novoUsuario } = useAuth();
@@ -31,53 +31,52 @@ export function SignUp() {
         <article>
             <form >
                 <h2>Sign Up</h2>
-                <p>Preencha todos os campos</p>
-                <fieldset>
-                    <label htmlFor="email">
-                        E-mail
-                    </label>
+                <p>Fill up all the fields.</p>
+                <div class="mb-3">
+                    <label htmlFor="email" class="form-label">E-mail</label>
                     <input 
                         type="email"
                         name="email"
-                        placeholder="Digite o seu E-mail"
+                        placeholder="Type your E-mail"
                         id="email__signup"
                         value={email}
                         onChange={(e) => [setEmail(e.target.value)]}
+                        class="form-control"
                         required
                     />
-                    <label htmlFor="password">
-                        Senha
-                    </label>
+                </div>
+                <div class="mb-3">
+                    <label htmlFor="password" class="form-label">Password</label>
                     <input 
                         type="password"
                         name="password"
-                        placeholder="Digite a sua senha"
+                        placeholder="Type your password"
                         autoComplete="on"
                         id="password"
                         value={password}
                         onChange={(e) => [setPassword(e.target.value)]}
+                        class="form-control"
                         required
                     />
-                    <label htmlFor="confirmar__password">
-                        Confirmar Senha
-                    </label>
+                </div>
+                <div class="mb-3">
+                    <label htmlFor="confirmar__password" class="form-label">Confirm your password</label>
                     <input
                         type="password"
                         name="confirmar__password"
-                        placeholder="Confirme a sua senha"
+                        placeholder="Confirm your password"
                         autoComplete="on"
                         id="confirmar__password"
                         value={confPassword}
                         onChange={(e) => [setConfPassword(e.target.value)]}
+                        class="form-control"
                         required
                     />
-                    <button
-                        type="button"
-                        onClick={verificacaoCadastro}
-                    >
-                        Cadastrar
-                    </button>
-                </fieldset>
+                </div>
+                <div class="mb-3">
+                    <button type="button" onClick={verificacaoCadastro} class="btn btn-outline-primary">Enter</button>
+                    <p>Already have an account? <Link to={"/signin"}>Sign in</Link></p>
+                </div>
             </form>
         </article>
     )

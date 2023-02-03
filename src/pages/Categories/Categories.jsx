@@ -1,12 +1,31 @@
-import { useRef, useEffect } from "react";
 import axios from "axios";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../contexts/Firebase";
+import { useRef, useEffect, useState } from "react";
 
 import { toast } from "react-toastify";
-import { AiFillDelete } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
-export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categoriasRegistradas, getCategoriasRegistradas}) {
+export function Categories() {
+    // Keys to access API - Names/Companies Registration and Categories Registration
+    const apiCadastroCategorias = import.meta.env.VITE_API_CATEGORIAS;
 
+    // State about user being logged in (Firebase Auth)
+    const [userOn] = useAuthState(auth);
     const ref = useRef();
+
+    const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
+
+    // API call to get All data registrated for categories
+    const getCategoriasRegistradas = async () => {
+        try {
+            const res = await axios.get(apiCadastroCategorias);
+            const categoriasRegistradasPorTodosOsUsuariosDaPlataforma = res.data.sort((a,b) => (a.categoria > b.categoria ? 1 : -1));
+            setCategoriasRegistradas(categoriasRegistradasPorTodosOsUsuariosDaPlataforma);
+        } catch (error) {
+            toast.error(error);
+        }
+    }
 
     const handleSubmitNovaCategoria = async (e) => {
         e.preventDefault();
@@ -46,23 +65,24 @@ export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categorias
 
     return (
         <article>
-            <h3>Lista de Categorias</h3>
+            <h3>Categories</h3>
             <div>  
                 <form ref={ref} onSubmit={handleSubmitNovaCategoria} className="row g-3 align-items-center">
                     <div class="col-12">
-                        <label htmlFor="nova__categoria" className="form-label">Nova Categoria </label>
-                        <input type="text" name="nova__categoria" id="nova__categoria" class="form-control" />
+                        <label htmlFor="nova__categoria" className="form-label">New Category</label>
+                        <input type="text" name="nova__categoria" id="nova__categoria" placeholder="Add new category..." class="form-control" />
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
-                <table>
+                <table class="table table-hover">
                     <thead>
                             <tr>
-                                <th>Categoria</th>
-                                <th>Criado por:</th>
-                                <th>Deletar</th>
+                                <th>Category</th>
+                                <th>User:</th>
+                                <th className="text-center">Editar</th>
+                                <th className="text-center">Deletar</th>
                             </tr>
                     </thead>
                     <tbody>      
@@ -70,7 +90,8 @@ export function CadastroNovaCategoria({apiCadastroCategorias, userOn, categorias
                             <tr key={i}>
                                 <td>{item.categoria}</td>
                                 <td>{item.criador}</td>
-                                <td><AiFillDelete onClick={() => handleDeleteCategoria(item.idcategorias)} /></td>
+                                <td className="text-center"><AiFillEdit className="cursor-pointer"/></td>
+                                <td className="text-center"><AiFillDelete className="cursor-pointer" onClick={() => handleDeleteCategoria(item.idcategorias)}/></td>
                             </tr>
                         ))}
                     </tbody>

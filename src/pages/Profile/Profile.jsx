@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { EditUser } from "../EditUser/EditUser";
+import { EditUser } from "../../components/EditUser/EditUser";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth } from "../../contexts/Firebase";
 import { storage } from "../../contexts/Firebase";
@@ -10,8 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { FaUserCircle } from "react-icons/fa";
 import { BsPencilSquare, BsFileEarmarkArrowDown } from "react-icons/bs";
 
-export function User() {
-
+export function Profile() {
     const [ imgURL, setImgURL] = useState("");
     const [progress, setProgress] = useState(0);
 
@@ -76,7 +75,7 @@ export function User() {
         ?
         <FaUserCircle />
         :
-        <img src={user.photoURL} alt="Foto de perfil"/>
+        <img src={user.photoURL} alt="Foto de perfil" className="img-fluid" width="100px"/>
     }
 
     // Oculta campos de login quando o usuário estiver com signin ativo
@@ -142,4 +141,4 @@ export function User() {
             </button>
         </article>
     );
-}
+};

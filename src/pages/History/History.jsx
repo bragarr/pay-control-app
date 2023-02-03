@@ -2,9 +2,11 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../contexts/Firebase";
+
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { toast } from "react-toastify";
 
-export function CashFlowHistory() {
+export function History() {
 
     const [userOn] = useAuthState(auth);
 
@@ -33,9 +35,11 @@ export function CashFlowHistory() {
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Valor</th>
-                        <th>Data Pagamento</th>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Date</th>
+                        <th className="text-center">Edit</th>
+                        <th className="text-center">Delete</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -44,6 +48,8 @@ export function CashFlowHistory() {
                             <td>{pagamento.nome}</td>
                             <td>R${(pagamento.valor_pagamento).toFixed(2)}</td>
                             <td>{(pagamento.data_pagamento)}</td>
+                            <td className="text-center"><AiFillEdit className="cursor-pointer"/></td>
+                            <td className="text-center"><AiFillDelete className="cursor-pointer"/></td>
                         </tr>
                     )}
                 </tbody>
