@@ -15,20 +15,24 @@ export function NavBar() {
         menuButton.classList.toggle("show");
     }
 
+    const hideSideBar = () => {
+        menuButton.classList.remove("show")
+    }
+
     const subPages = () => {
         menuSubPages.classList.toggle("show");
     }
 
     const DefineIconeUsuario = () => {
-        return user.photoURL===null
+        return !user || user.photoURL===null
         ?
-        <FaUserCircle/>
+        <FaUserCircle width="20px" height="20px" />
         :
-        <img src={user.photoURL} alt="Foto de perfil" height="40px" />
+        <img src={user.photoURL} alt="Foto de perfil" className="rounded-circle m-1" width="30px" height="30px" />
     }
 
     const DefineFotoUsuario = () => {
-        return !user
+        return !user || user.photoURL===null
         ?
         <FaUserCircle/>
         :
@@ -50,7 +54,7 @@ export function NavBar() {
                     aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>Menu
                 </button>
-                <div className="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div className="offcanvas offcanvas-end text-bg-dark" tabIndex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">PayControl</h5>
                         <button type="button" onClick={activeDesactiveMenu} className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -61,7 +65,7 @@ export function NavBar() {
                                 <Link to={"/"} className="nav-link">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={"profile"} className="nav-link">Profile</Link>
+                                <Link to={"profile"} className="nav-link" onClick={hideSideBar}>Profile</Link>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={subPages}>
@@ -75,9 +79,9 @@ export function NavBar() {
                             </li>
                             <li><Link to={"history"} className="nav-link">History</Link></li>
                         </ul>
-                        <div class="d-flex">
+                        <div className="d-flex align-items-center">
                             <DefineFotoUsuario />
-                            <button type="button" className="btn btn-outline-primary">Log Out</button>
+                            <p className="m-0">{user.displayName}</p>
                         </div>
                     </div>
                 </div>

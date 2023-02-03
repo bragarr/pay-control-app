@@ -2,9 +2,10 @@ import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../contexts/Firebase";
-import { IoIosArrowDroprightCircle } from "react-icons/io";
 
 //Componentes de Estilização
+import { IoIosArrowDroprightCircle } from "react-icons/io";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 export function Users() {
@@ -88,6 +89,10 @@ export function Users() {
         getCadastrados();
     }, [setCadastrados])
 
+    useEffect(() => {
+        getCategoriasRegistradas();
+    }, [categoriasRegistradas]);
+
     return (
         <section>
             <article>
@@ -148,17 +153,33 @@ export function Users() {
                     </div>
                 </form>
             </div>
-            <article>
-                <h3>Name/Companies on Database</h3>
-                <form>
-                    <select>
-                        {cadastrados.map((item, i) => (
-                            <option key={i}>{item.nome}</option>
-                        ))}
-                    </select>
-                    <button type="button" onClick={defineOpcaoParaEditarOuDeletar}>Selecionar</button>
-                </form> 
-            </article>
+            <h3 className="mt-3">Name | Companies</h3>
+            <div className="d-flex flex-row justify-content-center">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>E-mail</th>
+                            <th>Phone</th>
+                            <th>Category</th>
+                            <th className="text-center">Edit</th>
+                            <th className="text-center">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {cadastrados.length > 0 && cadastrados.map((registro) => 
+                            <tr>
+                                <td><input type="text" name="nameEdit" id="nameEdit" className="form-control" disabled defaultValue={registro.nome}/></td>
+                                <td><input type="email" name="emailEdit" id="emailEdit" className="form-control" disabled defaultValue={registro.email}/></td>
+                                <td><input type="phone" name="phoneEdit" id="phoneEdit" className="form-control" disabled defaultValue={registro.fone}/></td>
+                                <td>{registro.categoria}</td>
+                                <td className="text-center"><button type="button" class="btn btn-primary">Edit</button></td>
+                                <td className="text-center"><AiFillDelete className="cursor-pointer"/></td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </section>
     );
 };

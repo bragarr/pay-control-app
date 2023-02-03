@@ -56,24 +56,28 @@ export function PayInput({ coletarPagamentos}) {
     const CarregamentoDeDados = () => {
         return cadastrados.length <= 0
         ?
-        <Spinner />
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
         :
         <form ref={ref} onSubmit={handleSubmit} className="row g-3">
                 <div className="col-md-6">
-                    <label htmlFor="tipo_pagamento" className="form-label">Tipo </label>
+                    <label htmlFor="tipo_pagamento" className="form-label">Payment type</label>
                     <select name="tipo_pagamento" id="tipo_pagamento" className="form-select">
-                        <option>Entrada</option>
-                        <option>Despesa</option>
+                        <option>Income</option>
+                        <option>Expense</option>
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label htmlFor="nome" className="form-label">Nome</label>
+                    <label htmlFor="nome" className="form-label">Name</label>
                     <select name="nome" id="name" className="form-select">
                         {cadastrados.length > 0 && cadastrados.map((item) =><option key={item.id}>{item.nome}</option>)}
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label htmlFor="valor_pagamento" className="form-label">Valor</label>
+                    <label htmlFor="valor_pagamento" className="form-label">Value</label>
                     <input
                         type="text"
                         name="valor_pagamento"
@@ -84,7 +88,7 @@ export function PayInput({ coletarPagamentos}) {
                     />
                 </div>
                 <div class="col-md-6">
-                    <label htmlFor="obs" className="form-label">Descrição</label>
+                    <label htmlFor="obs" className="form-label">Description</label>
                     <input
                         type="text"
                         name="obs"
@@ -96,7 +100,7 @@ export function PayInput({ coletarPagamentos}) {
                     />
                 </div>
                 <div class="col-md-6">
-                    <label htmlFor="data_pagamento" className="form-label">Data:</label>
+                    <label htmlFor="data_pagamento" className="form-label">Date:</label>
                     <input type="date" name="data_pagamento" id="data_pagamento" required class="form-control" />
                 </div>
                 <div>

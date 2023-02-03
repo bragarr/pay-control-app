@@ -1,40 +1,33 @@
 import { useState } from "react";
-import { EditUser } from "../../components/EditUser/EditUser";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth } from "../../contexts/Firebase";
 import { storage } from "../../contexts/Firebase";
-import { updateProfile } from "firebase/auth";
+import { getAuth, updateProfile } from "firebase/auth";
 import { useAuth } from "../../Hooks/useAuth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { FaUserCircle } from "react-icons/fa";
-import { BsPencilSquare, BsFileEarmarkArrowDown } from "react-icons/bs";
+import { BsFileEarmarkArrowDown } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 export function Profile() {
-    const [ imgURL, setImgURL] = useState("");
+    const [ imgURL, setImgURL] = useState();
     const [progress, setProgress] = useState(0);
-
     const [user] = useAuthState(auth);
 
-    // Define a exibição do nome do usuário quando o mesmo já estiver cadastrado
-    const NomeUsuario = () => {
-        return user.displayName===null
-        ?
-        ""
-        :
-        <p>Nome: {user.displayName}</p>
-    }
+    const progressBar = document.querySelector(".progress")
     
+    const params = getAuth();
     const { logOut } = useAuth();
 
     // Define a saída efetiva do usuário da aplicação
     const realizaLogOut = () => {
         logOut();
-        document.querySelector(".form__login").classList.remove("login__ativado");
     }
 
     // Realiza o upload e atualização de foto de perfil do usuário
     const handleUpload = (e) => {
+        progressBar.classList.remove("d-none")
         e.preventDefault();
 
         const file = e.target[0]?.files[0]
@@ -55,18 +48,16 @@ export function Profile() {
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then(url => {
                     setImgURL(url)
+                    updateProfile(params.currentUser, {
+                        photoURL: url
+                    }).then(() => {
+                        window.location.reload(true);
+                    }, (error) => {
+                        toast.error("Error! Photo not updated!")
+                    })
                 })
             }
         )
-
-        updateProfile(user, {
-            photoURL: imgURL
-        }).then(() => {
-            let photoURL = user.photoURL;
-            console.log(photoURL);
-        }, (error) => {
-            console.log(error);
-        })
     }
 
     // Defini na área de pérfil se é exibido ícone genêrico ou foto selecionada pelo usuário
@@ -75,70 +66,54 @@ export function Profile() {
         ?
         <FaUserCircle />
         :
-        <img src={user.photoURL} alt="Foto de perfil" className="img-fluid" width="100px"/>
+        <img src={user.photoURL} alt="Foto de perfil" className="rounded-circle m-2" width="100px" height="100px"/>
     }
 
-    // Oculta campos de login quando o usuário estiver com signin ativo
+    const updateUserName = () => {
+        
+        let nameUpdated = document.getElementById("nome");
 
-    //Exibe campos para edição de fotos
-    const editarFotoPerfil = () => {
-        document.querySelector(".campo__foto").classList.toggle("edicao__desativada");
-    }
-
-    //Exibe campos para exibição de perfil
-    const editarPerfil = () => {
-        document.querySelector(".form__nome").classList.toggle("edicao__desativada");
-    }
-
-    // Alterna o status de texto do botão para atualizar foto de perfil
-    const statusFoto = () => {
-        let botao = document.querySelector(".button__foto");
-        if(botao.textContent === "Enviar") {
-            botao.textContent = "Confirmar"
-        } else {
-            botao.textContent = "Enviar";
-        }
+        updateProfile(params.currentUser, {
+            displayName: nameUpdated.value
+          }).then(() => {
+                toast.success("User Name Updated!")
+          }).catch((error) => {
+                console.log(error);
+          });
     }
 
     return (
-        <article>
-            <DefineFotoUsuário />
-            <NomeUsuario />
-            <p>
-                Email: {user.email}
-            </p>
-            <div onClick={editarFotoPerfil}>
-                <BsPencilSquare />
-                <p>Editar foto</p>
-            </div>
-            <form onSubmit={handleUpload}>
-                {!imgURL && <progress value={progress} max="100"/>}
-                <label htmlFor="enviarFoto">
-                    <BsFileEarmarkArrowDown /> Escolher arquivo
-                </label>
-                <input 
-                    type="file"
-                    name="enviarFoto"
-                    id="enviarFoto"
-                />
-                <button
-                    type="submit"
-                    onClick={statusFoto}
-                >
-                    Enviar
-                </button>
+        <section >
+            <h2>Profile</h2>
+            <form className="row g-3">
+                <div className="col-md-6">
+                    <div className="mb-3">
+                        <label htmlFor="nome" className="form-label">Name</label>
+                        <input type="text" name="nome" id="nome" className="form-control" defaultValue={user.displayName} required/>
+                    </div>
+                    <div className="col-auto">
+                        <button type="button" onClick={updateUserName} className="btn btn-outline-primary mb-3">Save</button>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">E-mail</label>
+                        <input type="email" name="email" id="email" className="form-control" disabled value={user.email}/>
+                    </div>
+                </div>
             </form>
-            <div onClick={editarPerfil}>
-                <BsPencilSquare />
-                <p>Editar nome</p>
-            </div>
-            <EditUser />
-            <button
-                type="button"
-                onClick={realizaLogOut}
-            >
-                Sair
-            </button>
-        </article>
+            <h2>Profile picture</h2>
+            <DefineFotoUsuário />
+            <form onSubmit={handleUpload}>
+                <div class="progress mb-2 d-none">
+                    {!imgURL && <div class="progress-bar bg-success" role="progressbar" style={{width: (progress*20)}}></div>}
+                </div>
+                <div className="input-group mb-3">
+                    <input className="form-control" type="file" name="enviarFoto" id="enviarFoto" />
+                    <button className="btn btn-outline-primary" type="submit">Send</button>
+                </div>
+            </form>
+            <button type="button" onClick={realizaLogOut} className="btn btn-primary">Sign Out</button>
+        </section>
     );
 };

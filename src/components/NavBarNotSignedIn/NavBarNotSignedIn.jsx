@@ -8,7 +8,6 @@ import { BsCashCoin } from "react-icons/bs";
 export function NavBarNotSignedIn() {
     const [user] = useAuthState(auth);
     const menuButton =  document.querySelector(".offcanvas");
-    const menuSubPages = document.querySelector(".dropdown-menu");
 
     const activeDesactiveMenu = () => {
         menuButton.classList.toggle("show");
@@ -19,7 +18,7 @@ export function NavBarNotSignedIn() {
         ?
         <FaUserCircle/>
         :
-        <img src={user.photoURL} alt="Foto de perfil" height="40px" />
+        <img src={user.photoURL} alt="Profile Picture" height="40px" />
     }
 
     const DefineFotoUsuario = () => {
@@ -45,7 +44,7 @@ export function NavBarNotSignedIn() {
                     aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>Menu
                 </button>
-                <div className="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div className="offcanvas offcanvas-end text-bg-dark" tabIndex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">PayControl</h5>
                         <button type="button" onClick={activeDesactiveMenu} className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -62,7 +61,7 @@ export function NavBarNotSignedIn() {
                                 <Link to={"signup"} className="nav-link">Sign Up</Link>
                             </li>
                         </ul>
-                        <div class="d-flex">
+                        <div className="d-flex">
                             <DefineFotoUsuario />
                         </div>
                     </div>

@@ -30,8 +30,8 @@ export function History() {
 
     return (
         <section>
-            <h2>Histórico Pagamentos</h2>
-            <p>Abaixo consulte todos os pagamentos registrados</p>
+            <h2>History</h2>
+            <p>Bellow you can check it out all payments registered on database.</p>
             <table class="table">
                 <thead>
                     <tr>

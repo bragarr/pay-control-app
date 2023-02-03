@@ -88,7 +88,7 @@ export function Categories() {
                     <tbody>      
                         {categoriasRegistradas.map((item, i) => (
                             <tr key={i}>
-                                <td>{item.categoria}</td>
+                                <td><input type="text" name="nameEdit" id="nameEdit" className="form-control" disabled defaultValue={item.categoria}/></td>
                                 <td>{item.criador}</td>
                                 <td className="text-center"><AiFillEdit className="cursor-pointer"/></td>
                                 <td className="text-center"><AiFillDelete className="cursor-pointer" onClick={() => handleDeleteCategoria(item.idcategorias)}/></td>

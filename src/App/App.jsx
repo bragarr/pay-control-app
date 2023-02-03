@@ -10,10 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export function App() {
 
-  const turnOffSubMenuOnNavBar = () => {
-    document.querySelector(".dropdown-menu").classList.remove("show")
-  }
-
   const DefineNavBar = () => {
     const { logged } = useAuth();
     return logged > 0
@@ -27,7 +23,7 @@ export function App() {
     <AuthProvider>
       <BrowserRouter>
         <DefineNavBar />
-        <main className="main__content--page" onMouseMove={turnOffSubMenuOnNavBar}>
+        <main className="m-5">
           <MainRoutes />
           <Outlet />
         </main>
