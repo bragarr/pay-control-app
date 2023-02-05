@@ -1,6 +1,6 @@
 import { Graficos } from "../Graficos/Graficos";
 import { Spinner } from "../Spinner/Spinner";
-import { TopPagamentos } from "../TopPagamentos/TopPagamentos";
+import { PayByRank } from "../PayByRank/PayByRank";
 
 export function Dashboard({pagamentos, user}) {
 
@@ -19,7 +19,7 @@ export function Dashboard({pagamentos, user}) {
     ?
     <article className="posicao__grafica">
         <Graficos entradas={entradas} despesas={despesas}/>
-        <TopPagamentos pagamentos={pagamentos}/>
+        <PayByRank pagamentos={pagamentos}/>
     </article>
     :
     <Spinner />

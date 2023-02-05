@@ -1,7 +1,7 @@
 import { auth } from "../../contexts/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-export function TopPagamentos(pagamentos) {
+export function PayByRank(pagamentos) {
 
     const [userOn] = useAuthState(auth);
 
@@ -13,7 +13,7 @@ export function TopPagamentos(pagamentos) {
         return listaDePrincipaisPagamentos.length > 0
         ?
         <article>
-            <h3>Top In/Outs</h3>
+            <h3>Ranked Incomes/Expenses</h3>
             <table className="table table-sm" width="300px">
                 <thead className="table-dark">
                     <tr>
