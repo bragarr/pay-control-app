@@ -76,7 +76,7 @@ export function Categories() {
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
-                <table class="table table-hover">
+                <table class="table">
                     <thead>
                             <tr>
                                 <th>Category</th>

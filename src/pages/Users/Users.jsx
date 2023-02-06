@@ -93,6 +93,11 @@ export function Users() {
         getCategoriasRegistradas();
     }, [categoriasRegistradas]);
 
+    function teste(params) {
+        const parametro = document.getElementById(params);
+        console.log(parametro)
+    }
+
     return (
         <section>
             <article>
@@ -142,7 +147,7 @@ export function Users() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="categoria" className="form-label">Category</label>
-                        <select className="categoria" id="categoria" class="form-select" aria-label="Default select example">
+                        <select className="form-select" id="categoria" aria-label="Default select example">
                             {categoriasRegistradas.map((item, i) => (
                                 <option key={i}>{item.categoria}</option>
                             ))}
@@ -173,7 +178,7 @@ export function Users() {
                                 <td><input type="email" name="emailEdit" id="emailEdit" className="form-control" disabled defaultValue={registro.email}/></td>
                                 <td><input type="phone" name="phoneEdit" id="phoneEdit" className="form-control" disabled defaultValue={registro.fone}/></td>
                                 <td>{registro.categoria}</td>
-                                <td className="text-center"><button type="button" class="btn btn-primary">Edit</button></td>
+                                <td className="text-center"><button type="button" class="btn btn-primary" onClick={teste}>Edit</button></td>
                                 <td className="text-center"><AiFillDelete className="cursor-pointer"/></td>
                             </tr>
                         )}

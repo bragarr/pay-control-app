@@ -31,7 +31,7 @@ export function Home() {
     const NomeUsuario = () => {
         return user.displayName===null
         ?
-        "New User. Go to your profile and set up your personal informations!"
+        "Hello! Set your name on your profile."
         :
         user.displayName
     }
