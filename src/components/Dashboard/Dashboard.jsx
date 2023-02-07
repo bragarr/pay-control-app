@@ -1,5 +1,5 @@
-import { Graficos } from "../Graficos/Graficos";
-import { Spinner } from "../Spinner/Spinner";
+import { useState } from "react";
+import { Chart } from "react-google-charts";
 import { PayByRank } from "../PayByRank/PayByRank";
 
 export function Dashboard({pagamentos, user}) {
@@ -14,11 +14,31 @@ export function Dashboard({pagamentos, user}) {
             despesas += item.valor_pagamento;
         }
     })
+
+    const [tabela, setTabela] = useState([
+        ["Type", "Amount"],
+        ["Incomes ($)",Math.round((entradas))],
+        ["Expenses ($)",-Math.round((despesas))]
+    ]);
+
+    const opcaoFormatoTabela = {
+        allowHtml: true,
+    };
+
+    const formatters = [
+        {
+          type: "BarFormat",
+          column: 1,
+          options: {
+            width: 120,
+          },
+        },
+    ];
     
     return pagamentos.length > 0
     ?
-    <article className="posicao__grafica">
-        <Graficos entradas={entradas} despesas={despesas}/>
+    <article>
+        <Chart chartType="Table" data={tabela} options={opcaoFormatoTabela} formatters={formatters}/>
         <PayByRank pagamentos={pagamentos}/>
     </article>
     :

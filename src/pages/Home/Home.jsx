@@ -43,7 +43,7 @@ export function Home() {
         :
         <article>
             <h2><b>Hello <NomeUsuario />!</b></h2>
-            <p>Check it out a brief about your data in and outs!</p>
+            <p>Check it out a brief about your data!</p>
         </article>
     }
 

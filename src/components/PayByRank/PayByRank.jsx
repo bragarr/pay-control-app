@@ -12,7 +12,7 @@ export function PayByRank(pagamentos) {
     const TabelaTopPagamentos = () => {
         return listaDePrincipaisPagamentos.length > 0
         ?
-        <article>
+        <section>
             <h3>Ranked Incomes/Expenses</h3>
             <table className="table table-sm" width="300px">
                 <thead className="table-dark">
@@ -34,7 +34,7 @@ export function PayByRank(pagamentos) {
                     )}
                 </tbody>
             </table>
-        </article>
+        </section>
         :
         <p>Não há dados registrados!</p>
     }

@@ -5,7 +5,7 @@ import { auth } from "../../contexts/Firebase";
 
 //Componentes de Estilização
 import { IoIosArrowDroprightCircle } from "react-icons/io";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 export function Users() {
@@ -79,11 +79,25 @@ export function Users() {
         getCadastrados();
     }
 
-    // Modifies Style to make visible container to edit or delete Name/Company registered
-    const defineOpcaoParaEditarOuDeletar = () => {
-        setOnEdit(cadastrados.filter((item) => item.nome===(document.querySelector(".teste__opcao").value)));
-        document.querySelector(".container__edicao").classList.add("exibe__containerEdicao")
-    }
+    // const handleEdit = (item) => {
+    //     setOnEdit(item);
+    // };
+
+    // const handleEdit = async () => {
+
+    //     const user = ref.current;
+    //     await axios
+    //         .put("https://cadastro-usuarios-be.onrender.com/" + onEdit.id, {
+    //             nome: user.nome.value,
+    //             email: user.email.value,
+    //             fone: user.fone.value,
+    //             tag: user.tag.value,
+    //         })
+    //         .then(({ data }) => toast.success(data))
+    //         .catch(({ data }) => toast.error(data));
+    //     setOnEdit(null);
+    //     getUsers();
+    // }
 
     useEffect(() => {
         getCadastrados();
@@ -93,10 +107,11 @@ export function Users() {
         getCategoriasRegistradas();
     }, [categoriasRegistradas]);
 
-    function teste(params) {
-        const parametro = document.getElementById(params);
-        console.log(parametro)
+    const enablesInput = (params) => {
+        const elemento = document.getElementById(params);
+        elemento.disabled = false;
     }
+ 
 
     return (
         <section>
@@ -159,8 +174,11 @@ export function Users() {
                 </form>
             </div>
             <h3 className="mt-3">Name | Companies</h3>
+            <span className="d-flex flex-row justify-content-right">
+                <button type="button" class="btn btn-success">Save</button>
+            </span>
             <div className="d-flex flex-row justify-content-center">
-                <table class="table">
+                <table className="table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -171,14 +189,14 @@ export function Users() {
                             <th className="text-center">Delete</th>
                         </tr>
                     </thead>
-                    <tbody class="table-group-divider">
+                    <tbody className="table-group-divider">
                         {cadastrados.length > 0 && cadastrados.map((registro) => 
                             <tr>
-                                <td><input type="text" name="nameEdit" id="nameEdit" className="form-control" disabled defaultValue={registro.nome}/></td>
-                                <td><input type="email" name="emailEdit" id="emailEdit" className="form-control" disabled defaultValue={registro.email}/></td>
-                                <td><input type="phone" name="phoneEdit" id="phoneEdit" className="form-control" disabled defaultValue={registro.fone}/></td>
+                                <td><input type="text" name="nameEdit" className="form-control" id={registro.id} disabled defaultValue={registro.nome}/></td>
+                                <td><input type="email" name="emailEdit" className="form-control" disabled defaultValue={registro.email}/></td>
+                                <td><input type="phone" name="phoneEdit" className="form-control" disabled defaultValue={registro.fone}/></td>
                                 <td>{registro.categoria}</td>
-                                <td className="text-center"><button type="button" class="btn btn-primary" onClick={teste}>Edit</button></td>
+                                <td className="text-center"><button type="button" className="btn btn-primary" onClick={ () => enablesInput(registro.id)}>Edit</button></td>
                                 <td className="text-center"><AiFillDelete className="cursor-pointer"/></td>
                             </tr>
                         )}
