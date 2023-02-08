@@ -4,10 +4,8 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-import { ApresentacaoPlataforma } from "../../components/ApresentacaoPlataforma/ApresentacaoPlataforma";
-import { InformacoesGeraisUsuario } from "../../components/InformacoesGeraisUsuario/InformacoesGeraisUsuario";
-
-import "./Home.css";
+import { LandPageInfo } from "../../components/LandPageInfo/LandPageInfo";
+import { Dashboard } from "../../components/Dashboard/Dashboard";
 
 export function Home() {
 
@@ -33,7 +31,7 @@ export function Home() {
     const NomeUsuario = () => {
         return user.displayName===null
         ?
-        "Novo Usuário. Acesse o seu Perfil e defina as suas configurações!"
+        "Hello! Set your name on your profile."
         :
         user.displayName
     }
@@ -43,23 +41,23 @@ export function Home() {
         ?
         ""
         :
-        <article className="secao_homepage">
-            <h2><b>Olá <NomeUsuario />!</b></h2>
-            <p>Confira abaixo o resumo de suas movimentações!</p>
+        <article>
+            <h2><b>Hello <NomeUsuario />!</b></h2>
+            <p>Check it out a brief about your data!</p>
         </article>
     }
 
     const ApresentacaoPrincipalHomePage = () => {
         return !user
         ?
-        <ApresentacaoPlataforma />
+        <LandPageInfo />
         :
-        <InformacoesGeraisUsuario pagamentos={pagamentos} user={user} />
+        <Dashboard pagamentos={pagamentos} user={user} />
 
     }
 
     return(
-        <section className="dashboard__principal">
+        <section>
             <TituloDeApresentacaoDaPagina />
             <ApresentacaoPrincipalHomePage />
         </section>

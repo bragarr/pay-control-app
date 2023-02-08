@@ -1,32 +1,33 @@
-import { BrowserRouter, MemoryRouter ,Outlet } from 'react-router-dom';
-import { SideLogin } from '../components/SideLogin/SideLogin';
-import { SideSignUp } from '../components/SideSignUp/SideSignUp';
-import { Header } from '../components/Header/Header';
-import { SideMenu } from "../components/SideMenu/SideMenu";
+import { BrowserRouter ,Outlet } from 'react-router-dom';
 import { AuthProvider } from '../contexts/Auth';
-import { MainRoutes } from "../routes";
+import { MainRoutes } from "../routes/MainRoutes";
+import { NavBar } from "../components/NavBar/NavBar"
+import { NavBarNotSignedIn } from '../components/NavBarNotSignedIn/NavBarNotSignedIn';
+import { useAuth } from "../Hooks/useAuth";
+
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import './App.css'
-import { Footer } from '../components/Footer/Footer';
-import { Home } from '../pages/Home/Home';
 
 export function App() {
+
+  const DefineNavBar = () => {
+    const { logged } = useAuth();
+    return logged > 0
+    ?
+    <NavBar />
+    :
+    <NavBarNotSignedIn /> 
+  }
+
   return (
     <AuthProvider>
-      <MemoryRouter
-        forceRefresh={true}
-      >
-        <Header />
-        <main>
-          <SideLogin />
-          <SideSignUp />
-          <SideMenu />
+      <BrowserRouter>
+        <DefineNavBar />
+        <main className="m-5">
           <MainRoutes />
+          <Outlet />
         </main>
-        <Outlet />
-        <Footer />
-      </MemoryRouter>
+      </BrowserRouter>
       <ToastContainer autoClose={3000} position={toast.POSITION.TOP_CENTER}/>
     </AuthProvider>
   )
