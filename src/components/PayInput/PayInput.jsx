@@ -77,12 +77,12 @@ export function PayInput({ coletarPagamentos}) {
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label htmlFor="valor_pagamento" className="form-label">Value</label>
+                    <label htmlFor="valor_pagamento" className="form-label">Value ($)</label>
                     <input
                         type="text"
                         name="valor_pagamento"
                         id="valor_pagamento"
-                        placeholder="R$1000.00"
+                        placeholder="1000.00 - Type only numbers..."
                         required
                         class="form-control"
                     />
@@ -94,7 +94,7 @@ export function PayInput({ coletarPagamentos}) {
                         name="obs"
                         id="obs"
                         maxLength="30"
-                        placeholder="Descrição do Registro"
+                        placeholder="Payment description"
                         required
                         class="form-control"
                     />

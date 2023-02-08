@@ -8,9 +8,9 @@ export function Dashboard({pagamentos, user}) {
     let despesas = 0;
 
     pagamentos.map((item) => {  
-        if(item.tipo_pagamento==="Entrada" && item.usuario===user.uid) {
+        if(item.tipo_pagamento==="Income" && item.usuario===user.uid) {
             entradas += item.valor_pagamento;
-        } else if (item.tipo_pagamento==="Despesa" && item.usuario===user.uid) {
+        } else if (item.tipo_pagamento==="Expense" && item.usuario===user.uid) {
             despesas += item.valor_pagamento;
         }
     })

@@ -26,17 +26,9 @@ export function NavBar() {
     const DefineIconeUsuario = () => {
         return !user || user.photoURL===null
         ?
-        <FaUserCircle width="20px" height="20px" />
+        <FaUserCircle className="rounded-circle m-1" style={{width:"30px", height:"30px"}} />
         :
         <img src={user.photoURL} alt="Foto de perfil" className="rounded-circle m-1" width="30px" height="30px" />
-    }
-
-    const DefineFotoUsuario = () => {
-        return !user || user.photoURL===null
-        ?
-        <FaUserCircle/>
-        :
-        <DefineIconeUsuario />
     }
 
     return (
@@ -80,7 +72,7 @@ export function NavBar() {
                             <li><Link to={"history"} className="nav-link">History</Link></li>
                         </ul>
                         <div className="d-flex align-items-center">
-                            <DefineFotoUsuario />
+                            <DefineIconeUsuario />
                             <p className="m-0">{user.displayName}</p>
                         </div>
                     </div>

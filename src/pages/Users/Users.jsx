@@ -5,7 +5,7 @@ import { auth } from "../../contexts/Firebase";
 
 //Componentes de Estilização
 import { IoIosArrowDroprightCircle } from "react-icons/io";
-import { AiFillDelete } from "react-icons/ai";
+import { AiOutlineSetting } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 export function Users() {
@@ -20,12 +20,9 @@ export function Users() {
     // Reference to get data values to create/update/delete informations in API
     const ref = useRef();
 
-
     // State to Data Registrated
     const [cadastrados, setCadastrados] = useState([]);
     const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
-    const [onEdit, setOnEdit] = useState(null);
-
 
     // API call to get All data registrated by Name/Company
     const getCadastrados = async () => {
@@ -48,11 +45,9 @@ export function Users() {
             toast.error(error);
         }
     }
-
     // Submit information to API
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const user = ref.current;
 
         await axios
@@ -63,14 +58,8 @@ export function Users() {
                 categoria: user.categoria.value,
                 usuario: userOn.uid
             })
-            .then 
-            (
-                ({ data }) => toast.success(data)
-            )
-            .catch
-            (
-                ({ data }) => toast.error(data)
-            )
+            .then (({ data }) => toast.success(data))
+            .catch (({ data }) => toast.error(data))
 
         user.nome.value = "";
         user.email.value = "";
@@ -79,25 +68,35 @@ export function Users() {
         getCadastrados();
     }
 
-    // const handleEdit = (item) => {
-    //     setOnEdit(item);
-    // };
+    const handleEdit = async (params) => {
+        const allOptionsButtons = document.querySelectorAll(".dropdown-menu");
+        const inputsToEdit = document.querySelectorAll(".item"+params.id);
+        inputsToEdit.forEach(elemento => elemento.disabled=true);
+        const saveUpdateButton = document.querySelector(".saveEdit" + (params.id));
+        saveUpdateButton.classList.add("d-none");
+        const dropdownButtonOptions = document.querySelector(".onEdit" + (params.id));
+        dropdownButtonOptions.classList.remove("d-none");
+        allOptionsButtons.forEach(button => button.classList.remove("show"));
 
-    // const handleEdit = async () => {
+        await axios
+            .put(api + params.id, {
+                nome: document.getElementById("name"+params.id).value,
+                email: document.getElementById("email"+params.id).value,
+                fone: document.getElementById("phone"+params.id).value,
+                categoria: params.categoria,
+                usuario: params.usuario
+            })
+            .then(({ data }) => toast.success(data))
+            .catch(({ data }) => toast.error(data));
+    }
 
-    //     const user = ref.current;
-    //     await axios
-    //         .put("https://cadastro-usuarios-be.onrender.com/" + onEdit.id, {
-    //             nome: user.nome.value,
-    //             email: user.email.value,
-    //             fone: user.fone.value,
-    //             tag: user.tag.value,
-    //         })
-    //         .then(({ data }) => toast.success(data))
-    //         .catch(({ data }) => toast.error(data));
-    //     setOnEdit(null);
-    //     getUsers();
-    // }
+    const handleDelete = async (params) => {
+        await axios
+            .delete(api + params.id)
+            .then(({ data }) => toast.success(data))
+            .catch(({ data }) => toast.error(data))
+        getCadastrados();
+    }
 
     useEffect(() => {
         getCadastrados();
@@ -108,10 +107,26 @@ export function Users() {
     }, [categoriasRegistradas]);
 
     const enablesInput = (params) => {
-        const elemento = document.getElementById(params);
-        elemento.disabled = false;
+        const inputsToEdit = document.querySelectorAll(".item"+params);
+        inputsToEdit.forEach(elemento => elemento.disabled=false);
+        const dropdownButtonOptions = document.querySelector(".onEdit" + (params));
+        dropdownButtonOptions.classList.add("d-none");
+        const saveUpdateButton = document.querySelector(".saveEdit" + (params));
+        saveUpdateButton.classList.remove("d-none");
     }
- 
+
+    const dropDownOptions = (params) => {
+        const allOptionsButtons = document.querySelectorAll(".dropdown-menu");
+        const buttonDropDownOptionEditDelete = document.querySelector(".options-edit-delete" + (params));
+        allOptionsButtons.forEach(button => {
+            if(button.classList.contains("options-edit-delete" + (params))) {
+                return "Do not remove show"
+            } else {
+                button.classList.remove("show");
+            }
+        })
+        buttonDropDownOptionEditDelete.classList.toggle("show");
+    }
 
     return (
         <section>
@@ -135,7 +150,7 @@ export function Users() {
                             id="nome"
                             className="form-control"
                             required
-                            placeholder="Digite o nome completo"
+                            placeholder="Type full name or Company name"
                         />
                     </div>
                     <div className="mb-3">
@@ -145,7 +160,7 @@ export function Users() {
                             name="email"
                             id="email"
                             required
-                            placeholder="teste@test.com"
+                            placeholder="test@test.com"
                             className="form-control"
                         />
                     </div>
@@ -156,7 +171,7 @@ export function Users() {
                             name="fone"
                             id="fone"
                             required
-                            placeholder="(xx)xxxxx-xxxx"
+                            placeholder="(xxx)xxx-xxx"
                             className="form-control"
                         />
                     </div>
@@ -174,30 +189,76 @@ export function Users() {
                 </form>
             </div>
             <h3 className="mt-3">Name | Companies</h3>
-            <span className="d-flex flex-row justify-content-right">
-                <button type="button" class="btn btn-success">Save</button>
-            </span>
             <div className="d-flex flex-row justify-content-center">
                 <table className="table">
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>E-mail</th>
+                            <th>Email</th>
                             <th>Phone</th>
                             <th>Category</th>
-                            <th className="text-center">Edit</th>
-                            <th className="text-center">Delete</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody className="table-group-divider">
-                        {cadastrados.length > 0 && cadastrados.map((registro) => 
-                            <tr>
-                                <td><input type="text" name="nameEdit" className="form-control" id={registro.id} disabled defaultValue={registro.nome}/></td>
-                                <td><input type="email" name="emailEdit" className="form-control" disabled defaultValue={registro.email}/></td>
-                                <td><input type="phone" name="phoneEdit" className="form-control" disabled defaultValue={registro.fone}/></td>
+                        {cadastrados.length > 0 && cadastrados.map((registro, i) => 
+                            <tr key={i}>
+                                <td>
+                                    <input
+                                        type="text"
+                                        name="nameEdit"
+                                        id={"name"+(registro.id)}
+                                        className={"form-control" + " item" + (registro.id)}
+                                        disabled
+                                        defaultValue={registro.nome}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="email"
+                                        name="emailEdit"
+                                        id={"email"+(registro.id)}
+                                        className={"form-control" + " item" + (registro.id)}
+                                        disabled
+                                        defaultValue={registro.email}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="phone"
+                                        name="phoneEdit"
+                                        id={"phone"+(registro.id)}
+                                        className={"form-control" + " item" + (registro.id)}
+                                        disabled
+                                        defaultValue={registro.fone}
+                                    />
+                                </td>
                                 <td>{registro.categoria}</td>
-                                <td className="text-center"><button type="button" className="btn btn-primary" onClick={ () => enablesInput(registro.id)}>Edit</button></td>
-                                <td className="text-center"><AiFillDelete className="cursor-pointer"/></td>
+                                <td className="text-center">
+                                    <div className={"dropdown onEdit" + (registro.id)} >
+                                        <button
+                                            className="btn btn-secondary dropdown-toggle"
+                                            type="button" id="dropdownMenuButton2"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            onClick={() => dropDownOptions(registro.id)}
+                                        >
+                                            <AiOutlineSetting/>
+                                        </button>
+                                        <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (registro.id)}
+                                            aria-labelledby="dropdownMenuButton2"
+                                        >
+                                            <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(registro.id)}>Edit</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => handleDelete(registro)}>Delete</li>
+                                        </ul>
+                                    </div>
+                                    <button type="button"
+                                        className={"btn btn-outline-primary saveEdit" + (registro.id) +" d-none"}
+                                        onClick={() => handleEdit(registro)}
+                                    >
+                                        Save
+                                    </button>
+                                </td>
                             </tr>
                         )}
                     </tbody>

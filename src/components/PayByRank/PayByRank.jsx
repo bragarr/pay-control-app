@@ -28,7 +28,7 @@ export function PayByRank(pagamentos) {
                         <tr key={i}>
                             <td>{i+1}</td>
                             <td>{item.tipo_pagamento}</td>
-                            <td>R${item.valor_pagamento.toFixed(2)}</td>
+                            <td>${item.valor_pagamento.toFixed(2)}</td>
                             <td>{item.obs}</td>
                         </tr>
                     )}

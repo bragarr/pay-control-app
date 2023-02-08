@@ -22,7 +22,7 @@ export function MainRoutes() {
         <Routes>
             <Route exact path="/" element={<Home />}></Route>
             <Route exact path="/signin" element={<SignIn />}></Route>
-            <Route exact path="/signup" element={<AllowAccess Item={SignUp}/>}></Route>
+            <Route exact path="/signup" element={<SignUp />}></Route>
             <Route exact path="/profile" element={<AllowAccess Item={Profile}/>}></Route>
             <Route exact path="/users" element={<AllowAccess Item={Users}/>}></Route>
             <Route exact path="/categories" element={<AllowAccess Item={Categories}/>}></Route>

@@ -64,7 +64,7 @@ export function Profile() {
     const DefineFotoUsuário = () => {
         return user.photoURL===null
         ?
-        <FaUserCircle />
+        <FaUserCircle className="rounded-circle m-2" style={{width:"100px", height:"100px"}} />
         :
         <img src={user.photoURL} alt="Foto de perfil" className="rounded-circle m-2" width="100px" height="100px"/>
     }

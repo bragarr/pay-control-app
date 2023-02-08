@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../contexts/Firebase";
 
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiOutlineSetting } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 export function History() {
@@ -28,28 +28,131 @@ export function History() {
         getPagamentosRegistrados();
     }, [setPagamentosRegistrados]);
 
+    const enablesInput = (params) => {
+        const inputsToEdit = document.querySelectorAll(".item"+params);
+        inputsToEdit.forEach(elemento => elemento.disabled=false);
+        const dropdownButtonOptions = document.querySelector(".onEdit" + (params));
+        dropdownButtonOptions.classList.add("d-none");
+        const saveUpdateButton = document.querySelector(".saveEdit" + (params));
+        saveUpdateButton.classList.remove("d-none");
+    }
+
+    const dropDownOptions = (params) => {
+        const allOptionsButtons = document.querySelectorAll(".dropdown-menu");
+        const buttonDropDownOptionEditDelete = document.querySelector(".options-edit-delete" + (params));
+        allOptionsButtons.forEach(button => {
+            if(button.classList.contains("options-edit-delete" + (params))) {
+                return "Do not remove show"
+            } else {
+                button.classList.remove("show");
+            }
+        })
+        buttonDropDownOptionEditDelete.classList.toggle("show");
+    }
+
+    const handleEdit = async (params) => {
+        const allOptionsButtons = document.querySelectorAll(".dropdown-menu");
+        const inputsToEdit = document.querySelectorAll(".item"+params.idfluxo_caixa);
+        inputsToEdit.forEach(elemento => elemento.disabled=true);
+        const saveUpdateButton = document.querySelector(".saveEdit" + (params.idfluxo_caixa));
+        saveUpdateButton.classList.add("d-none");
+        const dropdownButtonOptions = document.querySelector(".onEdit" + (params.idfluxo_caixa));
+        dropdownButtonOptions.classList.remove("d-none");
+        allOptionsButtons.forEach(button => button.classList.remove("show"));
+
+        await axios
+            .put(apiPagamentosRegistrados + params.idfluxo_caixa, {
+                nome: params.nome,
+                tipo_pagamento: params.tipo_pagamento,
+                valor_pagamento: document.getElementById("value"+params.idfluxo_caixa).value,
+                obs: document.getElementById("obs"+params.idfluxo_caixa).value,
+                data_pagamento: document.getElementById("date"+params.idfluxo_caixa).value
+            })
+            .then(({ data }) => toast.success(data))
+            .catch(({ data }) => toast.error(data));
+    }
+
+    const handleDelete = async (params) => {
+        await axios
+            .delete(apiPagamentosRegistrados + params.idfluxo_caixa)
+            .then(({ data }) => toast.success(data))
+            .catch(({ data }) => toast.error(data))
+        getPagamentosRegistrados();
+    }
+
     return (
         <section>
             <h2>History</h2>
             <p>Bellow you can check it out all payments registered on database.</p>
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th>Value</th>
+                        <th>Description</th>
                         <th>Date</th>
-                        <th className="text-center">Edit</th>
-                        <th className="text-center">Delete</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody class="table-group-divider">
-                    {pagamentosRegistrados.length > 0 && pagamentosRegistrados.map((pagamento) => 
-                        <tr>
+                <tbody className="table-group-divider">
+                    {pagamentosRegistrados.length > 0 && pagamentosRegistrados.map((pagamento, i) => 
+                        <tr key={i}>
                             <td>{pagamento.nome}</td>
-                            <td>R${(pagamento.valor_pagamento).toFixed(2)}</td>
-                            <td>{(pagamento.data_pagamento)}</td>
-                            <td className="text-center"><AiFillEdit className="cursor-pointer"/></td>
-                            <td className="text-center"><AiFillDelete className="cursor-pointer"/></td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="valueEdit"
+                                    id={"value"+(pagamento.idfluxo_caixa)}
+                                    className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
+                                    disabled
+                                    defaultValue={(pagamento.valor_pagamento).toFixed(2)}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="obsEdit"
+                                    id={"obs"+(pagamento.idfluxo_caixa)}
+                                    className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
+                                    disabled
+                                    defaultValue={pagamento.obs}
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="date"
+                                    name="dateEdit"
+                                    id={"date"+(pagamento.idfluxo_caixa)}
+                                    className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
+                                    disabled
+                                    defaultValue={pagamento.data_pagamento}
+                                />
+                            </td>
+                            <td className="text-center">
+                                    <div className={"dropdown onEdit" + (pagamento.idfluxo_caixa)} >
+                                        <button
+                                            className="btn btn-secondary dropdown-toggle"
+                                            type="button" id="dropdownMenuButton2"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            onClick={() => dropDownOptions(pagamento.idfluxo_caixa)}
+                                        >
+                                            <AiOutlineSetting/>
+                                        </button>
+                                        <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (pagamento.idfluxo_caixa)}
+                                            aria-labelledby="dropdownMenuButton2"
+                                        >
+                                            <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(pagamento.idfluxo_caixa)}>Edit</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => handleDelete(pagamento)}>Delete</li>
+                                        </ul>
+                                    </div>
+                                    <button type="button"
+                                        className={"btn btn-outline-primary saveEdit" + (pagamento.idfluxo_caixa) +" d-none"}
+                                        onClick={() => handleEdit(pagamento)}
+                                    >
+                                        Save
+                                    </button>
+                            </td>
                         </tr>
                     )}
                 </tbody>
