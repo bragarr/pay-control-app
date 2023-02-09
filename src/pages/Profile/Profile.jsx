@@ -7,7 +7,6 @@ import { useAuth } from "../../Hooks/useAuth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { FaUserCircle } from "react-icons/fa";
-import { BsFileEarmarkArrowDown } from "react-icons/bs";
 import { toast } from "react-toastify";
 
 export function Profile() {
@@ -20,12 +19,10 @@ export function Profile() {
     const params = getAuth();
     const { logOut } = useAuth();
 
-    // Define a saída efetiva do usuário da aplicação
     const realizaLogOut = () => {
         logOut();
     }
 
-    // Realiza o upload e atualização de foto de perfil do usuário
     const handleUpload = (e) => {
         progressBar.classList.remove("d-none")
         e.preventDefault();
@@ -60,7 +57,6 @@ export function Profile() {
         )
     }
 
-    // Defini na área de pérfil se é exibido ícone genêrico ou foto selecionada pelo usuário
     const DefineFotoUsuário = () => {
         return user.photoURL===null
         ?
@@ -76,7 +72,7 @@ export function Profile() {
         updateProfile(params.currentUser, {
             displayName: nameUpdated.value
           }).then(() => {
-                toast.success("User Name Updated!")
+                toast.success("Name updated")
           }).catch((error) => {
                 console.log(error);
           });
@@ -105,7 +101,7 @@ export function Profile() {
             <h2>Profile picture</h2>
             <DefineFotoUsuário />
             <form onSubmit={handleUpload}>
-                <div class="progress mb-2 d-none">
+                <div className="progress mb-2 d-none">
                     {!imgURL && <div class="progress-bar bg-success" role="progressbar" style={{width: (progress*20)}}></div>}
                 </div>
                 <div className="input-group mb-3">

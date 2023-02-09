@@ -28,21 +28,13 @@ export function Home() {
         getPagamentos();
     }, []);
 
-    const NomeUsuario = () => {
-        return user.displayName===null
-        ?
-        "Hello! Set your name on your profile."
-        :
-        user.displayName
-    }
-
     const TituloDeApresentacaoDaPagina = () => {
         return !user
         ?
         ""
         :
         <article>
-            <h2><b>Hello <NomeUsuario />!</b></h2>
+            <h2><b>Hello {user.displayName}</b></h2>
             <p>Check it out a brief about your data!</p>
         </article>
     }

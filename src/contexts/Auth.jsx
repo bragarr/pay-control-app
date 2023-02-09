@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../contexts/Firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 
 export const AuthContext = createContext({});
@@ -18,65 +18,44 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const novoUsuario = (auth, email, password) => {
-
+        if(password.length < 8 || password.length > 12) {
+            return
+        }
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-        // Signed in
             const user = userCredential.user;
-            const resolveThreeSecs = new Promise((resolve,reject) => {
-                setTimeout(resolve, 3000);
-            });
-            toast.promise(resolveThreeSecs, {
-                pending: "Cadastro em andamento...",
-                success: "Cadastro realizado com sucesso!",
-                error: "Erro! E-mail já cadastrado!"
-            })
-            
         })
         .catch((error) => {
             const errorCode = error.code;
-            const errorMessage = error.message;
-            const resolveThreeSecs = new Promise((resolve,reject) => {
-                setTimeout(reject, 3000);
-            });
-            toast.promise(resolveThreeSecs, {
-                pending: "Cadastro em andamento...",
-                success: "Cadastro realizado com sucesso!",
-                error: "Erro! E-mail já cadastrado!"
-            })
+            toast.error(errorCode);
         });
     };
 
     const login = (auth, email, password) => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            // ...
+            const user = userCredential;
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            if(errorCode==="auth/wrong-password") {
-                toast.error("Senha Incorreta!")
+            if(password=="" || email=="") {
+                return
             } else {
-                toast.error("Usuário Não Cadastrado!")
-            }        
+                const errorCode = error.code;
+                toast.error(errorCode);
+            }
         });
     };
 
     const logOut = () => {
-        signOut(auth).then(() => {
-        // Sign-out successful.
-        }).catch((error) => {
-        // An error happened.
+        signOut(auth)
+        .catch((error) => {
+            const errorCode = error.code;
+            toast.error(errorCode);
         });
     }
 
     return (
-        <AuthContext.Provider
-            value={{user, logged: !!user, novoUsuario, login, logOut}}
-        >
+        <AuthContext.Provider value={{user, logged: !!user, novoUsuario, login, logOut}}>
             { children }
         </AuthContext.Provider>
     )

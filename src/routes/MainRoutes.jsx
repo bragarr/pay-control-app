@@ -1,7 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useAuth } from "../Hooks/useAuth";
 import { Home } from "../pages/Home/Home";
-import { Loading } from "../pages/Loading/Loading";
 import { Users } from "../pages/Users/Users"
 import { PayFlow } from "../pages/PayFlow/PayFlow"
 import { History } from "../pages/History/History";
@@ -18,11 +17,17 @@ export function MainRoutes() {
         return logged > 0 ? <Item /> : <Home /> 
     }
 
+    const AuthUserState = ({ Item }) => {
+        const { logged } = useAuth();
+
+        return logged > 0 ? <Home /> : <Item />
+    }
+
     return(
         <Routes>
             <Route exact path="/" element={<Home />}></Route>
-            <Route exact path="/signin" element={<SignIn />}></Route>
-            <Route exact path="/signup" element={<SignUp />}></Route>
+            <Route exact path="/signin" element={<AuthUserState Item={SignIn}/>}></Route>
+            <Route exact path="/signup" element={<AuthUserState Item={SignUp}/>}></Route>
             <Route exact path="/profile" element={<AllowAccess Item={Profile}/>}></Route>
             <Route exact path="/users" element={<AllowAccess Item={Users}/>}></Route>
             <Route exact path="/categories" element={<AllowAccess Item={Categories}/>}></Route>

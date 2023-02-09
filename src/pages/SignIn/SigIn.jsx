@@ -1,56 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { auth } from "../../contexts/Firebase";
 import { useAuth } from "../../Hooks/useAuth";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export function SignIn() {
-    const [user] = useAuthState(auth);
-    
     const { login } = useAuth();
-    const navigate = useNavigate();
-
+    const [user] = useAuthState(auth);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // Efetua comando do Firebase para realizar SignIn do usuário na Aplicação
-    const realizarLogin = () => {
-        const res = login(auth, email, password);
-        setEmail("");
-        setPassword("");
-        navigate("/");
+    const submitSignIn = () => {
+        document.querySelector(".signIn").classList.add("was-validated");
+        login(auth, email, password);
     }
 
     return (
-        <form>
+        <form className="signIn">
             <h2>Sign In</h2>
-            <div class="mb-3">
-                <label htmlFor="email" class="form-label">E-mail</label>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="E-mail"
-                    value={email}
-                    onChange={(e) => [setEmail(e.target.value)]}
-                    required
-                    class="form-control"
-                />
+            <div className="mb-3">
+                <label htmlFor="email" className="form-label">E-mail</label>
+                <div className="input-group has-validation" >
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="E-mail"
+                        value={email}
+                        onChange={(e) => [setEmail(e.target.value)]}
+                        required
+                        className="form-control"
+                    />
+                    <div className="invalid-feedback">
+                        Please check your e-mail.
+                    </div>
+                </div> 
             </div>
-            <div class="mb-3">
-                <label htmlFor="password" class="form-label">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    autoComplete="on"
-                    value={password}
-                    onChange={(e) => [setPassword(e.target.value)]}
-                    required
-                    class="form-control"
-                />
+            <div className="mb-3">
+                <label htmlFor="password" className="form-label">Password</label>
+                <div className="input-group has-validation">
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        autoComplete="on"
+                        value={password}
+                        onChange={(e) => [setPassword(e.target.value)]}
+                        required
+                        className="form-control"
+                    />
+                    <div className="invalid-feedback">
+                        Please check your password.
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <button type="button" onClick={realizarLogin} class="btn btn-outline-primary">Sign In</button>
+            <div className="mb-3">
+                <button type="button" onClick={submitSignIn} className="btn btn-outline-primary">Sign In</button>
                 <p>Do not have an account? <Link to={"/signup"}>Sign up</Link></p>
             </div>
         </form>

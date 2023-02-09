@@ -9,24 +9,20 @@ export function NavBarNotSignedIn() {
     const [user] = useAuthState(auth);
     const menuButton =  document.querySelector(".offcanvas");
 
-    const activeDesactiveMenu = () => {
+    const activeSideBar = () => {
         menuButton.classList.toggle("show");
     }
 
-    const DefineIconeUsuario = () => {
-        return user.photoURL===null
-        ?
-        <FaUserCircle/>
-        :
-        <img src={user.photoURL} alt="Profile Picture" height="40px" />
+    const hideSideBar = () => {
+        menuButton.classList.remove("show");
     }
 
-    const DefineFotoUsuario = () => {
-        return !user
+    const DefineIconeUsuario = () => {
+        return !user || user.photoURL===null
         ?
-        <FaUserCircle/>
+        <FaUserCircle className="rounded-circle m-1" style={{width:"30px", height:"30px"}} />
         :
-        <DefineIconeUsuario />
+        <img src={user.photoURL} alt="Foto de perfil" className="rounded-circle m-1" width="30px" height="30px" />
     }
 
     return (
@@ -35,7 +31,7 @@ export function NavBarNotSignedIn() {
                 <Link to={"/"} className="navbar-brand">PayControl<BsCashCoin /></Link>
                 <button 
                     className="navbar-toggler"
-                    onClick={activeDesactiveMenu}
+                    onClick={activeSideBar}
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
@@ -47,22 +43,22 @@ export function NavBarNotSignedIn() {
                 <div className="offcanvas offcanvas-end text-bg-dark" tabIndex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">PayControl</h5>
-                        <button type="button" onClick={activeDesactiveMenu} className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <button type="button" onClick={activeSideBar} className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div className="offcanvas-body">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link to={"/"} className="nav-link">Home</Link>
+                                <Link to={"/"} className="nav-link" onClick={hideSideBar}>Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={"signin"} className="nav-link">Sign In</Link>
+                                <Link to={"signin"} className="nav-link" onClick={hideSideBar}>Sign In</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={"signup"} className="nav-link">Sign Up</Link>
+                                <Link to={"signup"} className="nav-link" onClick={hideSideBar}>Sign Up</Link>
                             </li>
                         </ul>
                         <div className="d-flex">
-                            <DefineFotoUsuario />
+                            <DefineIconeUsuario />
                         </div>
                     </div>
                 </div>

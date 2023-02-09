@@ -1,6 +1,5 @@
 import { auth } from "../../contexts/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useAuth } from "../../Hooks/useAuth";
 import { Link } from "react-router-dom";
 
 import { FaUserCircle } from "react-icons/fa";
@@ -11,12 +10,12 @@ export function NavBar() {
     const menuButton =  document.querySelector(".offcanvas");
     const menuSubPages = document.querySelector(".dropdown-menu");
 
-    const activeDesactiveMenu = () => {
+    const activeSideBar = () => {
         menuButton.classList.toggle("show");
     }
 
     const hideSideBar = () => {
-        menuButton.classList.remove("show")
+        menuButton.classList.remove("show");
     }
 
     const subPages = () => {
@@ -37,7 +36,7 @@ export function NavBar() {
                 <Link to={"/"} className="navbar-brand">PayControl<BsCashCoin /></Link>
                 <button 
                     className="navbar-toggler"
-                    onClick={activeDesactiveMenu}
+                    onClick={activeSideBar}
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
@@ -49,12 +48,12 @@ export function NavBar() {
                 <div className="offcanvas offcanvas-end text-bg-dark" tabIndex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">PayControl</h5>
-                        <button type="button" onClick={activeDesactiveMenu} className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <button type="button" onClick={activeSideBar} className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div className="offcanvas-body">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link to={"/"} className="nav-link">Home</Link>
+                                <Link to={"/"} className="nav-link" onClick={hideSideBar}>Home</Link>
                             </li>
                             <li className="nav-item">
                                 <Link to={"profile"} className="nav-link" onClick={hideSideBar}>Profile</Link>
@@ -64,12 +63,12 @@ export function NavBar() {
                                     Data Inputs
                                 </a>
                                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown" >
-                                    <li><Link to={"users"} className="dropdown-item">Users</Link></li>
-                                    <li><Link to={"categories"} className="dropdown-item">Categories</Link></li>
-                                    <li><Link to={"payflow"} className="dropdown-item">PayFlow</Link></li>
+                                    <li><Link to={"users"} className="dropdown-item" onClick={hideSideBar}>Users</Link></li>
+                                    <li><Link to={"categories"} className="dropdown-item" onClick={hideSideBar}>Categories</Link></li>
+                                    <li><Link to={"payflow"} className="dropdown-item" onClick={hideSideBar}>PayFlow</Link></li>
                                 </ul>
                             </li>
-                            <li><Link to={"history"} className="nav-link">History</Link></li>
+                            <li><Link to={"history"} className="nav-link" onClick={hideSideBar}>History</Link></li>
                         </ul>
                         <div className="d-flex align-items-center">
                             <DefineIconeUsuario />

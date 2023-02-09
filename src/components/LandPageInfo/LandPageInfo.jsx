@@ -21,7 +21,7 @@ export function LandPageInfo() {
             <h3>Payment registration</h3>
             <figure>
                 <img src={infoImg02} alt="App Payment Input Page" style={{width:"90%"}}/>
-                <figcaption>Representação da legenda</figcaption>
+                <figcaption>Above you can see page for registration of payments on database</figcaption>
             </figure>
         </article>
     );
