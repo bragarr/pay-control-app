@@ -195,6 +195,7 @@ export function Categories() {
                                         </button>
                                         <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (item.idcategorias)}
                                             aria-labelledby="dropdownMenuButton2"
+                                            style={{inset:"0px 100% auto auto"}}
                                         >
                                             <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(item.idcategorias)}>Edit</li>
                                             <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(item.idcategorias)}>Delete</li>

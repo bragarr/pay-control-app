@@ -194,6 +194,7 @@ export function History() {
                                         </button>
                                         <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (pagamento.idfluxo_caixa)}
                                             aria-labelledby="dropdownMenuButton2"
+                                            style={{inset:"0px 100% auto auto"}}
                                         >
                                             <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(pagamento.idfluxo_caixa)}>Edit</li>
                                             <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(pagamento)}>Delete</li>

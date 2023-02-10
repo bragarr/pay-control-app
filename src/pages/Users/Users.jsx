@@ -287,8 +287,8 @@ export function Users() {
                                     />
                                 </td>
                                 <td>{registro.categoria}</td>
-                                <td className="text-center">
-                                    <div className={"dropdown onEdit" + (registro.id)} >
+                                <td>
+                                    <div className={"dropdown dropstart onEdit" + (registro.id)} >
                                         <button
                                             className="btn btn-secondary dropdown-toggle"
                                             type="button" id="dropdownMenuButton2"
@@ -299,6 +299,7 @@ export function Users() {
                                             <AiOutlineSetting/>
                                         </button>
                                         <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (registro.id)}
+                                        style={{inset:"0px 100% auto auto"}}
                                             aria-labelledby="dropdownMenuButton2"
                                         >
                                             <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(registro.id)}>Edit</li>
