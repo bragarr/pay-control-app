@@ -8,11 +8,15 @@ import { toast } from "react-toastify";
 
 export function History() {
 
+    const modalSaveChanges = document.querySelector(".editModal");
+    const modalDelete = document.querySelector(".deleteModal");
+
     const [userOn] = useAuthState(auth);
 
     const apiPagamentosRegistrados = import.meta.env.VITE_API_PAGAMENTOS;
 
     const [pagamentosRegistrados, setPagamentosRegistrados] = useState([]);
+    const [databaseInfo, setDatabaseInfo] = useState("");
     
     const getPagamentosRegistrados = async () => {
         try {
@@ -51,6 +55,7 @@ export function History() {
     }
 
     const handleEdit = async (params) => {
+        closeModal();
         const allOptionsButtons = document.querySelectorAll(".dropdown-menu");
         const inputsToEdit = document.querySelectorAll(".item"+params.idfluxo_caixa);
         inputsToEdit.forEach(elemento => elemento.disabled=true);
@@ -68,11 +73,12 @@ export function History() {
                 obs: document.getElementById("obs"+params.idfluxo_caixa).value,
                 data_pagamento: document.getElementById("date"+params.idfluxo_caixa).value
             })
-            .then(({ data }) => (data))
+            .then(({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data));
     }
 
     const handleDelete = async (params) => {
+        closeModal();
         await axios
             .delete(apiPagamentosRegistrados + params.idfluxo_caixa)
             .then(({ data }) => toast.success(data))
@@ -80,8 +86,55 @@ export function History() {
         getPagamentosRegistrados();
     }
 
+    const openEditModal = (params) => { 
+        modalSaveChanges.classList.add("show","d-block");
+        setDatabaseInfo(params);
+    }
+
+    const openDeleteModal = (params) => { 
+        modalDelete.classList.add("show","d-block");
+        setDatabaseInfo(params);
+    }
+
+    const closeModal = () => {
+        modalSaveChanges.classList.remove("show", "d-block");
+        modalDelete.classList.remove("show", "d-block");
+    }
+
     return (
         <section>
+            <div className="modal fade mt-5 editModal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Notice</h5>
+                    </div>
+                    <div className="modal-body">
+                        Do you want to keep all changes?
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModal}>Cancel</button>
+                        <button type="button" className="btn btn-primary" onClick={() => handleEdit(databaseInfo)}>Save changes</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal fade mt-5 deleteModal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Warning</h5>
+                    </div>
+                    <div className="modal-body">
+                        Do you want to delete data?
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModal}>Cancel</button>
+                        <button type="button" className="btn btn-outline-danger" onClick={() => handleDelete(databaseInfo)}>Delete</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
             <h2>History</h2>
             <p>Bellow you can check it out all payments registered on database.</p>
             <table className="table">
@@ -143,12 +196,12 @@ export function History() {
                                             aria-labelledby="dropdownMenuButton2"
                                         >
                                             <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(pagamento.idfluxo_caixa)}>Edit</li>
-                                            <li className="dropdown-item cursor-pointer" onClick={() => handleDelete(pagamento)}>Delete</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(pagamento)}>Delete</li>
                                         </ul>
                                     </div>
                                     <button type="button"
                                         className={"btn btn-outline-primary saveEdit" + (pagamento.idfluxo_caixa) +" d-none"}
-                                        onClick={() => handleEdit(pagamento)}
+                                        onClick={() => openEditModal(pagamento)}
                                     >
                                         Save
                                     </button>

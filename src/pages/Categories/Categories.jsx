@@ -10,10 +10,14 @@ export function Categories() {
     // Keys to access API - Names/Companies Registration and Categories Registration
     const apiCadastroCategorias = import.meta.env.VITE_API_CATEGORIAS;
 
+    const modalSaveChanges = document.querySelector(".editModal");
+    const modalDelete = document.querySelector(".deleteModal");
+
     // State about user being logged in (Firebase Auth)
     const [userOn] = useAuthState(auth);
     const ref = useRef();
     const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
+    const [databaseInfo, setDatabaseInfo] = useState("");
 
     // API call to get All data registrated for categories
     const getCategoriasRegistradas = async () => {
@@ -43,6 +47,7 @@ export function Categories() {
     }
 
     const handleEdit = async (params) => {
+        closeModal();
         const allOptionsButtons = document.querySelectorAll(".dropdown-menu");
         const inputsToEdit = document.querySelectorAll(".item"+params.idcategorias);
         inputsToEdit.forEach(elemento => elemento.disabled=true);
@@ -65,7 +70,8 @@ export function Categories() {
         getCategoriasRegistradas();
     }, [categoriasRegistradas]);
 
-    const handleDeleteCategoria = async (idcategorias) => {
+    const handleDelete = async (idcategorias) => {
+        closeModal();
         await axios
             .delete(apiCadastroCategorias + idcategorias)
             .then(({ data }) => toast.success(data))
@@ -95,10 +101,57 @@ export function Categories() {
         buttonDropDownOptionEditDelete.classList.toggle("show");
     }
 
+    const openEditModal = (params) => { 
+        modalSaveChanges.classList.add("show","d-block");
+        setDatabaseInfo(params);
+    }
+
+    const openDeleteModal = (params) => { 
+        modalDelete.classList.add("show","d-block");
+        setDatabaseInfo(params);
+    }
+
+    const closeModal = () => {
+        modalSaveChanges.classList.remove("show", "d-block");
+        modalDelete.classList.remove("show", "d-block");
+    }
+
     return (
         <article>
             <h3>Categories</h3>
-            <div>  
+            <div>
+            <div className="modal fade mt-5 editModal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Notice</h5>
+                    </div>
+                    <div className="modal-body">
+                        Do you want to keep all changes?
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModal}>Cancel</button>
+                        <button type="button" className="btn btn-primary" onClick={() => handleEdit(databaseInfo)}>Save changes</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal fade mt-5 deleteModal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Warning</h5>
+                    </div>
+                    <div className="modal-body">
+                        Do you want to delete data?
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModal}>Cancel</button>
+                        <button type="button" className="btn btn-outline-danger" onClick={() => handleDelete(databaseInfo)}>Delete</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
                 <form ref={ref} onSubmit={handleSubmitNovaCategoria} className="row g-3 align-items-center">
                     <div className="col-12">
                         <label htmlFor="nova__categoria" className="form-label">New Category</label>
@@ -144,12 +197,12 @@ export function Categories() {
                                             aria-labelledby="dropdownMenuButton2"
                                         >
                                             <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(item.idcategorias)}>Edit</li>
-                                            <li className="dropdown-item cursor-pointer" onClick={() => handleDeleteCategoria(item.idcategorias)}>Delete</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(item.idcategorias)}>Delete</li>
                                         </ul>
                                     </div>
                                     <button type="button"
                                         className={"btn btn-outline-primary saveEdit" + (item.idcategorias) +" d-none"}
-                                        onClick={() => handleEdit(item)}
+                                        onClick={() => openEditModal(item)}
                                     >
                                         Save
                                     </button>

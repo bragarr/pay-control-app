@@ -10,6 +10,9 @@ import { toast } from "react-toastify";
 
 export function Users() {
 
+    const modalSaveChanges = document.querySelector(".editModal");
+    const modalDelete = document.querySelector(".deleteModal");
+
     // Keys to access API - Names/Companies Registration and Categories Registration
     const api = import.meta.env.VITE_API;
     const apiCadastroCategorias = import.meta.env.VITE_API_CATEGORIAS;
@@ -22,6 +25,7 @@ export function Users() {
 
     // State to Data Registrated
     const [cadastrados, setCadastrados] = useState([]);
+    const [databaseInfo, setDatabaseInfo] = useState("");
     const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
 
     // API call to get All data registrated by Name/Company
@@ -69,6 +73,7 @@ export function Users() {
     }
 
     const handleEdit = async (params) => {
+        closeModal();
         const allOptionsButtons = document.querySelectorAll(".dropdown-menu");
         const inputsToEdit = document.querySelectorAll(".item"+params.id);
         inputsToEdit.forEach(elemento => elemento.disabled=true);
@@ -86,11 +91,12 @@ export function Users() {
                 categoria: params.categoria,
                 usuario: params.usuario
             })
-            .then(({ data }) => (data))
-            .catch(({ data }) => toast.error(data));
+            .then(({ data }) => toast.success(data))
+            .catch(({ data }) => toast.error(data))
     }
 
     const handleDelete = async (params) => {
+        closeModal();
         await axios
             .delete(api + params.id)
             .then(({ data }) => toast.success(data))
@@ -128,9 +134,24 @@ export function Users() {
         buttonDropDownOptionEditDelete.classList.toggle("show");
     }
 
+    const openEditModal = (params) => { 
+        modalSaveChanges.classList.add("show","d-block");
+        setDatabaseInfo(params);
+    }
+
+    const openDeleteModal = (params) => { 
+        modalDelete.classList.add("show","d-block");
+        setDatabaseInfo(params);
+    }
+
+    const closeModal = () => {
+        modalSaveChanges.classList.remove("show", "d-block");
+        modalDelete.classList.remove("show", "d-block");
+    }
+
     return (
         <section>
-            <div className="modal fade show d-none mt-5" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade mt-5 editModal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                     <div className="modal-header">
@@ -140,8 +161,24 @@ export function Users() {
                         Do you want to keep all changes?
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary">Save changes</button>
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModal}>Cancel</button>
+                        <button type="button" className="btn btn-primary" onClick={() => handleEdit(databaseInfo)}>Save changes</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal fade mt-5 deleteModal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Warning</h5>
+                    </div>
+                    <div className="modal-body">
+                        Do you want to delete data?
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModal}>Cancel</button>
+                        <button type="button" className="btn btn-outline-danger" onClick={() => handleDelete(databaseInfo)}>Delete</button>
                     </div>
                     </div>
                 </div>
@@ -265,12 +302,12 @@ export function Users() {
                                             aria-labelledby="dropdownMenuButton2"
                                         >
                                             <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(registro.id)}>Edit</li>
-                                            <li className="dropdown-item cursor-pointer" onClick={() => handleDelete(registro)}>Delete</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(registro)}>Delete</li>
                                         </ul>
                                     </div>
                                     <button type="button"
                                         className={"btn btn-outline-success saveEdit" + (registro.id) +" d-none"}
-                                        onClick={() => handleEdit(registro)}
+                                        onClick={() => (openEditModal(registro))}
                                     >
                                         Save
                                     </button>
