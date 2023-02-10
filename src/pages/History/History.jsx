@@ -68,7 +68,7 @@ export function History() {
                 obs: document.getElementById("obs"+params.idfluxo_caixa).value,
                 data_pagamento: document.getElementById("date"+params.idfluxo_caixa).value
             })
-            .then(({ data }) => toast.success(data))
+            .then(({ data }) => (data))
             .catch(({ data }) => toast.error(data));
     }
 

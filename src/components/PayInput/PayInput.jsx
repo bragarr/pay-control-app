@@ -2,10 +2,7 @@ import axios from "axios";
 import { useRef ,useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../contexts/Firebase";
-
 import { toast } from "react-toastify";
-import { Spinner } from "../Spinner/Spinner";
-
 
 export function PayInput({ coletarPagamentos}) {
     const api = import.meta.env.VITE_API;
@@ -14,6 +11,7 @@ export function PayInput({ coletarPagamentos}) {
     const [userOn] = useAuthState(auth);
 
     const [cadastrados, setCadastrados] = useState([]);
+    const [category, setCategory] = useState("");
 
     const getCadastrados = async (url) => {
         const res = await fetch(url);
@@ -22,16 +20,21 @@ export function PayInput({ coletarPagamentos}) {
         setCadastrados(listaCadastrados);
     }
 
+    const getCategory = () => {
+        const nameSelected = document.querySelector(".select-option");
+        const selectedCategory = cadastrados.filter((item) => item.nome===nameSelected.value);
+        setCategory(selectedCategory[0].categoria);
+        console.log(category)
+    }
+
     useEffect(()=>{
-        const apiUrl = api;
-        getCadastrados(apiUrl);
-    },[])
+        getCadastrados(api);
+    },[]);
 
     const ref = useRef();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const pagamentoAtual = ref.current;
     
         await axios
@@ -56,9 +59,9 @@ export function PayInput({ coletarPagamentos}) {
     const CarregamentoDeDados = () => {
         return cadastrados.length <= 0
         ?
-        <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
+        <div className="d-flex justify-content-center">
+            <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
             </div>
         </div>
         :
@@ -70,13 +73,25 @@ export function PayInput({ coletarPagamentos}) {
                         <option>Expense</option>
                     </select>
                 </div>
-                <div class="col-md-6">
+                <div className="col-md-6">
                     <label htmlFor="nome" className="form-label">Name</label>
-                    <select name="nome" id="name" className="form-select">
-                        {cadastrados.length > 0 && cadastrados.map((item) =><option key={item.id}>{item.nome}</option>)}
+                    <select name="nome" id="name" className="form-select select-option" onChange={getCategory}>
+                        <option></option>
+                        {cadastrados.length > 0 && cadastrados.map((item, i) => <option key={i}>{item.nome}</option>)}
                     </select>
                 </div>
-                <div class="col-md-6">
+                <div className="col-md-6">
+                    <label htmlFor="category" className="form-label">Category</label>
+                    <input
+                        type="text"
+                        name="category"
+                        id="category"
+                        className="form-control"
+                        disabled
+                        defaultValue={category}
+                    />
+                </div>
+                <div className="col-md-6">
                     <label htmlFor="valor_pagamento" className="form-label">Value ($)</label>
                     <input
                         type="text"
@@ -84,10 +99,10 @@ export function PayInput({ coletarPagamentos}) {
                         id="valor_pagamento"
                         placeholder="1000.00 - Type only numbers..."
                         required
-                        class="form-control"
+                        className="form-control"
                     />
                 </div>
-                <div class="col-md-6">
+                <div className="col-md-6">
                     <label htmlFor="obs" className="form-label">Description</label>
                     <input
                         type="text"
@@ -96,19 +111,18 @@ export function PayInput({ coletarPagamentos}) {
                         maxLength="30"
                         placeholder="Payment description"
                         required
-                        class="form-control"
+                        className="form-control"
                     />
                 </div>
-                <div class="col-md-6">
+                <div className="col-md-6">
                     <label htmlFor="data_pagamento" className="form-label">Date:</label>
-                    <input type="date" name="data_pagamento" id="data_pagamento" required class="form-control" />
+                    <input type="date" name="data_pagamento" id="data_pagamento" required className="form-control" />
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-outline-success">Save</button>
+                    <button type="submit" className="btn btn-outline-success">Save</button>
                 </div>
         </form>
     }
-
     return (
         <CarregamentoDeDados />
     );

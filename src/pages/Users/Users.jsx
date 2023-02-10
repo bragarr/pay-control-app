@@ -86,7 +86,7 @@ export function Users() {
                 categoria: params.categoria,
                 usuario: params.usuario
             })
-            .then(({ data }) => toast.success(data))
+            .then(({ data }) => (data))
             .catch(({ data }) => toast.error(data));
     }
 
@@ -130,6 +130,22 @@ export function Users() {
 
     return (
         <section>
+            <div className="modal fade show d-none mt-5" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Notice</h5>
+                    </div>
+                    <div className="modal-body">
+                        Do you want to keep all changes?
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-primary">Save changes</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
             <article>
                 <h2>Input <IoIosArrowDroprightCircle /> Users</h2>
                 <p>
@@ -253,7 +269,7 @@ export function Users() {
                                         </ul>
                                     </div>
                                     <button type="button"
-                                        className={"btn btn-outline-primary saveEdit" + (registro.id) +" d-none"}
+                                        className={"btn btn-outline-success saveEdit" + (registro.id) +" d-none"}
                                         onClick={() => handleEdit(registro)}
                                     >
                                         Save

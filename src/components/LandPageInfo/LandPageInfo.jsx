@@ -15,7 +15,7 @@ export function LandPageInfo() {
             </p>
             <h3>Input and edit your data</h3>
             <figure>
-                <img src={infoImg04} alt="App Users Input Page" style={{width:"90%"}}/>
+                <img src={infoImg04} alt="App Users Input Page" style={{width:"90%"}} />
                 <figcaption>Above you can see page for registration of people/companies on database</figcaption>
             </figure>
             <h3>Payment registration</h3>
