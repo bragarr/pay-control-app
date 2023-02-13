@@ -155,7 +155,14 @@ export function Categories() {
                 <form ref={ref} onSubmit={handleSubmitNovaCategoria} className="row g-3 align-items-center">
                     <div className="col-12">
                         <label htmlFor="nova__categoria" className="form-label">New Category</label>
-                        <input type="text" name="nova__categoria" id="nova__categoria" placeholder="Add new category..." className="form-control" />
+                        <input 
+                            type="text"
+                            name="nova__categoria"
+                            id="nova__categoria"
+                            placeholder="Add new category..."
+                            maxLength="20"
+                            className="form-control"
+                        />
                     </div>
                     <div className="col-12">
                         <button type="submit" className="btn btn-primary">Save</button>
@@ -183,7 +190,7 @@ export function Categories() {
                                 </td>
                                 <td>{item.criador}</td>
                                 <td>
-                                    <div className={"dropdown onEdit" + (item.idcategorias)} >
+                                    <div className={"dropdown dropstart onEdit" + (item.idcategorias)} >
                                         <button
                                             className="btn btn-secondary dropdown-toggle"
                                             type="button" id="dropdownMenuButton2"

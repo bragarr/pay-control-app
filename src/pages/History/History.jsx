@@ -68,6 +68,7 @@ export function History() {
         await axios
             .put(apiPagamentosRegistrados + params.idfluxo_caixa, {
                 nome: params.nome,
+                categoria: params.categoria,
                 tipo_pagamento: params.tipo_pagamento,
                 valor_pagamento: document.getElementById("value"+params.idfluxo_caixa).value,
                 obs: document.getElementById("obs"+params.idfluxo_caixa).value,
@@ -137,52 +138,55 @@ export function History() {
             </div>
             <h2>History</h2>
             <p>Bellow you can check it out all payments registered on database.</p>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>Description</th>
-                        <th>Date</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody className="table-group-divider">
-                    {pagamentosRegistrados.length > 0 && pagamentosRegistrados.map((pagamento, i) => 
-                        <tr key={i}>
-                            <td>{pagamento.nome}</td>
-                            <td>
-                                <input
-                                    type="text"
-                                    name="valueEdit"
-                                    id={"value"+(pagamento.idfluxo_caixa)}
-                                    className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
-                                    disabled
-                                    defaultValue={(pagamento.valor_pagamento).toFixed(2)}
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    type="text"
-                                    name="obsEdit"
-                                    id={"obs"+(pagamento.idfluxo_caixa)}
-                                    className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
-                                    disabled
-                                    defaultValue={pagamento.obs}
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    type="date"
-                                    name="dateEdit"
-                                    id={"date"+(pagamento.idfluxo_caixa)}
-                                    className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
-                                    disabled
-                                    defaultValue={pagamento.data_pagamento}
-                                />
-                            </td>
-                            <td className="text-center">
-                                    <div className={"dropdown onEdit" + (pagamento.idfluxo_caixa)} >
+            <div className="d-flex flex-row justify-content-center">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Value</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody className="table-group-divider">
+                        {pagamentosRegistrados.length > 0 && pagamentosRegistrados.map((pagamento, i) => 
+                            <tr key={i}>
+                                <td>{pagamento.nome}</td>
+                                <td>{pagamento.categoria}</td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        name="valueEdit"
+                                        id={"value"+(pagamento.idfluxo_caixa)}
+                                        className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
+                                        disabled
+                                        defaultValue={(pagamento.valor_pagamento).toFixed(2)}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        name="obsEdit"
+                                        id={"obs"+(pagamento.idfluxo_caixa)}
+                                        className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
+                                        disabled
+                                        defaultValue={pagamento.obs}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type="date"
+                                        name="dateEdit"
+                                        id={"date"+(pagamento.idfluxo_caixa)}
+                                        className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
+                                        disabled
+                                        defaultValue={pagamento.data_pagamento}
+                                    />
+                                </td>
+                                <td>
+                                    <div className={"dropdown dropstart onEdit" + (pagamento.idfluxo_caixa)} >
                                         <button
                                             className="btn btn-secondary dropdown-toggle"
                                             type="button" id="dropdownMenuButton2"
@@ -206,11 +210,12 @@ export function History() {
                                     >
                                         Save
                                     </button>
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </section>
     );
 }

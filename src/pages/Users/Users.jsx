@@ -16,6 +16,7 @@ export function Users() {
     // Keys to access API - Names/Companies Registration and Categories Registration
     const api = import.meta.env.VITE_API;
     const apiCadastroCategorias = import.meta.env.VITE_API_CATEGORIAS;
+    const apiCallingCodes = import.meta.env.VITE_API_CALLINGCODES;
 
     // State about user being logged in (Firebase Auth)
     const [userOn] = useAuthState(auth);
@@ -26,6 +27,7 @@ export function Users() {
     // State to Data Registrated
     const [cadastrados, setCadastrados] = useState([]);
     const [databaseInfo, setDatabaseInfo] = useState("");
+    const [countreyCodes, setCountryCodes] = useState([]);
     const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
 
     // API call to get All data registrated by Name/Company
@@ -49,6 +51,22 @@ export function Users() {
             toast.error(error);
         }
     }
+
+    const getCallingCodes = async () => {
+        try {
+            const res = await axios.get(apiCallingCodes);
+            const allCallingCodes = res.data.sort((a,b) => (a.code > b.code ? 1 : -1));
+            const arrayOfCodes = [];
+            for(let i=0; i < allCallingCodes.length; i++) {
+                arrayOfCodes.push(allCallingCodes[i].code);
+            }
+            const deleteDoubleCode = [...new Set(arrayOfCodes)];
+            setCountryCodes(deleteDoubleCode);
+        } catch (error) {
+            toast.error(error);
+        }
+    }   
+
     // Submit information to API
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -106,7 +124,11 @@ export function Users() {
 
     useEffect(() => {
         getCadastrados();
-    }, [setCadastrados])
+    }, [setCadastrados]);
+
+    useEffect(() => {
+        getCallingCodes();
+    }, [setCadastrados]);
 
     useEffect(() => {
         getCategoriasRegistradas();
@@ -147,6 +169,10 @@ export function Users() {
     const closeModal = () => {
         modalSaveChanges.classList.remove("show", "d-block");
         modalDelete.classList.remove("show", "d-block");
+        const allOptionsButtons = document.querySelectorAll(".dropdown-menu");
+        allOptionsButtons.forEach(button => {
+            button.classList.remove("show");
+        })
     }
 
     return (
@@ -194,7 +220,7 @@ export function Users() {
                 </p>
             </article>
             <div>
-                <form ref={ref} onSubmit={handleSubmit} className="row g-3">
+                <form ref={ref} onSubmit={handleSubmit} className="row g-3 form-input" >
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">Name</label>
                         <input
@@ -219,14 +245,26 @@ export function Users() {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="fone" className="form-label">Phone</label>
-                        <input
-                            type="tel"
-                            name="fone"
-                            id="fone"
-                            required
-                            placeholder="(xxx)xxx-xxx"
-                            className="form-control"
-                        />
+                        <div className="input-group has-validation" >
+                            <select style={{width:"60px"}}>
+                                <option></option>
+                                {countreyCodes.map((item, i) => (
+                                        <option className="dropdown-item" key={i}>+{item}</option>
+                                ))}
+                            </select>
+                            <input
+                                type="tel"
+                                name="fone"
+                                id="fone"
+                                required
+                                placeholder="00 00000 0000"
+                                pattern="[0-9]{2} [0-9]{5} [0-9]{4}"
+                                className="form-control"
+                            />
+                            <div className="invalid-feedback">
+                                Please, check format number!
+                            </div>
+                        </div>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="categoria" className="form-label">Category</label>
@@ -299,7 +337,7 @@ export function Users() {
                                             <AiOutlineSetting/>
                                         </button>
                                         <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (registro.id)}
-                                        style={{inset:"0px 100% auto auto"}}
+                                            style={{inset:"0px 100% auto auto"}}
                                             aria-labelledby="dropdownMenuButton2"
                                         >
                                             <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(registro.id)}>Edit</li>

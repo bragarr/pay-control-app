@@ -11,7 +11,6 @@ export function PayInput({ coletarPagamentos}) {
     const [userOn] = useAuthState(auth);
 
     const [cadastrados, setCadastrados] = useState([]);
-    const [category, setCategory] = useState("");
 
     const getCadastrados = async (url) => {
         const res = await fetch(url);
@@ -20,11 +19,11 @@ export function PayInput({ coletarPagamentos}) {
         setCadastrados(listaCadastrados);
     }
 
-    const getCategory = () => {
-        const nameSelected = document.querySelector(".select-option");
-        const selectedCategory = cadastrados.filter((item) => item.nome===nameSelected.value);
-        setCategory(selectedCategory[0].categoria);
-        console.log(category)
+    const selectCategory = () => {
+        const namePersonCompany = document.querySelector(".option__selected").value;
+        const formInputCategory = document.querySelector(".category");
+        const categoryRegistered = cadastrados.filter((item) => namePersonCompany===item.nome);
+        formInputCategory.value = categoryRegistered[0].categoria;
     }
 
     useEffect(()=>{
@@ -41,6 +40,7 @@ export function PayInput({ coletarPagamentos}) {
             .post(apiPagamentos, {
                 nome: pagamentoAtual.nome.value,
                 tipo_pagamento: pagamentoAtual.tipo_pagamento.value,
+                categoria: pagamentoAtual.category.value,
                 valor_pagamento: pagamentoAtual.valor_pagamento.value,
                 obs: pagamentoAtual.obs.value,
                 data_pagamento: pagamentoAtual.data_pagamento.value,
@@ -50,6 +50,7 @@ export function PayInput({ coletarPagamentos}) {
             .catch(({ data }) => toast.error(data))
 
         pagamentoAtual.nome.value = "";
+        pagamentoAtual.category.value = "";
         pagamentoAtual.valor_pagamento.value = "";
         pagamentoAtual.obs.value = "";
         pagamentoAtual.data_pagamento.value = "";
@@ -75,8 +76,8 @@ export function PayInput({ coletarPagamentos}) {
                 </div>
                 <div className="col-md-6">
                     <label htmlFor="nome" className="form-label">Name</label>
-                    <select name="nome" id="name" className="form-select select-option" onChange={getCategory}>
-                        <option></option>
+                    <select name="nome" id="name" className="form-select option__selected" onChange={selectCategory}>
+                        <option>Select...</option>
                         {cadastrados.length > 0 && cadastrados.map((item, i) => <option key={i}>{item.nome}</option>)}
                     </select>
                 </div>
@@ -86,9 +87,9 @@ export function PayInput({ coletarPagamentos}) {
                         type="text"
                         name="category"
                         id="category"
-                        className="form-control"
+                        className="form-control category"
                         disabled
-                        defaultValue={category}
+                        defaultValue={""}
                     />
                 </div>
                 <div className="col-md-6">
