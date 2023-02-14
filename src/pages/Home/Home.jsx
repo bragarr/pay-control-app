@@ -9,26 +9,26 @@ import { Dashboard } from "../../components/Dashboard/Dashboard";
 
 export function Home() {
 
-    const apiPagamentos= import.meta.env.VITE_API_PAGAMENTOS;
+    const apiPayments= import.meta.env.VITE_API_PAGAMENTOS;
 
     const [user] = useAuthState(auth);
     
-    const [pagamentos, setPagamentos] = useState([]);
+    const [payments, setPayments] = useState([]);
 
-    const getPagamentos = async () => {
+    const getPayments = async () => {
         try {
-            const res = await axios.get(apiPagamentos);
-            setPagamentos(res.data.sort((a,b) => (a.valor_pagamento < b.valor_pagamento ? 1 : -1)));
+            const res = await axios.get(apiPayments);
+            setPayments(res.data.sort((a,b) => (a.value < b.value ? 1 : -1)));
         } catch (error) {
             toast.error(error);
         }
     };
 
     useEffect(() => {
-        getPagamentos();
+        getPayments();
     }, []);
 
-    const TituloDeApresentacaoDaPagina = () => {
+    const MainTitle = () => {
         return !user
         ?
         ""
@@ -39,19 +39,19 @@ export function Home() {
         </article>
     }
 
-    const ApresentacaoPrincipalHomePage = () => {
+    const PresantationHomePage = () => {
         return !user
         ?
         <LandPageInfo />
         :
-        <Dashboard pagamentos={pagamentos} user={user} />
+        <Dashboard payments={payments} user={user} />
 
     }
 
     return(
         <section>
-            <TituloDeApresentacaoDaPagina />
-            <ApresentacaoPrincipalHomePage />
+            <MainTitle />
+            <PresantationHomePage />
         </section>
     )
 }

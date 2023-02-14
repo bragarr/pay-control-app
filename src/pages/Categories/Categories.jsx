@@ -8,7 +8,7 @@ import { AiOutlineSetting } from "react-icons/ai";
 
 export function Categories() {
     // Keys to access API - Names/Companies Registration and Categories Registration
-    const apiCadastroCategorias = import.meta.env.VITE_API_CATEGORIAS;
+    const apiAllCategories = import.meta.env.VITE_API_CATEGORIAS;
 
     const modalSaveChanges = document.querySelector(".editModal");
     const modalDelete = document.querySelector(".deleteModal");
@@ -16,67 +16,67 @@ export function Categories() {
     // State about user being logged in (Firebase Auth)
     const [userOn] = useAuthState(auth);
     const ref = useRef();
-    const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
+    const [allCategories, setAllCategories] = useState([]);
     const [databaseInfo, setDatabaseInfo] = useState("");
 
     // API call to get All data registrated for categories
-    const getCategoriasRegistradas = async () => {
+    const getAllCategories = async () => {
         try {
-            const res = await axios.get(apiCadastroCategorias);
-            const categoriasRegistradas = res.data.sort((a,b) => (a.categoria > b.categoria ? 1 : -1));
-            setCategoriasRegistradas(categoriasRegistradas);
+            const res = await axios.get(apiAllCategories);
+            const allCategories = res.data.sort((a,b) => (a.category > b.category ? 1 : -1));
+            setAllCategories(allCategories);
         } catch (error) {
             toast.error(error);
         }
     }
 
-    const handleSubmitNovaCategoria = async (e) => {
+    const handleSubmitCategory = async (e) => {
         e.preventDefault();
 
-        const categoriaNova = ref.current;
+        const newCategory = ref.current;
 
         await axios
-            .post(apiCadastroCategorias, {
-                categoria: categoriaNova.nova__categoria.value,
-                criador: userOn.displayName
+            .post(apiAllCategories, {
+                category: newCategory.new_category.value,
+                createdby: userOn.displayName
             })
             .then (({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data))
 
-        categoriaNova.nova__categoria.value = "";
+        newCategory.new_category.value = "";
     }
 
     const handleEdit = async (params) => {
         closeModal();
         const allOptionsButtons = document.querySelectorAll(".dropdown-menu");
-        const inputsToEdit = document.querySelectorAll(".item"+params.idcategorias);
+        const inputsToEdit = document.querySelectorAll(".item"+params.idcategories);
         inputsToEdit.forEach(elemento => elemento.disabled=true);
-        const saveUpdateButton = document.querySelector(".saveEdit" + (params.idcategorias));
+        const saveUpdateButton = document.querySelector(".saveEdit" + (params.idcategories));
         saveUpdateButton.classList.add("d-none");
-        const dropdownButtonOptions = document.querySelector(".onEdit" + (params.idcategorias));
+        const dropdownButtonOptions = document.querySelector(".onEdit" + (params.idcategories));
         dropdownButtonOptions.classList.remove("d-none");
         allOptionsButtons.forEach(button => button.classList.remove("show"));
 
         await axios
-            .put(apiCadastroCategorias + params.idcategorias, {
-                categoria: document.getElementById("categoria"+params.idcategorias).value,
-                criador: params.criador
+            .put(apiAllCategories + params.idcategories, {
+                category: document.getElementById("category"+params.idcategories).value,
+                createdby: params.createdby
             })
             .then(({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data));
     }
 
     useEffect(() => {
-        getCategoriasRegistradas();
-    }, [categoriasRegistradas]);
+        getAllCategories();
+    }, [allCategories]);
 
-    const handleDelete = async (idcategorias) => {
+    const handleDelete = async (idcategories) => {
         closeModal();
         await axios
-            .delete(apiCadastroCategorias + idcategorias)
+            .delete(apiAllCategories + idcategories)
             .then(({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data));
-        getCategoriasRegistradas();
+        getAllCategories();
     }
 
     const enablesInput = (params) => {
@@ -152,13 +152,13 @@ export function Categories() {
                     </div>
                 </div>
             </div>
-                <form ref={ref} onSubmit={handleSubmitNovaCategoria} className="row g-3 align-items-center">
+                <form ref={ref} onSubmit={handleSubmitCategory} className="row g-3 align-items-center">
                     <div className="col-12">
-                        <label htmlFor="nova__categoria" className="form-label">New Category</label>
+                        <label htmlFor="new_category" className="form-label">New Category</label>
                         <input 
                             type="text"
-                            name="nova__categoria"
-                            id="nova__categoria"
+                            name="new_category"
+                            id="new_category"
                             placeholder="Add new category..."
                             maxLength="20"
                             className="form-control"
@@ -177,39 +177,39 @@ export function Categories() {
                             </tr>
                     </thead>
                     <tbody>      
-                        {categoriasRegistradas.map((item, i) => (
+                        {allCategories.map((item, i) => (
                             <tr key={i}>
                                 <td>
                                     <input
                                         type="text"
                                         name="nameEdit"
-                                        id={"categoria"+(item.idcategorias)}
-                                        className={"form-control" + " item" + (item.idcategorias)}
-                                        disabled defaultValue={item.categoria}
+                                        id={"category"+(item.idcategories)}
+                                        className={"form-control" + " item" + (item.idcategories)}
+                                        disabled defaultValue={item.category}
                                     />
                                 </td>
-                                <td>{item.criador}</td>
+                                <td>{item.createdby}</td>
                                 <td>
-                                    <div className={"dropdown dropstart onEdit" + (item.idcategorias)} >
+                                    <div className={"dropdown dropstart onEdit" + (item.idcategories)} >
                                         <button
                                             className="btn btn-secondary dropdown-toggle"
                                             type="button" id="dropdownMenuButton2"
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
-                                            onClick={() => dropDownOptions(item.idcategorias)}
+                                            onClick={() => dropDownOptions(item.idcategories)}
                                         >
                                             <AiOutlineSetting/>
                                         </button>
-                                        <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (item.idcategorias)}
+                                        <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (item.idcategories)}
                                             aria-labelledby="dropdownMenuButton2"
                                             style={{inset:"0px 100% auto auto"}}
                                         >
-                                            <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(item.idcategorias)}>Edit</li>
-                                            <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(item.idcategorias)}>Delete</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(item.idcategories)}>Edit</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(item.idcategories)}>Delete</li>
                                         </ul>
                                     </div>
                                     <button type="button"
-                                        className={"btn btn-outline-primary saveEdit" + (item.idcategorias) +" d-none"}
+                                        className={"btn btn-outline-primary saveEdit" + (item.idcategories) +" d-none"}
                                         onClick={() => openEditModal(item)}
                                     >
                                         Save

@@ -4,61 +4,61 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../contexts/Firebase";
 import { toast } from "react-toastify";
 
-export function PayInput({ coletarPagamentos}) {
+export function PayInput() {
     const api = import.meta.env.VITE_API;
-    const apiPagamentos= import.meta.env.VITE_API_PAGAMENTOS;
+    const apiPayments= import.meta.env.VITE_API_PAGAMENTOS;
 
     const [userOn] = useAuthState(auth);
 
-    const [cadastrados, setCadastrados] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
 
-    const getCadastrados = async (url) => {
+    const getAllUsers = async (url) => {
         const res = await fetch(url);
         const data = await res.json();
-        const listaCadastrados = data.filter((lista) => lista.usuario===userOn.uid)
-        setCadastrados(listaCadastrados);
+        const usersList = data.filter((list) => list.user===userOn.uid)
+        setAllUsers(usersList);
     }
 
     const selectCategory = () => {
         const namePersonCompany = document.querySelector(".option__selected").value;
         const formInputCategory = document.querySelector(".category");
-        const categoryRegistered = cadastrados.filter((item) => namePersonCompany===item.nome);
-        formInputCategory.value = categoryRegistered[0].categoria;
+        const categoryRegistered = allUsers.filter((item) => namePersonCompany===item.name);
+        formInputCategory.value = categoryRegistered[0].category;
     }
 
     useEffect(()=>{
-        getCadastrados(api);
+        getAllUsers(api);
     },[]);
 
     const ref = useRef();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const pagamentoAtual = ref.current;
+        const currentPayment = ref.current;
     
         await axios
-            .post(apiPagamentos, {
-                nome: pagamentoAtual.nome.value,
-                tipo_pagamento: pagamentoAtual.tipo_pagamento.value,
-                categoria: pagamentoAtual.category.value,
-                valor_pagamento: pagamentoAtual.valor_pagamento.value,
-                obs: pagamentoAtual.obs.value,
-                data_pagamento: pagamentoAtual.data_pagamento.value,
-                usuario: userOn.uid
+            .post(apiPayments, {
+                name: currentPayment.name.value,
+                type: currentPayment.type.value,
+                category: currentPayment.category.value,
+                value: currentPayment.value.value,
+                obs: currentPayment.obs.value,
+                date: currentPayment.date.value,
+                user: userOn.uid
             })
             .then (({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data))
 
-        pagamentoAtual.nome.value = "";
-        pagamentoAtual.category.value = "";
-        pagamentoAtual.valor_pagamento.value = "";
-        pagamentoAtual.obs.value = "";
-        pagamentoAtual.data_pagamento.value = "";
+        currentPayment.name.value = "";
+        currentPayment.category.value = "";
+        currentPayment.value.value = "";
+        currentPayment.obs.value = "";
+        currentPayment.date.value = "";
 
     }
 
     const CarregamentoDeDados = () => {
-        return cadastrados.length <= 0
+        return allUsers.length <= 0
         ?
         <div className="d-flex justify-content-center">
             <div className="spinner-border" role="status">
@@ -68,17 +68,17 @@ export function PayInput({ coletarPagamentos}) {
         :
         <form ref={ref} onSubmit={handleSubmit} className="row g-3">
                 <div className="col-md-6">
-                    <label htmlFor="tipo_pagamento" className="form-label">Payment type</label>
-                    <select name="tipo_pagamento" id="tipo_pagamento" className="form-select">
+                    <label htmlFor="type" className="form-label">Payment type</label>
+                    <select name="type" id="type" className="form-select">
                         <option>Income</option>
                         <option>Expense</option>
                     </select>
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="nome" className="form-label">Name</label>
-                    <select name="nome" id="name" className="form-select option__selected" onChange={selectCategory}>
+                    <label htmlFor="name" className="form-label">Name</label>
+                    <select name="name" id="name" className="form-select option__selected" onChange={selectCategory}>
                         <option>Select...</option>
-                        {cadastrados.length > 0 && cadastrados.map((item, i) => <option key={i}>{item.nome}</option>)}
+                        {allUsers.length > 0 && allUsers.map((item, i) => <option key={i}>{item.name}</option>)}
                     </select>
                 </div>
                 <div className="col-md-6">
@@ -93,11 +93,11 @@ export function PayInput({ coletarPagamentos}) {
                     />
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="valor_pagamento" className="form-label">Value ($)</label>
+                    <label htmlFor="value" className="form-label">Value ($)</label>
                     <input
                         type="text"
-                        name="valor_pagamento"
-                        id="valor_pagamento"
+                        name="value"
+                        id="value"
                         placeholder="1000.00 - Type only numbers..."
                         required
                         className="form-control"
@@ -116,8 +116,8 @@ export function PayInput({ coletarPagamentos}) {
                     />
                 </div>
                 <div className="col-md-6">
-                    <label htmlFor="data_pagamento" className="form-label">Date:</label>
-                    <input type="date" name="data_pagamento" id="data_pagamento" required className="form-control" />
+                    <label htmlFor="date" className="form-label">Date:</label>
+                    <input type="date" name="date" id="date" required className="form-control" />
                 </div>
                 <div>
                     <button type="submit" className="btn btn-outline-success">Save</button>

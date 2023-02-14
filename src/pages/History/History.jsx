@@ -13,24 +13,24 @@ export function History() {
 
     const [userOn] = useAuthState(auth);
 
-    const apiPagamentosRegistrados = import.meta.env.VITE_API_PAGAMENTOS;
+    const apiPayments = import.meta.env.VITE_API_PAGAMENTOS;
 
-    const [pagamentosRegistrados, setPagamentosRegistrados] = useState([]);
+    const [allPayControl, setAllPayControl] = useState([]);
     const [databaseInfo, setDatabaseInfo] = useState("");
     
-    const getPagamentosRegistrados = async () => {
+    const getAllPayments = async () => {
         try {
-            const res = await axios.get(apiPagamentosRegistrados);
-            const listaPagamentosRegistrados = res.data.sort((a,b) => (a.data_pagamento < b.data_pagamento ? 1 : -1));
-            setPagamentosRegistrados(listaPagamentosRegistrados.filter((lista) => lista.usuario===userOn.uid));
+            const res = await axios.get(apiPayments);
+            const allPaymentsList = res.data.sort((a,b) => (a.date < b.date ? 1 : -1));
+            setAllPayControl(allPaymentsList.filter((list) => list.user===userOn.uid));
         } catch (error) {
             toast.error(error);
         }
     }
 
     useEffect(() => {
-        getPagamentosRegistrados();
-    }, [setPagamentosRegistrados]);
+        getAllPayments();
+    }, [setAllPayControl]);
 
     const enablesInput = (params) => {
         const inputsToEdit = document.querySelectorAll(".item"+params);
@@ -57,22 +57,22 @@ export function History() {
     const handleEdit = async (params) => {
         closeModal();
         const allOptionsButtons = document.querySelectorAll(".dropdown-menu");
-        const inputsToEdit = document.querySelectorAll(".item"+params.idfluxo_caixa);
+        const inputsToEdit = document.querySelectorAll(".item"+params.idpay_control);
         inputsToEdit.forEach(elemento => elemento.disabled=true);
-        const saveUpdateButton = document.querySelector(".saveEdit" + (params.idfluxo_caixa));
+        const saveUpdateButton = document.querySelector(".saveEdit" + (params.idpay_control));
         saveUpdateButton.classList.add("d-none");
-        const dropdownButtonOptions = document.querySelector(".onEdit" + (params.idfluxo_caixa));
+        const dropdownButtonOptions = document.querySelector(".onEdit" + (params.idpay_control));
         dropdownButtonOptions.classList.remove("d-none");
         allOptionsButtons.forEach(button => button.classList.remove("show"));
 
         await axios
-            .put(apiPagamentosRegistrados + params.idfluxo_caixa, {
-                nome: params.nome,
-                categoria: params.categoria,
-                tipo_pagamento: params.tipo_pagamento,
-                valor_pagamento: document.getElementById("value"+params.idfluxo_caixa).value,
-                obs: document.getElementById("obs"+params.idfluxo_caixa).value,
-                data_pagamento: document.getElementById("date"+params.idfluxo_caixa).value
+            .put(apiPayments + params.idpay_control, {
+                name: params.name,
+                category: params.category,
+                type: params.type,
+                value: document.getElementById("value"+params.idpay_control).value,
+                obs: document.getElementById("obs"+params.idpay_control).value,
+                date: document.getElementById("date"+params.idpay_control).value
             })
             .then(({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data));
@@ -81,10 +81,11 @@ export function History() {
     const handleDelete = async (params) => {
         closeModal();
         await axios
-            .delete(apiPagamentosRegistrados + params.idfluxo_caixa)
+            .delete(apiPayments + params.idpay_control)
             .then(({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data))
-        getPagamentosRegistrados();
+        getAllPayments();
+        console.log(apiPayments + params.idpay_control)
     }
 
     const openEditModal = (params) => { 
@@ -151,62 +152,62 @@ export function History() {
                         </tr>
                     </thead>
                     <tbody className="table-group-divider">
-                        {pagamentosRegistrados.length > 0 && pagamentosRegistrados.map((pagamento, i) => 
+                        {allPayControl.length > 0 && allPayControl.map((payment, i) => 
                             <tr key={i}>
-                                <td>{pagamento.nome}</td>
-                                <td>{pagamento.categoria}</td>
+                                <td>{payment.name}</td>
+                                <td>{payment.category}</td>
                                 <td>
                                     <input
                                         type="text"
                                         name="valueEdit"
-                                        id={"value"+(pagamento.idfluxo_caixa)}
-                                        className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
+                                        id={"value"+(payment.idpay_control)}
+                                        className={"form-control" + " item" + (payment.idpay_control)}
                                         disabled
-                                        defaultValue={(pagamento.valor_pagamento).toFixed(2)}
+                                        defaultValue={(payment.value).toFixed(2)}
                                     />
                                 </td>
                                 <td>
                                     <input
                                         type="text"
                                         name="obsEdit"
-                                        id={"obs"+(pagamento.idfluxo_caixa)}
-                                        className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
+                                        id={"obs"+(payment.idpay_control)}
+                                        className={"form-control" + " item" + (payment.idpay_control)}
                                         disabled
-                                        defaultValue={pagamento.obs}
+                                        defaultValue={payment.obs}
                                     />
                                 </td>
                                 <td>
                                     <input
                                         type="date"
                                         name="dateEdit"
-                                        id={"date"+(pagamento.idfluxo_caixa)}
-                                        className={"form-control" + " item" + (pagamento.idfluxo_caixa)}
+                                        id={"date"+(payment.idpay_control)}
+                                        className={"form-control" + " item" + (payment.idpay_control)}
                                         disabled
-                                        defaultValue={pagamento.data_pagamento}
+                                        defaultValue={payment.date}
                                     />
                                 </td>
                                 <td>
-                                    <div className={"dropdown dropstart onEdit" + (pagamento.idfluxo_caixa)} >
+                                    <div className={"dropdown dropstart onEdit" + (payment.idpay_control)} >
                                         <button
                                             className="btn btn-secondary dropdown-toggle"
                                             type="button" id="dropdownMenuButton2"
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
-                                            onClick={() => dropDownOptions(pagamento.idfluxo_caixa)}
+                                            onClick={() => dropDownOptions(payment.idpay_control)}
                                         >
                                             <AiOutlineSetting/>
                                         </button>
-                                        <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (pagamento.idfluxo_caixa)}
+                                        <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (payment.idpay_control)}
                                             aria-labelledby="dropdownMenuButton2"
                                             style={{inset:"0px 100% auto auto"}}
                                         >
-                                            <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(pagamento.idfluxo_caixa)}>Edit</li>
-                                            <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(pagamento)}>Delete</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(payment.idpay_control)}>Edit</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(payment)}>Delete</li>
                                         </ul>
                                     </div>
                                     <button type="button"
-                                        className={"btn btn-outline-primary saveEdit" + (pagamento.idfluxo_caixa) +" d-none"}
-                                        onClick={() => openEditModal(pagamento)}
+                                        className={"btn btn-outline-primary saveEdit" + (payment.idpay_control) +" d-none"}
+                                        onClick={() => openEditModal(payment)}
                                     >
                                         Save
                                     </button>

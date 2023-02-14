@@ -1,16 +1,16 @@
 import { auth } from "../../contexts/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-export function PayByRank(pagamentos) {
+export function PayByRank(payments) {
 
     const [userOn] = useAuthState(auth);
 
-    const listaDePagamentos = pagamentos.pagamentos;
+    const paymentList = payments.payments;
 
-    const listaDePrincipaisPagamentos = (listaDePagamentos.filter((lista) => lista.usuario===userOn.uid)).slice(0,10);
+    const mainListPayments = (paymentList.filter((list) => list.user===userOn.uid)).slice(0,10);
     
-    const TabelaTopPagamentos = () => {
-        return listaDePrincipaisPagamentos.length > 0
+    const TopPayments = () => {
+        return mainListPayments.length > 0
         ?
         <section>
             <h3>Ranked Incomes/Expenses</h3>
@@ -24,11 +24,11 @@ export function PayByRank(pagamentos) {
                     </tr>
                 </thead>
                 <tbody>
-                    {listaDePrincipaisPagamentos.map((item,i) => 
+                    {mainListPayments.map((item,i) => 
                         <tr key={i}>
                             <td>{i+1}</td>
-                            <td>{item.tipo_pagamento}</td>
-                            <td>${item.valor_pagamento.toFixed(2)}</td>
+                            <td>{item.type}</td>
+                            <td>${item.value.toFixed(2)}</td>
                             <td>{item.obs}</td>
                         </tr>
                     )}
@@ -36,10 +36,10 @@ export function PayByRank(pagamentos) {
             </table>
         </section>
         :
-        <p>Não há dados registrados!</p>
+        <p>No data!</p>
     }
 
     return (
-        <TabelaTopPagamentos />
+        <TopPayments />
     );
 }

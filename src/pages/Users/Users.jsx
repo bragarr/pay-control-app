@@ -15,7 +15,7 @@ export function Users() {
 
     // Keys to access API - Names/Companies Registration and Categories Registration
     const api = import.meta.env.VITE_API;
-    const apiCadastroCategorias = import.meta.env.VITE_API_CATEGORIAS;
+    const apiAllCategories = import.meta.env.VITE_API_CATEGORIAS;
     const apiCallingCodes = import.meta.env.VITE_API_CALLINGCODES;
 
     // State about user being logged in (Firebase Auth)
@@ -25,28 +25,28 @@ export function Users() {
     const ref = useRef();
 
     // State to Data Registrated
-    const [cadastrados, setCadastrados] = useState([]);
+    const [cadastrados, setAllUsers] = useState([]);
     const [databaseInfo, setDatabaseInfo] = useState("");
     const [countreyCodes, setCountryCodes] = useState([]);
-    const [categoriasRegistradas, setCategoriasRegistradas] = useState([]);
+    const [allCategories, setAllCategories] = useState([]);
 
     // API call to get All data registrated by Name/Company
-    const getCadastrados = async () => {
+    const getAllUsers = async () => {
         try {
             const res = await axios.get(api);
-            const listaUsuariosCadastrados = res.data.sort((a,b) => (a.nome > b.nome ? 1 : -1));
-            setCadastrados(listaUsuariosCadastrados.filter((lista) => lista.usuario===userOn.uid));
+            const allUsersList = res.data.sort((a,b) => (a.name > b.name ? 1 : -1));
+            setAllUsers(allUsersList.filter((list) => list.user===userOn.uid));
         } catch (error) {
             toast.error(error);
         }
     };
 
     // API call to get All data registrated for categories
-    const getCategoriasRegistradas = async () => {
+    const getAllCategories = async () => {
         try {
-            const res = await axios.get(apiCadastroCategorias);
-            const categoriasRegistradasPorTodosOsUsuariosDaPlataforma = res.data.sort((a,b) => (a.categoria > b.categoria ? 1 : -1));
-            setCategoriasRegistradas(categoriasRegistradasPorTodosOsUsuariosDaPlataforma);
+            const res = await axios.get(apiAllCategories);
+            const categoriesByUser = res.data.sort((a,b) => (a.category > b.category ? 1 : -1));
+            setAllCategories(categoriesByUser);
         } catch (error) {
             toast.error(error);
         }
@@ -70,24 +70,24 @@ export function Users() {
     // Submit information to API
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const user = ref.current;
+        const currentUser = ref.current;
 
         await axios
             .post(api, {
-                nome: user.nome.value,
-                email: user.email.value,
-                fone: user.fone.value,
-                categoria: user.categoria.value,
-                usuario: userOn.uid
+                name: currentUser.name.value,
+                email: currentUser.email.value,
+                phone: currentUser.phone.value,
+                category: currentUser.category.value,
+                user: userOn.uid
             })
             .then (({ data }) => toast.success(data))
             .catch (({ data }) => toast.error(data))
 
-        user.nome.value = "";
-        user.email.value = "";
-        user.fone.value = "";
-        user.categoria.value = "";
-        getCadastrados();
+        currentUser.name.value = "";
+        currentUser.email.value = "";
+        currentUser.phone.value = "";
+        currentUser.category.value = "";
+        getAllUsers();
     }
 
     const handleEdit = async (params) => {
@@ -103,11 +103,11 @@ export function Users() {
 
         await axios
             .put(api + params.id, {
-                nome: document.getElementById("name"+params.id).value,
+                name: document.getElementById("name"+params.id).value,
                 email: document.getElementById("email"+params.id).value,
-                fone: document.getElementById("phone"+params.id).value,
-                categoria: params.categoria,
-                usuario: params.usuario
+                phone: document.getElementById("phone"+params.id).value,
+                category: params.category,
+                user: params.user
             })
             .then(({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data))
@@ -119,20 +119,20 @@ export function Users() {
             .delete(api + params.id)
             .then(({ data }) => toast.success(data))
             .catch(({ data }) => toast.error(data))
-        getCadastrados();
+        getAllUsers();
     }
 
     useEffect(() => {
-        getCadastrados();
-    }, [setCadastrados]);
+        getAllUsers();
+    }, [setAllUsers]);
 
     useEffect(() => {
         getCallingCodes();
-    }, [setCadastrados]);
+    }, [setAllUsers]);
 
     useEffect(() => {
-        getCategoriasRegistradas();
-    }, [categoriasRegistradas]);
+        getAllCategories();
+    }, [allCategories]);
 
     const enablesInput = (params) => {
         const inputsToEdit = document.querySelectorAll(".item"+params);
@@ -226,7 +226,7 @@ export function Users() {
                         <input
                             type="text"
                             name="name"
-                            id="nome"
+                            id="name"
                             className="form-control"
                             required
                             placeholder="Type full name or Company name"
@@ -244,7 +244,7 @@ export function Users() {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="fone" className="form-label">Phone</label>
+                        <label htmlFor="phone" className="form-label">Phone</label>
                         <div className="input-group has-validation" >
                             <select style={{width:"60px"}}>
                                 <option></option>
@@ -254,8 +254,8 @@ export function Users() {
                             </select>
                             <input
                                 type="tel"
-                                name="fone"
-                                id="fone"
+                                name="phone"
+                                id="phone"
                                 required
                                 placeholder="00 00000 0000"
                                 pattern="[0-9]{2} [0-9]{5} [0-9]{4}"
@@ -267,10 +267,10 @@ export function Users() {
                         </div>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="categoria" className="form-label">Category</label>
-                        <select className="form-select" id="categoria" aria-label="Default select example">
-                            {categoriasRegistradas.map((item, i) => (
-                                <option key={i}>{item.categoria}</option>
+                        <label htmlFor="category" className="form-label">Category</label>
+                        <select className="form-select" id="category" aria-label="Default select example">
+                            {allCategories.map((item, i) => (
+                                <option key={i}>{item.category}</option>
                             ))}
                         </select>
                     </div>
@@ -292,61 +292,61 @@ export function Users() {
                         </tr>
                     </thead>
                     <tbody className="table-group-divider">
-                        {cadastrados.length > 0 && cadastrados.map((registro, i) => 
+                        {cadastrados.length > 0 && cadastrados.map((userDb, i) => 
                             <tr key={i}>
                                 <td>
                                     <input
                                         type="text"
                                         name="nameEdit"
-                                        id={"name"+(registro.id)}
-                                        className={"form-control" + " item" + (registro.id)}
+                                        id={"name"+(userDb.id)}
+                                        className={"form-control" + " item" + (userDb.id)}
                                         disabled
-                                        defaultValue={registro.nome}
+                                        defaultValue={userDb.name}
                                     />
                                 </td>
                                 <td>
                                     <input
                                         type="email"
                                         name="emailEdit"
-                                        id={"email"+(registro.id)}
-                                        className={"form-control" + " item" + (registro.id)}
+                                        id={"email"+(userDb.id)}
+                                        className={"form-control" + " item" + (userDb.id)}
                                         disabled
-                                        defaultValue={registro.email}
+                                        defaultValue={userDb.email}
                                     />
                                 </td>
                                 <td>
                                     <input
                                         type="phone"
                                         name="phoneEdit"
-                                        id={"phone"+(registro.id)}
-                                        className={"form-control" + " item" + (registro.id)}
+                                        id={"phone"+(userDb.id)}
+                                        className={"form-control" + " item" + (userDb.id)}
                                         disabled
-                                        defaultValue={registro.fone}
+                                        defaultValue={userDb.phone}
                                     />
                                 </td>
-                                <td>{registro.categoria}</td>
+                                <td>{userDb.category}</td>
                                 <td>
-                                    <div className={"dropdown dropstart onEdit" + (registro.id)} >
+                                    <div className={"dropdown dropstart onEdit" + (userDb.id)} >
                                         <button
                                             className="btn btn-secondary dropdown-toggle"
                                             type="button" id="dropdownMenuButton2"
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
-                                            onClick={() => dropDownOptions(registro.id)}
+                                            onClick={() => dropDownOptions(userDb.id)}
                                         >
                                             <AiOutlineSetting/>
                                         </button>
-                                        <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (registro.id)}
+                                        <ul className={"dropdown-menu dropdown-menu-dark options-edit-delete" + (userDb.id)}
                                             style={{inset:"0px 100% auto auto"}}
                                             aria-labelledby="dropdownMenuButton2"
                                         >
-                                            <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(registro.id)}>Edit</li>
-                                            <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(registro)}>Delete</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => enablesInput(userDb.id)}>Edit</li>
+                                            <li className="dropdown-item cursor-pointer" onClick={() => openDeleteModal(userDb)}>Delete</li>
                                         </ul>
                                     </div>
                                     <button type="button"
-                                        className={"btn btn-outline-success saveEdit" + (registro.id) +" d-none"}
-                                        onClick={() => (openEditModal(registro))}
+                                        className={"btn btn-outline-success saveEdit" + (userDb.id) +" d-none"}
+                                        onClick={() => (openEditModal(userDb))}
                                     >
                                         Save
                                     </button>

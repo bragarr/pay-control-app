@@ -2,23 +2,23 @@ import { useState } from "react";
 import { Chart } from "react-google-charts";
 import { PayByRank } from "../PayByRank/PayByRank";
 
-export function Dashboard({pagamentos, user}) {
+export function Dashboard({payments, user}) {
 
-    let entradas = 0;
-    let despesas = 0;
+    let incomes = 0;
+    let expenses = 0;
 
-    pagamentos.map((item) => {  
-        if(item.tipo_pagamento==="Income" && item.usuario===user.uid) {
-            entradas += item.valor_pagamento;
-        } else if (item.tipo_pagamento==="Expense" && item.usuario===user.uid) {
-            despesas += item.valor_pagamento;
+    payments.map((item) => {  
+        if(item.type==="Income" && item.user===user.uid) {
+            incomes += item.value;
+        } else if (item.type==="Expense" && item.user===user.uid) {
+            expenses += item.value;
         }
     })
 
     const [tabela, setTabela] = useState([
         ["Type", "Amount"],
-        ["Incomes ($)",Math.round((entradas))],
-        ["Expenses ($)",-Math.round((despesas))]
+        ["Incomes ($)",Math.round((incomes))],
+        ["Expenses ($)",-Math.round((expenses))]
     ]);
 
     const opcaoFormatoTabela = {
@@ -35,11 +35,11 @@ export function Dashboard({pagamentos, user}) {
         },
     ];
     
-    return pagamentos.length > 0
+    return payments.length > 0
     ?
     <article>
         <Chart chartType="Table" data={tabela} options={opcaoFormatoTabela} formatters={formatters}/>
-        <PayByRank pagamentos={pagamentos}/>
+        <PayByRank payments={payments}/>
     </article>
     :
     <div className="d-flex justify-content-center">
