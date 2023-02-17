@@ -25,7 +25,7 @@ export function Users() {
     const ref = useRef();
 
     // State to Data Registrated
-    const [cadastrados, setAllUsers] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
     const [databaseInfo, setDatabaseInfo] = useState("");
     const [countreyCodes, setCountryCodes] = useState([]);
     const [allCategories, setAllCategories] = useState([]);
@@ -292,7 +292,7 @@ export function Users() {
                         </tr>
                     </thead>
                     <tbody className="table-group-divider">
-                        {cadastrados.length > 0 && cadastrados.map((userDb, i) => 
+                        {allUsers.length > 0 && allUsers.map((userDb, i) => 
                             <tr key={i}>
                                 <td>
                                     <input
