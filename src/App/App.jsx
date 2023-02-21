@@ -21,7 +21,7 @@ export function App() {
 
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <DefineNavBar />
         <main className="m-5">
           <MainRoutes />
