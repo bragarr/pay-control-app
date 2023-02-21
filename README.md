@@ -1,11 +1,57 @@
-# controle-pagamentos
+# PayControl
 
-Este é um projeto para criação de uma aplicação que efetua controle de pagamentos conforme usuários cadastrados em um banco de dados.
+Full Stack Web Application. Front End with React.js (Framework - VITE) and styled by Bootstrap 5 and Back End with Node.js. All database is storage and managed with MySQL.
+Users Auth managed by Firebase and deployed on Vercel.
 
-Para criação deste projeto está sendo executada a formulação do backend conforme informações e arquivos do diretório abaixo:
 
-https://github.com/bragarr/controle-pagamentos-backend
+## Access and Test Deploy
 
-Para criação do front end deste projeto está sendo considerado a bliblioteca React com framework VITE
+To start this project you can access remotely according bellow.
 
-Status: Em desenvolvimento
+To access and test this application go to:
+
+```bash
+ https://paycontrol.vercel.app/
+```
+
+
+## Run app locally
+
+Clone repo
+
+```bash
+  git clone https://github.com/bragarr/pay-control-app.git
+```
+
+Access path
+
+```bash
+  cd pay-control-app
+```
+
+Install all dependencies
+
+```bash
+  npm install
+```
+
+Start server
+
+```bash
+  npm run dev
+```
+
+
+## Environment variables
+
+To run this project locally, you will need .env file to access all keys.
+
+
+
+## Demo
+
+https://user-images.githubusercontent.com/108424896/219720795-4e8a1721-aeca-4dff-a266-f5fd1600603c.mp4
+
+## Authors
+
+- [@reinaldobraga](https://www.github.com/bragarr)
